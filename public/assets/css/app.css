@@ -1,0 +1,27 @@
+.search {
+    padding: 5px 20px;
+    width: 300px;
+    height: 50px;
+    position: relative;
+    left: 60%;
+    float:left;
+    
+}
+
+.btn {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border-radius:1px;
+    float:left;
+}
+
+
+.add {
+    width: 100px;
+    height: 30px;
+    position: relative;
+    left: 0px;
+    float:left;
+}
