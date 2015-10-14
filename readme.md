@@ -29,8 +29,18 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 Installation:
 
 1. you have to have mysql,  create a new database called ecom
-2. go to project root directory
+2. open command prompt go to project root directory
 3. run composer install (you must have composer installed in your machine)
 4. run composer update
-5. run php artisan migrate  (this will create the databas tables)
-6. run php artisan db:seed (this will seed the initial data e.g. admin user)
+5. check config/database.php is the username and password is correct with your localhost setup
+6. run php artisan migrate  (this will create the databas tables)
+
+URL : 
+admin site : <localhost>/public/back  
+main site: <localhost>/public
+
+Initial account:
+admin@mail.com
+admin
+
+
