@@ -23,32 +23,30 @@ class ProjectController extends Controller
     public function lists(Request $request)
     {
          if ($request->has('search')){
-            $projects = DB::table('project')->select('project.*','files.disk_name')
-                    ->join('files','project.id','=','files.attachment_id')
-                    ->where('project.is_active',1)
-                    ->where('project.is_public',1)
-                    ->where('files.module_id',1)
-                    ->where('project.id','LIKE',"%".$request->input('search')."%")
-                    ->orWhere('project.project_name','LIKE',"%".$request->input('search')."%")
-                    ->groupBy('project.id')
-                    ->get();
+            $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1) as disk_name ' .
+                                                        'from project ' .
+                                                        'where project.is_active=1 ' .
+                                                        'and project.is_public=1 ' .
+                                                        'where project.id LIKE %:search% OR project.project_name LIKE %:search% ' .
+                                                        'group by project.id ',
+                                                    [':search'=>$request->input('search')] 
+                                                    );
         }else if ($request->has('sortby')){
-             $projects = DB::table('project')->select('project.*','files.disk_name')
-                    ->join('files','project.id','=','files.attachment_id')
-                    ->where('project.is_active',1)
-                    ->where('project.is_public',1)
-                    ->where('files.module_id',1)
-                    ->groupBy('project.id')
-                    ->orderBy($request->input('sortby')) 
-                    ->get();
+             $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1) as disk_name ' .
+                                                        'from project ' .
+                                                        'where project.is_active=1 ' .
+                                                        'and project.is_public=1 ' .
+                                                        'group by project.id ' .
+                                                        'order by :sortby', 
+                                                    [':sortby'=>$request->input('sortby')] 
+                                                    );
         }else{
-           $projects = DB::table('project')->select('project.*','files.disk_name')
-                    ->join('files','project.id','=','files.attachment_id')
-                    ->where('project.is_active',1)
-                    ->where('project.is_public',1)
-                    ->where('files.module_id',1)
-                    ->groupBy('project.id')
-                    ->get();     
+           $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1) as disk_name ' .
+                                                        'from project ' .
+                                                        'where project.is_active=1 ' .
+                                                        'and project.is_public=1 ' .
+                                                        'group by project.id '
+                                                    );
            
         }
         return view('pages.project.list', ['projects'=>$projects]);
@@ -63,11 +61,14 @@ class ProjectController extends Controller
     public function show($id)
     {
 
-         $project = DB::table('project')->select('project.*','files.disk_name')
-                    ->join('files','project.id','=','files.attachment_id')
-                    ->where('project.id','=',$id)
-                    ->groupBy('project.id')
-                    ->get();   
+         $project = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1) as disk_name ' .
+                                                        'from project ' .
+                                                        'where project.is_active=1 ' .
+                                                        'and project.is_public=1 ' .
+                                                        'and project.id=:id ' .
+                                                        'group by project.id ',
+                                                    [':id'=>$id]  
+                                                    );
         return view('pages.project.show', ['project'=>$project]);   
     }
 

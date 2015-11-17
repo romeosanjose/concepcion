@@ -16,40 +16,36 @@ class ProductController extends Controller
 {
     
     
-    /**
-     * Display a listing of the resource in front end.
+    /* Display a listing of the resource in front end.
      *
      * @return \Illuminate\Http\Response
      */
     public function lists(Request $request)
     {
          if ($request->has('search')){
-            $products = DB::table('product')->select('product.*','files.disk_name')
-                    ->join('files','product.id','=','files.attachment_id')
-                    ->where('product.is_active',1)
-                    ->where('files.module_id',2)
-                    ->where('product.id','LIKE',"%".$request->input('search')."%")
-                    ->orWhere('product.product_name','LIKE',"%".$request->input('search')."%")
-                    ->groupBy('product.id')
-                    ->get();
-        }else if ($request->has('filter')){
-             $products = DB::table('product')->select('product.*','files.disk_name')
-                    ->join('files','product.id','=','files.attachment_id')
-                    ->where('product.is_active',1)
-                    ->where('files.module_id',2)
-                    ->where('product.category_id','=',$request->input('filter'))
-                    ->groupBy('product.id')
-                    ->get();
+            $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
+                                                        'from product ' .
+                                                        'where product.is_active=1 ' .
+                                                        'where product.id LIKE %:search% OR product.product_name LIKE %:search% ' .
+                                                        'group by product.id ',
+                                                    [':search'=>$request->input('search')] 
+                                                    );
+        }else if ($request->has('sortby')){
+             $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
+                                                        'from product ' .
+                                                        'where product.is_active=1 ' .
+                                                        'group by product.id ' .
+                                                        'order by :sortby', 
+                                                    [':sortby'=>$request->input('sortby')] 
+                                                    );
         }else{
-           $products = DB::table('product')->select('product.*','files.disk_name')
-                    ->join('files','product.id','=','files.attachment_id')
-                    ->where('product.is_active',1)
-                    ->where('files.module_id',2)
-                    ->groupBy('product.id')
-                    ->get();     
+           $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
+                                                        'from product ' .
+                                                        'where product.is_active=1 ' .
+                                                        'group by product.id '
+                                                    );
            
         }
-        
         $categories = Category::all();
         return view('pages.product.list', ['products'=>$products,'categories'=>$categories]);
     }
@@ -63,11 +59,13 @@ class ProductController extends Controller
     public function show($id)
     {
 
-         $product = DB::table('product')->select('product.*','files.disk_name')
-                    ->join('files','product.id','=','files.attachment_id')
-                    ->where('product.id','=',$id)
-                    ->groupBy('product.id')
-                    ->get();   
+         $product = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
+                                                        'from product ' .
+                                                        'where product.is_active=1 ' .
+                                                        'and product.id=:id ' .
+                                                        'group by product.id ',
+                                                    [':id'=>$id]  
+                                                    );
         return view('pages.product.show', ['product'=>$product]);   
     }
 

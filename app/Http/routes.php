@@ -23,11 +23,8 @@ Route::get('/','HomeController@showHome');
  * Admin Login Routes
  */
 Route::get('/back','Auth\AuthController@getLogin');
-Route::get('/back/','Auth\AuthController@getLogin');
 Route::post('back/login', 'Auth\AuthController@postLogin');
-Route::post('back/login/', 'Auth\AuthController@postLogin');
 Route::get('back/logout', 'Auth\AuthController@getLogout');
-Route::get('back/logout/', 'Auth\AuthController@getLogout');
 /**
  * Admin Password Reset
  */
