@@ -10,9 +10,68 @@ use App\Model\Files;
 use App\Model\Module;
 use Config;
 use Auth;
+use DB;
 
 class ProjectController extends Controller
 {
+
+/**
+     * Display a listing of the resource in front end.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lists(Request $request)
+    {
+         if ($request->has('search')){
+            $projects = DB::table('project')->select('project.*','files.disk_name')
+                    ->join('files','project.id','=','files.attachment_id')
+                    ->where('project.is_active',1)
+                    ->where('project.is_public',1)
+                    ->where('files.module_id',1)
+                    ->where('project.id','LIKE',"%".$request->input('search')."%")
+                    ->orWhere('project.project_name','LIKE',"%".$request->input('search')."%")
+                    ->groupBy('project.id')
+                    ->get();
+        }else if ($request->has('sortby')){
+             $projects = DB::table('project')->select('project.*','files.disk_name')
+                    ->join('files','project.id','=','files.attachment_id')
+                    ->where('project.is_active',1)
+                    ->where('project.is_public',1)
+                    ->where('files.module_id',1)
+                    ->groupBy('project.id')
+                    ->orderBy($request->input('sortby')) 
+                    ->get();
+        }else{
+           $projects = DB::table('project')->select('project.*','files.disk_name')
+                    ->join('files','project.id','=','files.attachment_id')
+                    ->where('project.is_active',1)
+                    ->where('project.is_public',1)
+                    ->where('files.module_id',1)
+                    ->groupBy('project.id')
+                    ->get();     
+           
+        }
+        return view('pages.project.list', ['projects'=>$projects]);
+    }
+    
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+
+         $project = DB::table('project')->select('project.*','files.disk_name')
+                    ->join('files','project.id','=','files.attachment_id')
+                    ->where('project.id','=',$id)
+                    ->groupBy('project.id')
+                    ->get();   
+        return view('pages.project.show', ['project'=>$project]);   
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -88,17 +147,7 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *

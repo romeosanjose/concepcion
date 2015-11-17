@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projects/laravel/thesis/Ecom/public/assets/js/common.js</file>
-            <file>file:/D:/projects/laravel/thesis/Ecom/public/assets/js/appback.js</file>
-            <file>file:/D:/projects/laravel/thesis/Ecom/app/Http/routes.php</file>
-            <file>file:/D:/projects/laravel/thesis/Ecom/resources/views/pages/admin/post/create.blade.php</file>
-            <file>file:/D:/projects/laravel/thesis/Ecom/app/Http/Controllers/PostController.php</file>
+            <file>file:/D:/projects/laravel/thesis/Ecom/public/assets/css/thumbnail.css</file>
+            <file>file:/D:/projects/laravel/thesis/Ecom/resources/views/pages/product/list.blade.php</file>
+            <file>file:/D:/projects/laravel/thesis/Ecom/app/Http/Controllers/ProductController.php</file>
+            <file>file:/D:/projects/laravel/thesis/Ecom/resources/views/layout/header.blade.php</file>
         </group>
     </open-files>
 </project-private>

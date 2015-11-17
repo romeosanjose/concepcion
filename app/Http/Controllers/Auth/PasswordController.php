@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller
 {
+    
+    
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -20,6 +22,8 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
+    protected $redirectTo = '/back/main';
+    
     /**
      * Create a new password controller instance.
      *
@@ -29,4 +33,10 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+    
+//    public function showForm(){
+//        return view('auth.password');
+//    }
+    
+    
 }

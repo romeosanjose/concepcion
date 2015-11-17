@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages/home');
-});
+Route::get('/','HomeController@showHome');
 
 
 
@@ -25,16 +23,33 @@ Route::get('/', function () {
  * Admin Login Routes
  */
 Route::get('/back','Auth\AuthController@getLogin');
+Route::get('/back/','Auth\AuthController@getLogin');
 Route::post('back/login', 'Auth\AuthController@postLogin');
+Route::post('back/login/', 'Auth\AuthController@postLogin');
 Route::get('back/logout', 'Auth\AuthController@getLogout');
+Route::get('back/logout/', 'Auth\AuthController@getLogout');
+/**
+ * Admin Password Reset
+ */
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::get('password/email/', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::post('password/email/', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 /**
  * Admin Home
  */
 Route::get('/back/main',['middleware' => 'auth','uses'=>'HomeController@showAdminHome']);
+Route::get('/back/main/',['middleware' => 'auth','uses'=>'HomeController@showAdminHome']);
 /**
  * Admin User Routes
  */
-Route::get('/back/user',['middleware' => 'auth','uses'=>'UserController@index']);   
+Route::get('/back/user',['middleware' => 'auth','uses'=>'UserController@index']);  
+Route::get('/back/user/',['middleware' => 'auth','uses'=>'UserController@index']);  
 Route::get('/back/user/create',['middleware' => 'auth','uses'=>'UserController@create'] );
 Route::post('/back/user/store',['middleware' => 'auth','uses'=>'UserController@store']);
 Route::get('/back/user/edit/{id}',['middleware' => 'auth','uses'=>'UserController@edit']);
@@ -56,6 +71,11 @@ Route::post('/back/product/store',['middleware' => 'auth','uses'=>'ProductContro
 Route::get('/back/product/edit/{id}',['middleware' => 'auth','uses'=>'ProductController@edit']);
 Route::post('/back/product/update', ['middleware' => 'auth','uses'=>'ProductController@update']);
 Route::post('/back/product/upload', ['middleware' => 'auth','uses'=>'ProductController@upload']);
+
+//front end
+Route::get('/product','ProductController@lists'); 
+Route::get('/product/detail/{id}','ProductController@show'); 
+
 /**
  * Project Routes
  */
@@ -65,6 +85,10 @@ Route::post('/back/project/store',['middleware' => 'auth','uses'=>'ProjectContro
 Route::get('/back/project/edit/{id}',['middleware' => 'auth','uses'=>'ProjectController@edit']);
 Route::post('/back/project/update', ['middleware' => 'auth','uses'=>'ProjectController@update']);
 Route::post('/back/project/upload', ['middleware' => 'auth','uses'=>'ProjectController@upload']);
+//front end
+Route::get('/project','ProjectController@lists'); 
+Route::get('/project/detail/{id}','ProjectController@show'); 
+
 /**
  * Post Routes
  */
@@ -74,5 +98,14 @@ Route::post('/back/post/store',['middleware' => 'auth','uses'=>'PostController@s
 Route::get('/back/post/edit/{id}',['middleware' => 'auth','uses'=>'PostController@edit']);
 Route::post('/back/post/update', ['middleware' => 'auth','uses'=>'PostController@update']);
 Route::post('/back/post/upload', ['middleware' => 'auth','uses'=>'PostController@upload']);
+/***
+* Image Routes
+*/
+Route::get('/images/product/{filename}', function ($filename=null)
+{
+	$path = base_path().Config::get('app.filepath') .'/product/'. $filename;
+	return Response::download($path);
+    
+});
 
 

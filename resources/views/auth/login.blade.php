@@ -33,10 +33,12 @@
           <label>
             <input type="checkbox" name="remember" value="remember-me"> Remember me
           </label>
+            
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <a href="{{url()}}/password/email" >Forgot password</a>
       </form>
-
+        
     </div> <!-- /container -->
 
 

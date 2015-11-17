@@ -1,3 +1,10 @@
+.content{
+    
+    margin-top: 80px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
 .search {
     padding: 5px 20px;
     width: 300px;

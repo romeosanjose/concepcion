@@ -1,4 +1,5 @@
 <!-- Carousel
+    
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -9,32 +10,32 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+          <img class="first-slide" src="{{base_path().Config::get('app.filepath')}}/slides/news.jpg" alt="First slide" style="background:url(assets/images/news.jpg);">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
+<!--              <h1>Example headline.</h1>
               <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>-->
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+          <img class="second-slide" src="" alt="Second slide" style="background:url(assets/images/product.jpg);">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
+<!--              <h1>Another example headline.</h1>
               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>-->
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+          <img class="third-slide" src="{{base_path().Config::get('app.filepath')}}/slides/project.jpg" alt="Third slide" style="background:url(assets/images/project.jpg);">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
+<!--              <h1>One more for good measure.</h1>
               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>-->
             </div>
           </div>
         </div>

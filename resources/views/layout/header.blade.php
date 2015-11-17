@@ -14,10 +14,11 @@
     <link href="{{URL::asset('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{URL::asset('assets/css/carousel.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/css/thumbnail.css')}}" rel="stylesheet">
     
   </head>
   @if(Request::is('/'))
-    @include('layout.carousel')
+    @include('layout.carousel',['post'=> $post, 'product'=>$product, 'project'=>$project])
   @endif
   <body>
     <div class="navbar-wrapper">
@@ -36,16 +37,16 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#product">Product</a></li>
-                <li><a href="#project">Project</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="{{url()}}">Home</a></li>
+                <li><a href="{{url()}}/product">Product</a></li>
+                <li><a href="{{url()}}/project">Project</a></li>
+                <li><a href="{{url()}}/about">About</a></li>
+                <li><a href="{{url()}}/contact">Contact</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Post <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Job Posting</a></li>
+                    <li><a href="{{url()}}/news">News</a></li>
+                    <li><a href="{{url()}}/jobs">Job Posting</a></li>
                   </ul>
                 </li>
               </ul>

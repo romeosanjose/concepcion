@@ -10,9 +10,67 @@ use App\Model\Category;
 use App\Model\Files;
 use App\Model\Module;
 use Config;
+use DB;
 
 class ProductController extends Controller
 {
+    
+    
+    /**
+     * Display a listing of the resource in front end.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lists(Request $request)
+    {
+         if ($request->has('search')){
+            $products = DB::table('product')->select('product.*','files.disk_name')
+                    ->join('files','product.id','=','files.attachment_id')
+                    ->where('product.is_active',1)
+                    ->where('files.module_id',2)
+                    ->where('product.id','LIKE',"%".$request->input('search')."%")
+                    ->orWhere('product.product_name','LIKE',"%".$request->input('search')."%")
+                    ->groupBy('product.id')
+                    ->get();
+        }else if ($request->has('filter')){
+             $products = DB::table('product')->select('product.*','files.disk_name')
+                    ->join('files','product.id','=','files.attachment_id')
+                    ->where('product.is_active',1)
+                    ->where('files.module_id',2)
+                    ->where('product.category_id','=',$request->input('filter'))
+                    ->groupBy('product.id')
+                    ->get();
+        }else{
+           $products = DB::table('product')->select('product.*','files.disk_name')
+                    ->join('files','product.id','=','files.attachment_id')
+                    ->where('product.is_active',1)
+                    ->where('files.module_id',2)
+                    ->groupBy('product.id')
+                    ->get();     
+           
+        }
+        
+        $categories = Category::all();
+        return view('pages.product.list', ['products'=>$products,'categories'=>$categories]);
+    }
+    
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+
+         $product = DB::table('product')->select('product.*','files.disk_name')
+                    ->join('files','product.id','=','files.attachment_id')
+                    ->where('product.id','=',$id)
+                    ->groupBy('product.id')
+                    ->get();   
+        return view('pages.product.show', ['product'=>$product]);   
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -96,17 +154,7 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
