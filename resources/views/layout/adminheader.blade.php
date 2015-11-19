@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Concepcion</a>
+          <a class="navbar-brand" href="/back">Concepcion</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -45,8 +45,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{url()}}/back/category">Category</a></li>
+                <li><a href="{{url()}}/back/category">Product Category</a></li>
+                <li><a href="{{url()}}/back/materialcategory">Material Category</a></li>
                 <li><a href="{{url()}}/back/product">Product</a></li>
+                <li><a href="{{url()}}/back/material">Material</a></li>
               </ul>
             </li>
             <li><a href="{{url()}}/back/project">Project</a></li>

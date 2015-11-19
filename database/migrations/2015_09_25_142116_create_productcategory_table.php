@@ -15,7 +15,7 @@ class CreateProductcategoryTable extends Migration
         Schema::create('product_category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('category_code');
-            $table->string('category_name');
+            $table->string('category_name')->unique();;
             $table->string('category_desc');
             $table->boolean('is_active');
             $table->timestamps();
@@ -23,8 +23,8 @@ class CreateProductcategoryTable extends Migration
         
         DB::table('product_category')->insert(
         [
-            'category_name' => 'Sliding Door Section',
-            'category_desc' => 'Sliding Door Section desc',
+            'category_name' => 'Sample Product Category',
+            'category_desc' => 'Sample Product Category Description',
             'category_code' => 'SD',
             'is_active'=> true
         ]);

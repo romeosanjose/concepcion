@@ -4,9 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Material extends Model
 {
-    protected $table = 'product';
+    protected $table = 'material';
 
     public function image(){
         return hasMany('Files');

@@ -14,7 +14,7 @@ class CreateModuleTable extends Migration
     {
         Schema::create('module', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('module_name');
+            $table->string('module_name')->unique();;
             $table->timestamps();
         });
         
@@ -23,6 +23,7 @@ class CreateModuleTable extends Migration
                 array('module_name' => 'project'),
                 array('module_name' => 'product'),
                 array('module_name' => 'post'),
+                array('module_name' => 'material'),
                 array('module_name' => 'home')
             )
         );

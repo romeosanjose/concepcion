@@ -14,7 +14,7 @@ class CreateProjectTable extends Migration
     {
         Schema::create('project', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('project_name');
+            $table->string('project_name')->unique();;
             $table->string('project_desc');
             $table->boolean('is_public');
             $table->boolean('is_active');
@@ -23,8 +23,8 @@ class CreateProjectTable extends Migration
         
          DB::table('project')->insert(
         [
-            'project_name' => 'SM Super Market',
-            'project_desc' => 'SM super market DASMA',
+            'project_name' => 'Sample Project',
+            'project_desc' => 'Sample Project Description',
             'is_public'=> true,
             'is_active'=> true
         ]);

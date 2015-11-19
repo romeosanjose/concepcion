@@ -14,7 +14,7 @@ class CreatePostTable extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->unique();;
             $table->string('content');
             $table->integer('post_type');
             $table->boolean('is_published');
@@ -24,8 +24,8 @@ class CreatePostTable extends Migration
         
          DB::table('post')->insert(
         [
-            'title' => 'First Post Upon Install',
-            'content' => 'First Install Post',
+            'title' => 'Sample Post',
+            'content' => 'Sample Post Content',
             'post_type' => 1,
             'is_published'=> true,
             'is_active'=> true

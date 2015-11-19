@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->string('file_name');
             $table->integer('attachment_id');
             $table->integer('module_id');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

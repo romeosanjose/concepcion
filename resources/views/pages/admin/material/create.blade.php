@@ -1,5 +1,5 @@
-@include('layout.adminheader')  
-    
+@include('layout.adminheader')
+
 
 <style>
  .bar {
@@ -13,25 +13,19 @@
 </div>  
 <div class="alert alert-danger" style="display:none" id="msgfail">
   <strong>Warning!</strong> Indicates a dangerous or potentially negative action.
-</div>    
-<form>
-  <div class="form-group">
-    <label for="product_name">enter product name: *</label>
-    <input type="product_name" class="form-control" id="product_name">
-  </div>
-  <div class="form-group">
-    <label for="product_desc">enter product description: *</label>
-    <textarea  class="form-control" id="product_desc"></textarea>
-  </div>
-  <div class="form-group">
-  <label for="category">Select Category:</label>
-  <select class="form-control" id="category">
-    <option selected disabled>Please select one option</option>
-    @foreach($categories as $category)
-        <option value="{{$category->id}}">{{$category->category_code."---".$category->category_name}}</option>
-    @endforeach
-  </select>
 </div>
+<h2>New Material</h2>
+<form action="/back/material/store" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <div class="form-group">
+    <label for="material_name">enter material name: *</label>
+    <input type="text" class="form-control" name="material_name">
+  </div>
+  <div class="form-group">
+    <label for="material_desc">enter material description: *</label>
+    <textarea  class="form-control" name="material_desc"></textarea>
+  </div>
+
   <div class="form-group">
     <label for="product_code">enter sub product code: *</label>
     <input type="text" class="form-control" id="product_code" name="product_code">
@@ -92,46 +86,48 @@
     <div class="form-group"> 
         <span>File Name: </span><div id="files" class="files"></div>
     </div>
+
+    <button  class="btn btn-success" type="submit">Create</button>
+    <a href="/back/material" class="btn btn-info"/>Cancel</button></a>
 </form>
-  <button  class="btn btn-success" onclick="createProduct();">Create</button>
-  <a href="{{url()}}/back/product" class="btn btn-info"/>Cancel</button></a>
+
 </div>
 
 <script>
- $(document).ready(function(){
-   
-     $("#product_code").keypress(function(){
-        var codeArr = $('#category option:selected').text().split('---');
-        var code = codeArr[0];
-        $('#productcateg_code').html(code + '-' + $('#product_code').val()); 
-    });
-   
-     $('#fileupload').fileupload({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },  
-        url: PRODUCT_UPLOAD_FILE, 
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.files, function (index, file) {
-              $('#files').html(file.name);
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        },
-        success: function(data){
-            $('#fileId').html(data.fileId);
-            //console.log(data.fileId);
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-    
- });   
+// $(document).ready(function(){
+//
+//     $("#product_code").keypress(function(){
+//        var codeArr = $('#category option:selected').text().split('---');
+//        var code = codeArr[0];
+//        $('#productcateg_code').html(code + '-' + $('#product_code').val());
+//    });
+//
+//     $('#fileupload').fileupload({
+//        headers: {
+//            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//        },
+//        url: PRODUCT_UPLOAD_FILE,
+//        dataType: 'json',
+//        done: function (e, data) {
+//            $.each(data.files, function (index, file) {
+//              $('#files').html(file.name);
+//            });
+//        },
+//        progressall: function (e, data) {
+//            var progress = parseInt(data.loaded / data.total * 100, 10);
+//            $('#progress .progress-bar').css(
+//                'width',
+//                progress + '%'
+//            );
+//        },
+//        success: function(data){
+//            $('#fileId').html(data.fileId);
+//            //console.log(data.fileId);
+//        }
+//    }).prop('disabled', !$.support.fileInput)
+//        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+//
+// });
 
  
 </script>

@@ -60,6 +60,14 @@ Route::post('/back/category/store',['middleware' => 'auth','uses'=>'CategoryCont
 Route::get('/back/category/edit/{id}',['middleware' => 'auth','uses'=>'CategoryController@edit']);
 Route::post('/back/category/update', ['middleware' => 'auth','uses'=>'CategoryController@update']);
 /**
+ * Material Cateogry Routes
+ */
+Route::get('/back/materialcategory',['middleware' => 'auth','uses'=>'MaterialCategoryController@index']);
+Route::get('/back/materialcategory/create',['middleware' => 'auth','uses'=>'MaterialCategoryController@create']);
+Route::post('/back/materialcategory/store',['middleware' => 'auth','uses'=>'MaterialCategoryController@store']);
+Route::get('/back/materialcategory/edit/{id}',['middleware' => 'auth','uses'=>'MaterialCategoryController@edit']);
+Route::post('/back/materialcategory/update/{id}', ['middleware' => 'auth','uses'=>'MaterialCategoryController@update']);
+/**
  * Product Routes
  */
 Route::get('/back/product',['middleware' => 'auth','uses'=>'ProductController@index']); 
@@ -71,7 +79,16 @@ Route::post('/back/product/upload', ['middleware' => 'auth','uses'=>'ProductCont
 
 //front end
 Route::get('/product','ProductController@lists'); 
-Route::get('/product/detail/{id}','ProductController@show'); 
+Route::get('/product/detail/{id}','ProductController@show');
+/**
+ * Material Routes
+ */
+Route::get('/back/material',['middleware' => 'auth','uses'=>'MaterialController@index']);
+Route::get('/back/material/create',['middleware' => 'auth','uses'=>'MaterialController@create']);
+Route::post('/back/material/store',['middleware' => 'auth','uses'=>'MaterialController@store']);
+Route::get('/back/material/edit/{id}',['middleware' => 'auth','uses'=>'MaterialController@edit']);
+Route::post('/back/material/update', ['middleware' => 'auth','uses'=>'MaterialController@update']);
+Route::post('/back/material/upload', ['middleware' => 'auth','uses'=>'MaterialController@upload']);
 
 /**
  * Project Routes
