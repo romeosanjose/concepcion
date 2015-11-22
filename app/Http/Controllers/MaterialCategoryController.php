@@ -71,7 +71,6 @@ class MaterialCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = "";
         try{
 
 

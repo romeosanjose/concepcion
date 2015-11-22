@@ -19,10 +19,7 @@ class CreateMaterialsTable extends Migration
             $table->string('material_categ_id');
             $table->float('price');
             $table->float('gross_price');
-            $table->decimal('size1',6,2);
-            $table->decimal('size2',6,2);
-            $table->decimal('size3',6,2);
-            $table->decimal('size4',6,2);
+            $table->decimal('size',6,2);
             $table->string('is_active');
             $table->timestamps();
         });
@@ -34,10 +31,7 @@ class CreateMaterialsTable extends Migration
                 'material_categ_id' => 1,
                 'price' => 14.0,
                 'gross_price' => 15.0,
-                'size1' => 15.10,
-                'size2' => 15.10,
-                'size3' => 15.10,
-                'size4' => 15.10,
+                'size' => 15.10,
                 'is_active'=> true
             ]);
     }

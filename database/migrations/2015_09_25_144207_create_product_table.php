@@ -19,10 +19,7 @@ class CreateProductTable extends Migration
             $table->string('product_code');
             $table->integer('category_id');
             $table->float('price');
-            $table->decimal('size1',6,2);
-            $table->decimal('size2',6,2);
-            $table->decimal('size3',6,2);
-            $table->decimal('size4',6,2);
+            $table->decimal('size',6,2);
             $table->string('is_active');
             $table->timestamps();
         });
@@ -34,10 +31,7 @@ class CreateProductTable extends Migration
             'product_code' => 'SD-01',
             'category_id' => 1,
             'price' => 14.0,
-            'size1' => 15.10,
-            'size2' => 15.10,
-            'size3' => 15.10,
-            'size4' => 15.10,
+            'size' => 15.10,
             'is_active'=> true
         ]);
     }

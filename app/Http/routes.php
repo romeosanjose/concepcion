@@ -87,7 +87,7 @@ Route::get('/back/material',['middleware' => 'auth','uses'=>'MaterialController@
 Route::get('/back/material/create',['middleware' => 'auth','uses'=>'MaterialController@create']);
 Route::post('/back/material/store',['middleware' => 'auth','uses'=>'MaterialController@store']);
 Route::get('/back/material/edit/{id}',['middleware' => 'auth','uses'=>'MaterialController@edit']);
-Route::post('/back/material/update', ['middleware' => 'auth','uses'=>'MaterialController@update']);
+Route::post('/back/material/update/{id}', ['middleware' => 'auth','uses'=>'MaterialController@update']);
 Route::post('/back/material/upload', ['middleware' => 'auth','uses'=>'MaterialController@upload']);
 
 /**
@@ -115,9 +115,10 @@ Route::post('/back/post/upload', ['middleware' => 'auth','uses'=>'PostController
 /***
 * Image Routes
 */
-Route::get('/images/product/{filename}', function ($filename=null)
+Route::post('/back/images/store',['middleware' => 'auth','uses'=>'FileController@store']);
+Route::get('/images/{filename}', function ($filename=null)
 {
-	$path = base_path().Config::get('app.filepath') .'/product/'. $filename;
+	$path = base_path().Config::get('app.filepath') . $filename;
 	return Response::download($path);
     
 });
