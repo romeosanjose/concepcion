@@ -58,7 +58,7 @@ Route::get('/back/category',['middleware' => 'auth','uses'=>'CategoryController@
 Route::get('/back/category/create',['middleware' => 'auth','uses'=>'CategoryController@create']); 
 Route::post('/back/category/store',['middleware' => 'auth','uses'=>'CategoryController@store']);
 Route::get('/back/category/edit/{id}',['middleware' => 'auth','uses'=>'CategoryController@edit']);
-Route::post('/back/category/update', ['middleware' => 'auth','uses'=>'CategoryController@update']);
+Route::post('/back/category/update/{id}', ['middleware' => 'auth','uses'=>'CategoryController@update']);
 /**
  * Material Cateogry Routes
  */
@@ -74,8 +74,12 @@ Route::get('/back/product',['middleware' => 'auth','uses'=>'ProductController@in
 Route::get('/back/product/create',['middleware' => 'auth','uses'=>'ProductController@create']); 
 Route::post('/back/product/store',['middleware' => 'auth','uses'=>'ProductController@store']);
 Route::get('/back/product/edit/{id}',['middleware' => 'auth','uses'=>'ProductController@edit']);
-Route::post('/back/product/update', ['middleware' => 'auth','uses'=>'ProductController@update']);
+Route::post('/back/product/update/{id}', ['middleware' => 'auth','uses'=>'ProductController@update']);
 Route::post('/back/product/upload', ['middleware' => 'auth','uses'=>'ProductController@upload']);
+Route::post('/back/product/addMaterial', ['middleware' => 'auth','uses'=>'ProductController@addMaterial']);
+Route::post('/back/product/removeMaterial', ['middleware' => 'auth','uses'=>'ProductController@removeMaterial']);
+
+
 
 //front end
 Route::get('/product','ProductController@lists'); 
@@ -89,6 +93,7 @@ Route::post('/back/material/store',['middleware' => 'auth','uses'=>'MaterialCont
 Route::get('/back/material/edit/{id}',['middleware' => 'auth','uses'=>'MaterialController@edit']);
 Route::post('/back/material/update/{id}', ['middleware' => 'auth','uses'=>'MaterialController@update']);
 Route::post('/back/material/upload', ['middleware' => 'auth','uses'=>'MaterialController@upload']);
+Route::get('/back/material/all_api', ['middleware' => 'auth','uses'=>'MaterialController@materialsAllAPI']);
 
 /**
  * Project Routes

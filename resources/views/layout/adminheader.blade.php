@@ -20,7 +20,7 @@
     <link href="{{URL::asset('assets/css/blue.css')}}" rel="stylesheet"> 
     <link href="{{URL::asset('assets/vendor/jquery-file-upload/css/jquery.fileupload.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/vendor/jquery-file-upload/css/jquery.fileupload-ui.css')}}" rel="stylesheet">
-      
+    <link href="{{URL::asset('assets/css/dual-list-box.css')}}" rel="stylesheet">
   </head>
 
   <body>
@@ -74,10 +74,14 @@
     <script>var BASE_URL = "{{url()}}";  </script>
     <script src="{{URL::asset('assets/js/common.js')}}"></script>
     <script src="{{URL::asset('assets/js/request.js')}}"></script>
+    <script src="{{URL::asset('assets/js/loading.js')}}"></script>
+    <script src="{{URL::asset('assets/js/dual-list-box.js')}}"></script>
     <script src="{{URL::asset('assets/js/appback.js')}}"></script>
+
     
     <script src="{{URL::asset('assets/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js')}}"></script>
     <script src="{{URL::asset('assets/vendor/jquery-file-upload/js/jquery.iframe-transport.js')}}"></script>
     <script src="{{URL::asset('assets/vendor/jquery-file-upload/js/jquery.fileupload.js')}}"></script>
+
   </body>
 </html>

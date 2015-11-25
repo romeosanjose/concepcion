@@ -16,13 +16,15 @@ class CreateProductMaterialsTable extends Migration
             $table->increments('id');
             $table->integer('product_id');
             $table->integer('material_id');
+            $table->boolean('is_active');
             $table->timestamps();
         });
 
         DB::table('product_material')->insert(
             [
                 'product_id' => 1,
-                'material_id' => 11,
+                'material_id' => 1,
+                'is_active' => true
             ]);
     }
 

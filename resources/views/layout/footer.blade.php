@@ -7,7 +7,7 @@
     </div><!-- /.container -->
 
 
-    <!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{URL::asset('assets/js/jquery-1.11.3.min.js')}}"></script>

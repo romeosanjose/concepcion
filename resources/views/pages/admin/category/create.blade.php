@@ -1,26 +1,43 @@
-@include('layout.adminheader')  
+@include('layout.adminheader')
 <div class="container">
-<div class="alert alert-success" style="display:none" id="msgsuccess">
-  <strong>Success!</strong> Indicates a successful or positive action.
-</div>  
-<div class="alert alert-danger" style="display:none" id="msgfail">
-  <strong>Warning!</strong> Indicates a dangerous or potentially negative action.
-</div>    
-<form>
-  <div class="form-group">
-    <label for="category_name">enter category name: *</label>
-    <input type="category_name" class="form-control" id="category_name">
+  <div class="row">
+
+    @if (count($errors) > 0)
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    @if (Session::get('message'))
+      <div class="alert alert-info">
+        <ul>
+          <li>{{ Session::get('message') }}</li>
+        </ul>
+      </div>
+    @endif
+    <div class="class="col-md-12">
+    <h3>New Product Category</h3>
+    <form action="/back/category/store" method="POST">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <div class="form-group">
+        <label for="category_name">Enter Product Category Name: *</label>
+        <input type="text" class="form-control" name="category_name">
+      </div>
+      <div class="form-group">
+        <label for="category_code">Enter Product Category Code: *</label>
+        <input type="text" class="form-control" name="category_code">
+      </div>
+      <div class="form-group">
+        <label for="category_desc">Enter Product Category Description: *</label>
+        <textarea  class="form-control" name="category_desc"></textarea>
+      </div>
+      <button class="btn btn-success" type="submit">Create</button>
+      <a href="/back/category" class="btn btn-info"/>Cancel</button></a>
+    </form>
+
   </div>
-  <div class="form-group">
-    <label for="category_code">enter category code: *</label>
-    <input type="category_code" class="form-control" id="category_code">
-  </div>  
-  <div class="form-group">
-    <label for="category_desc">enter category description: *</label>
-    <textarea  class="form-control" id="category_desc"></textarea>
-  </div>
-  
-</form>
-  <button  class="btn btn-success" onclick="createCategory();">Create</button>
-  <a href="{{url()}}/back/category" class="btn btn-info"/>Cancel</button></a>
+</div>
 </div>

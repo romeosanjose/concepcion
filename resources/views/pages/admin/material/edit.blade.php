@@ -18,7 +18,7 @@
             </div>
         @endif
         <div class="class="class="col-md-12">
-            <h2>New Material</h2>
+            <h2>Edit Material</h2>
             <form action="/back/material/update/{{$material->id}}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">

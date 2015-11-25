@@ -69,7 +69,6 @@ class MaterialController extends Controller
                 'size' => 'required:numeric'
             ]);
 
-
             $matObj = new Material;
             $matObj->material_name = $request->input('material_name');
             $matObj->material_desc = $request->input('material_desc');
@@ -182,4 +181,12 @@ class MaterialController extends Controller
     {
         //
     }
+
+    public function materialsAllAPI()
+    {
+        $materials = Material::all();
+        return json_encode($materials);
+    }
+
+
 }

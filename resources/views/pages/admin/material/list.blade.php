@@ -5,7 +5,7 @@
     <div class="row" >
 
         <div class="col-md-3">
-            <h3>Material Category List</h3>
+            <h3>Material List</h3>
             <a href="/back/material/create" class="btn btn-success btn-sm" />Add Material</a>
         </div>
         <div class="col-md-12">

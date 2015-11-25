@@ -9,8 +9,11 @@ use App\Model\Product;
 use App\Model\Category;
 use App\Model\Files;
 use App\Model\Module;
+use App\Model\Material;
+use App\Model\ProductMaterial;
 use Config;
 use DB;
+use Redirect;
 
 class ProductController extends Controller
 {
@@ -28,15 +31,15 @@ class ProductController extends Controller
                                                         'where product.is_active=1 ' .
                                                         'where product.id LIKE %:search% OR product.product_name LIKE %:search% ' .
                                                         'group by product.id ',
-                                                    [':search'=>$request->input('search')] 
+                                                    [':search'=>$request->input('search')]
                                                     );
         }else if ($request->has('sortby')){
              $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
                                                         'from product ' .
                                                         'where product.is_active=1 ' .
                                                         'group by product.id ' .
-                                                        'order by :sortby', 
-                                                    [':sortby'=>$request->input('sortby')] 
+                                                        'order by :sortby',
+                                                    [':sortby'=>$request->input('sortby')]
                                                     );
         }else{
            $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
@@ -44,7 +47,7 @@ class ProductController extends Controller
                                                         'where product.is_active=1 ' .
                                                         'group by product.id '
                                                     );
-           
+
         }
         $categories = Category::all();
         return view('pages.product.list', ['products'=>$products,'categories'=>$categories]);
@@ -76,19 +79,17 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-         if ($request->has('search')){
+        if ($request->has('search')){
             $products = Product::where('is_active',1)
-                    ->where('id','LIKE',"%".$request->input('search')."%")
-                    ->orWhere('product_name','LIKE',"%".$request->input('search')."%")
-                    ->paginate(5);
+                ->where('id','LIKE',"%".$request->input('search')."%")
+                ->orWhere('product_name','LIKE',"%".$request->input('search')."%")
+                ->paginate(5);
         }else{
             if ($request->has('sortby')){
-                $products = Product::where('is_active',1)
-                    ->orderBy($request->input('sortby')) 
+                $products = Product::orderBy($request->input('sortby'))
                     ->paginate(5);
             }else{
-                $products = Product::where('is_active',1)
-                        ->paginate(5);
+                $products = Product::paginate(5);
             }
         }
 
@@ -103,8 +104,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('pages.admin.product.create',['categories'=>$categories]);
+        $productCategories = Category::all();
+        return view('pages.admin.product.create',['productCategories'=>$productCategories]);
     }
 
     /**
@@ -119,36 +120,23 @@ class ProductController extends Controller
             $this->validate($request, [
                 'product_name' => 'required|unique:product|max:255|min:3',
                 'product_desc' => 'required|min:1|max:500',
-                'pre_stocks' => 'required|numeric',
-                'price' => 'required|numeric'
+                'price' => 'required|numeric',
+                'size' => 'required|numeric'
             ]);
             $productobj = new Product;
             $productobj->product_name = $request->input('product_name');
             $productobj->product_desc = $request->input('product_desc');
-            $productobj->category_id = $request->input('category');
+            $productobj->category_id = $request->input('product_category');
             $productobj->product_code = $request->input('productcateg_code');
-            $productobj->size1 = $request->input('size1');
-            $productobj->size2 = $request->input('size2');
-            $productobj->size3 = $request->input('size3');
-            $productobj->size4 = $request->input('size4');
-            $productobj->pre_stocks = $request->input('pre_stocks');
-            $productobj->stocks = $request->input('stocks');
+            $productobj->size = $request->input('size');
             $productobj->price = $request->input('price');
-            $productobj->gross_price = $request->input('gross_price');
             $productobj->is_active = true;
             $productobj->save();
             
-            
-            if ($request->input('fileId')!='' && $request->input('fileId')!=null ){
-                Files::where('id',$request->input('fileId'))
-                        ->update([
-                            'attachment_id' => $productobj->id
-                        ]);
-            }
-            
-            return json_encode(array("message"=>"Success! New Category has been added"));
+            return Redirect::to('/back/product/edit/'.$productobj->id);
+
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+            return Redirect::to('/back/product/create')->withwith('message','Oops! Something went wrong. Please try again later' );
         }
     }
 
@@ -163,8 +151,42 @@ class ProductController extends Controller
     {
         $productobj = new Product;
         $product = $productobj->find($id);
-        $categories = Category::all();
-        return view('pages.admin.product.edit', ['product'=>$product,'categories'=>$categories]);
+        $productCategories = Category::all();
+        $productCategId = Category::find($product->category_id);
+        //get the image assiociates
+        $prodFiles = Files::where('attachment_id',$product->id)
+            ->where('is_active',True)
+            ->get();
+
+
+        //get all materials associated
+        $curMaterials = array();
+        $curMatIds = array();
+        $prodMaterials = Product::find($id)
+            ->materials()
+            ->get();
+
+
+        foreach ($prodMaterials as $pm){
+            //gets the current set materials
+            $matExtObject = Material::where('is_active',true)
+                                    ->where('id',$pm->material_id)
+                                    ->first();
+
+            array_push($curMaterials,$matExtObject);
+            array_push($curMatIds,$pm->material_id);
+            $matExtObject = null;
+
+        }
+//        echo '<pre>';
+//        print_r($curMatIds);die();
+       //get all the materials not in current product
+        $allMaterials = Material::whereNotIn('id',$curMatIds)
+                                ->orderBy('material_name','asc')
+                                ->get();
+
+        return view('pages.admin.product.edit', ['product'=>$product, 'productCategories'=>$productCategories, 'productCategId'=>$productCategId,
+                                                 'prodFiles'=>$prodFiles,'allMaterials'=>$allMaterials, 'curMaterials'=> $curMaterials]);
     }
 
     /**
@@ -174,75 +196,136 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
          try{
-            $this->validate($request, [
-                'product_name' => 'required|max:255|min:3',
-                'product_desc' => 'required|min:1|max:500',
-                'pre_stocks' => 'required|numeric',
-                'price' => 'required|numeric'
-            ]);
+             $this->validate($request, [
+                 'product_name' => 'required|max:255|min:3',
+                 'product_desc' => 'required|min:1|max:500',
+                 'price' => 'required|numeric',
+                 'size' => 'required|numeric'
+             ]);
             
-            $is_active = ($request->input('isactive')=='1')? true : false;
+            $is_active = ($request->input('is_active'))? true : false;
             $productobj = new Product;
             $productobj->where('id',$request->input('id'))
                     ->update([
                             'product_name' => $request->input('product_name'),
                             'product_desc' => $request->input('product_desc'),
-                            'category_id' => $request->input('category'),
+                            'category_id' => $request->input('product_category'),
                             'product_code' => $request->input('productcateg_code'),
-                            'size1' => $request->input('size1'),
-                            'size2' => $request->input('size2'),
-                            'size3' => $request->input('size3'),
-                            'size4' => $request->input('size4'),
-                            'pre_stocks' => $request->input('pre_stocks'),
-                            'stocks' => $request->input('stocks'),
+                            'size' => $request->input('size'),
                             'price' => $request->input('price'),
-                            'gross_price' => $request->input('gross_price'),
                             'is_active' => $is_active
                     ]);
-            
-            if ($request->input('fileId')!='' && $request->input('fileId')!=null ){
-                Files::where('id',$request->input('fileId'))
-                        ->update([
-                            'attachment_id' => $request->input('id')
-                        ]);
-            }
-            
-            return json_encode(array("message"=>"Success! Product ". $request->input('product_name') ." has been updated"));
-        }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+
+             //update attachment images
+             if ($request->has('img')) {
+                 foreach ($request->input('img') as $img){
+                     //unserialize image value
+                     $imgVal = unserialize($img);
+                     if ($imgVal[1]) {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'attachment_id' => $id
+                             ]);
+                     } else {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'is_active' => false
+                             ]);
+                     }
+                 }
+             }
+             return Redirect::to("/back/product/edit/$id")->with('message', $request->input('product_name') . ' was successfully updated');
+         }catch(Exception $e){
+             return Redirect::to("/back/product/edit/$id")->with('message','Oops! Something went wrong. Please try again later' );
+         }
+    }
+
+
+    /**
+     * API for adding materials being called from js
+     */
+    public function addMaterial(Request $request){
+        $prodId = $request->input('product_id');
+        $matId = $request->input('material_id');
+        //add material product
+        $prodMat = new ProductMaterial();
+        $prodMat->product_id = $prodId;
+        $prodMat->material_id = $matId;
+        $prodMat->is_active = true;
+        $prodMat->save();
+
+        //get the product-materials
+        $curMaterials = array();
+        $curMatIds = array();
+        $prodMaterials = Product::find($prodId)
+            ->materials()
+            ->get();
+        foreach ($prodMaterials as $pm){
+            //gets the current set materials
+            $matExtObject = Material::where('is_active',true)
+                ->where('id',$pm->material_id)
+                ->first();
+            array_push($curMaterials,$matExtObject);
+            array_push($curMatIds,$pm->material_id);
+
         }
+
+        //get the all current materials
+        $allMaterials = Material::whereNotIn('id',$curMatIds)
+            ->where('is_active',True)
+            ->orderBy('material_name','asc')
+            ->get();
+
+        //return current and all materials
+        return json_encode(array('curMaterials'=>$curMaterials,'allMaterials'=>$allMaterials));
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * API or adding materials being called from js
      */
-    public function destroy($id)
-    {
-        //
-    }
-    
-    public function upload(Request $request){
-        if ($request->hasFile('files'))
-        {
-         if ($request->file('files')[0]->isValid()){    
-             $module = Module::find(2);
-             $file = new Files;
-             $fileName = $module->module_name . md5(time()) . '.jpg';
-             $file->disk_name = $fileName;
-             $file->file_name = $request->file('files')[0]->getClientOriginalName();
-             $file->module_id = 2; //product
-             $file->save();
-             $fileId = $file->id;
-             $request->file('files')[0]->move(base_path().Config::get('app.filepath') .'/'. $module->module_name, $fileName);
-             echo json_encode(array('fileId'=>$fileId));
-            
-         }
+    public function removeMaterial(Request $request){
+        $prodId = $request->input('product_id');
+        $matId = $request->input('material_id');
+        //delete material product
+        ProductMaterial::where('product_id',$prodId)
+                                  ->where('material_id',$matId)
+                                  ->delete();
+
+//        $prodMat->where('product_id',$prodId)
+//            ->where('material_id',$matId)
+//            ->update([
+//                'is_active' => false
+//            ]);
+
+        //get the product-materials
+        $curMaterials = array();
+        $curMatIds = array();
+        $prodMaterials = Product::find($prodId)
+            ->materials()
+            ->get();
+        foreach ($prodMaterials as $pm){
+            //gets the current set materials
+            $matExtObject = Material::where('is_active',true)
+                ->where('id',$pm->material_id)
+                ->first();
+            array_push($curMaterials,$matExtObject);
+            array_push($curMatIds,$pm->material_id);
+
         }
+
+        //get the all current materials
+        $allMaterials = Material::whereNotIn('id',$curMatIds)
+            ->where('is_active',True)
+            ->orderBy('material_name','asc')
+            ->get();
+
+        //return current and all materials
+        return json_encode(array('curMaterials'=>$curMaterials,'allMaterials'=>$allMaterials));
     }
+
 }

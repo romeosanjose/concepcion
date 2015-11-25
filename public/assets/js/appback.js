@@ -1,11 +1,25 @@
 $(document).ready(function(){
+
+    /**
+     * Makes the product code auto generated
+     */
+    $("#product_code").keypress(function(){
+        var codeArr = $('#product_category option:selected').text().split('---');
+        var code = codeArr[0];
+        $('#productcateg_code_span').html(code + '-' + $('#product_code').val());
+        $('#productcateg_code').val(code + '-' + $('#product_code').val());
+    });
+
+    /**
+     * image uploader
+     */
     $('#fileupload').fileupload({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
         url: IMAGE_UPLOAD,
         dataType: 'json',
-        formData: {module_id:4},
+        formData: {'module_id':0},
         done: function (e, data) {
             $.each(data.files, function (index, file) {
                 $('#files').html(file.name);
@@ -60,6 +74,92 @@ $(document).ready(function(){
         //3. attach LI to image gallery
         divImagegallery.append(newLi);
 
+    }
+
+    /**
+     * materials setter
+     */
+    addMaterial = function(){
+        //checks if value of items are more than one
+            var foo = [];
+            var prodId = $('#product_id').val();
+            var matId = 0;
+            //1. get the value of the selected in listbox and store it
+            $('#all_materials :selected').each(function(i, selected){
+                foo[i] = $(selected).text();
+                matId = $(selected).val();
+            });
+            if (foo.length > 1 || foo.length == 0){
+                alert('Please select only one from the list below');
+                return 0;
+            }
+            //2.. send the value to the api
+            waitingDialog.show('Saving Materials');setTimeout(function () {waitingDialog.hide();}, 500);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'POST',
+                url: ADD_MATERIAL,
+                data: {product_id:prodId,material_id:matId},
+                success:function(data){
+                    refreshMaterials(data);
+                }
+            });
+            //3. refresh from the callback
+    }
+
+    removeMaterial = function(){
+        //checks if value of items are more than one
+        var foo = [];
+        var prodId = $('#product_id').val();
+        var matId = 0;
+        //1. get the value of the selected in listbox and store it
+        $('#curr_materials :selected').each(function(i, selected){
+            foo[i] = $(selected).text();
+            matId = $(selected).val();
+        });
+        if (foo.length > 1 || foo.length == 0){
+            alert('Please select only one from the list below');
+            return 0;
+        }
+        //2.. send the value to the api
+        waitingDialog.show('Saving Materials');setTimeout(function () {waitingDialog.hide();}, 500);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: REMOVE_MATERIAL,
+            data: {product_id:prodId,material_id:matId},
+            success:function(data){
+                refreshMaterials(data);
+            }
+        });
+        //3. refresh from the callback
+    }
+
+    refreshMaterials = function(response){
+        ////clears listbox
+        $('#curr_materials').empty();
+        $('#all_materials').empty();
+        data = $.parseJSON(response);
+
+        $.each(data.curMaterials,function(key,mat){
+            //sets current materials:
+            console.log(mat);
+            var newOption = new Option('value',mat.id );
+            $(newOption).html(mat.material_name);
+            $('#curr_materials').append(newOption);
+        });
+
+        $.each(data.allMaterials,function(key,mat){
+            //sets all  materials:
+            console.log(mat);
+            var newOption = new Option('value',mat.id);
+            $(newOption).html(mat.material_name);
+            $('#all_materials').append(newOption);
+        });
     }
 
 });

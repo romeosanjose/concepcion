@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \App\Model\Category;
-use \App\Model\CategoryCode;
+use Redirect;
 
 class CategoryController extends Controller
 {
@@ -18,18 +18,15 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')){
-            $categories = Category::where('is_active',1)
-                    ->where('id','LIKE',"%".$request->input('search')."%")
+            $categories = Category::where('id','LIKE',"%".$request->input('search')."%")
                     ->orWhere('category_name','LIKE',"%".$request->input('search')."%")
                     ->paginate(5);
         }else{
             if ($request->has('sortby')){
-                $categories = Category::where('is_active',1)
-                    ->orderBy($request->input('sortby')) 
+                $categories = Category::orderBy($request->input('sortby'))
                     ->paginate(5);
             }else{
-                $categories = Category::where('is_active',1)
-                        ->paginate(5);
+                $categories = Category::paginate(5);
             }
         }
 
@@ -56,11 +53,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try{
+
+
             $this->validate($request, [
                 'category_name' => 'required|unique:product_category|max:255|min:3',
-                'category_code' => 'required|unique:product_category|min:1|max:4',
+                'category_code' => 'required|min:2',
                 'category_desc' => 'required|min:10',
             ]);
+
 
             $categobj = new Category;
             $categobj->category_name = $request->input('category_name');
@@ -68,10 +68,11 @@ class CategoryController extends Controller
             $categobj->category_desc = $request->input('category_desc');
             $categobj->is_active = true;
             $categobj->save();
-            
-            return json_encode(array("message"=>"Success! New Category has been added"));
+
+            return Redirect::to('/back/category/edit/'.$categobj->id);
+
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+            return Redirect::to('/back/category/create')->withwith('message','Oops! Something went wrong. Please try again later' );
         }
     }
 
@@ -96,7 +97,6 @@ class CategoryController extends Controller
     {
         $categobj = new Category;
         $categ = $categobj->find($id);
-        
         return view('pages.admin.category.edit', ['category'=>$categ]);
     }
 
@@ -107,27 +107,27 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
         try{
             $this->validate($request, [
                 'category_name' => 'required|max:255|min:3',
-                'category_code' => 'required|min:1|max:4',
+                'category_code' => 'required|min:2',
                 'category_desc' => 'required|min:10',
             ]);
-            $is_active = ($request->input('isactive')=='1')? true : false;
+            $is_active = ($request->input('is_active'))? true : false;
             $categobj = new Category;
-            $categobj->where('id',$request->input('id'))
-                    ->update([
-                        'category_name' => $request->input('category_name'),
-                        'category_code' => $request->input('category_code'),
-                        'category_desc' => $request->input('category_desc'),
-                        'is_active' => $is_active
-                    ]);
-            
-            return json_encode(array("message"=>"Success! category ". $request->input('category_name') ." has been updated"));
+            $categobj->where('id',$id)
+                ->update([
+                    'category_name' => $request->input('category_name'),
+                    'category_code' => $request->input('category_code'),
+                    'category_desc' => $request->input('category_desc'),
+                    'is_active' => $is_active
+                ]);
+
+            return Redirect::to("/back/category/edit/$id")->with('message', $request->input('category_name') . ' was successfully updated');
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+            return Redirect::to("/back/category/edit/$id")->with('message','Oops! Something went wrong. Please try again later' );
         }
     }
 

@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $table = 'product';
 
-    public function image(){
-        return hasMany('Files');
+    public function materials(){
+        return $this->hasMany('App\Model\ProductMaterial');
     }
 }

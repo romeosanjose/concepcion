@@ -1,138 +1,71 @@
-@include('layout.adminheader')  
-    
-
-<style>
- .bar {
-    height: 18px;
-    background: green;
-}
-</style>
+@include('layout.adminheader')
 <div class="container">
-<div class="alert alert-success" style="display:none" id="msgsuccess">
-  <strong>Success!</strong> Indicates a successful or positive action.
-</div>  
-<div class="alert alert-danger" style="display:none" id="msgfail">
-  <strong>Warning!</strong> Indicates a dangerous or potentially negative action.
-</div>    
-<form>
-  <div class="form-group">
-    <label for="product_name">enter product name: *</label>
-    <input type="product_name" class="form-control" id="product_name">
-  </div>
-  <div class="form-group">
-    <label for="product_desc">enter product description: *</label>
-    <textarea  class="form-control" id="product_desc"></textarea>
-  </div>
-  <div class="form-group">
-  <label for="category">Select Category:</label>
-  <select class="form-control" id="category">
-    <option selected disabled>Please select one option</option>
-    @foreach($categories as $category)
-        <option value="{{$category->id}}">{{$category->category_code."---".$category->category_name}}</option>
-    @endforeach
-  </select>
-</div>
-  <div class="form-group">
-    <label for="product_code">enter sub product code: *</label>
-    <input type="text" class="form-control" id="product_code" name="product_code">
-  </div>
-  <div class="form-group">  
-    <label for="productcateg_code">product code: * </label>  
-    <span id="productcateg_code">000</span> 
-  </div>
-  <div class="form-group">
-    <label for="size1">enter size(1): </label>
-    <input type="size1" class="form-control" id="size1">
-  </div>
-  <div class="form-group">
-    <label for="size2">enter size(2): </label>
-    <input type="size2" class="form-control" id="size2">
-  </div>
-  <div class="form-group">
-    <label for="size3">enter size(3): </label>
-    <input type="size3" class="form-control" id="size3">
-  </div>
-  <div class="form-group">
-    <label for="size4">enter size(4): </label>
-    <input type="size4" class="form-control" id="size4">
-  </div>
-  <div class="form-group">
-    <label for="pre_stocks">enter pre-stocks: * </label>
-    <input type="pre_stocks" class="form-control" id="pre_stocks">
-  </div>
-  <div class="form-group">
-    <label for="stocks">enter stocks: </label>
-    <input type="stocks" class="form-control" id="stocks">
-  </div>
-  <div class="form-group">
-    <label for="price">enter price: </label>
-    <input type="price" class="form-control" id="price">
-  </div>
-   <div class="form-group">
-    <label for="gross_price">enter gross price: </label>
-    <input type="gross_price" class="form-control" id="gross_price">
-  </div>
+    <div class="row">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (Session::get('message'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{{ Session::get('message') }}</li>
+                </ul>
+            </div>
+        @endif
+        <div class="class="class="col-md-12">
 
-  <div class="form-group">
-    <span class="btn btn-success fileinput-button">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span>upload product image</span>
-        <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]">
-    </span>
-  </div>
-   <!-- The global progress bar -->
-   <div id="progress" class="progress">
-        <div class="progress-bar progress-bar-success"></div>
+            <h2>New Product</h2>
+            <form action="/back/product/store" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="product_name">Enter Product Name: *</label>
+                    <input type="text" class="form-control" name="product_name">
+                </div>
+                <div class="form-group">
+                    <label for="product_desc">Enter Product Description: *</label>
+                    <textarea  class="form-control" name="product_desc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product_category">Select Product Category: *</label>
+                    <select class="form-control" id="product_category" name="product_category">
+                        <option selected disabled>Please select one option</option>
+                        @foreach($productCategories as $productCategory)
+                            <option value="{{$productCategory->id}}">{{$productCategory->category_code."---".$productCategory->category_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product_code">enter sub product code: *</label>
+                    <input type="text" class="form-control" id="product_code" name="product_code">
+                </div>
+                <div class="form-group">
+                    <label for="productcateg_code">product code: * </label>
+                    <span class="strong" name="productcateg_code_span" id="productcateg_code_span">000</span>
+                    <input type="hidden" name="productcateg_code" id="productcateg_code">
+                </div>
+                <div class="form-group">
+                    <label for="price">Enter Price: </label>
+                    <input type="text" class="form-control" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="size">Enter Size: </label>
+                    <input type="text" class="form-control" name="size">
+                </div>
+                <div class="form-group">
+                    <button  class="btn btn-success" type="submit" style="width:100%;">Create</button>
+                </div>
+                <div class="form-group">
+                    <a href="/back/product" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- The container for the uploaded files -->
-    <div class="form-group"> 
-        <span>File ID: </span><div id="fileId" class="files"></div>
-    </div>
-    <div class="form-group"> 
-        <span>File Name: </span><div id="files" class="files"></div>
-    </div>
-</form>
-  <button  class="btn btn-success" onclick="createProduct();">Create</button>
-  <a href="{{url()}}/back/product" class="btn btn-info"/>Cancel</button></a>
 </div>
 
-<script>
- $(document).ready(function(){
-   
-     $("#product_code").keypress(function(){
-        var codeArr = $('#category option:selected').text().split('---');
-        var code = codeArr[0];
-        $('#productcateg_code').html(code + '-' + $('#product_code').val()); 
-    });
-   
-     $('#fileupload').fileupload({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },  
-        url: PRODUCT_UPLOAD_FILE, 
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.files, function (index, file) {
-              $('#files').html(file.name);
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        },
-        success: function(data){
-            $('#fileId').html(data.fileId);
-            //console.log(data.fileId);
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-    
- });   
 
- 
-</script>
 

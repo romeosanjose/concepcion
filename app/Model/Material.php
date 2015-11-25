@@ -9,6 +9,8 @@ class Material extends Model
     protected $table = 'material';
 
     public function image(){
-        return hasMany('Files');
+        return hasMany('App\Model\Files');
     }
+
+
 }
