@@ -53,12 +53,28 @@
                         <label><input type="checkbox" name="is_active">active</label>
                     @endif
                 </div>
+
+                <!-- IMAGE UPLOADER --->
                 <div class="form-group">
-                    <button  class="btn btn-success" type="submit" style="width:100%;">Update</button>
+                <input type ="hidden" id="module_id" value="{{$moduleId}}">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>upload material image</span>
+                    <!-- The file input field used as target for the file upload widget -->
+                    <input id="fileupload" type="file" name="files[]">
+                </span>
+                </div>
+                <!-- The global progress bar -->
+                <div class="form-group">
+                    <div id="progress" class="progress">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <a href="/back/material" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                    <span>File Name: </span><div id="files" class="files"></div>
                 </div>
+
+
                 <div id="image_gallery_container">
                     <ul id="image_gallery" class="thumbnails list-inline" style="list-style-type: none;">
                         @foreach ($matFiles as $matFile)
@@ -72,26 +88,17 @@
                         @endforeach
                     </ul>
                 </div>
+
+                <div class="form-group">
+                    <button  class="btn btn-success" type="submit" style="width:100%;">Update</button>
+                </div>
+                <div class="form-group">
+                    <a href="/back/material" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                </div>
+
             </form>
 
-            <!-- IMAGE UPLOADER --->
-            <div class="form-group">
-                <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>upload material image</span>
-                    <!-- The file input field used as target for the file upload widget -->
-                    <input id="fileupload" type="file" name="files[]">
-                </span>
-            </div>
-            <!-- The global progress bar -->
-            <div class="form-group">
-                <div id="progress" class="progress">
-                    <div class="progress-bar progress-bar-success"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <span>File Name: </span><div id="files" class="files"></div>
-            </div>
+
 
 
         </div>

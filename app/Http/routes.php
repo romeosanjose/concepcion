@@ -50,9 +50,9 @@ Route::get('/back/user/',['middleware' => 'auth','uses'=>'UserController@index']
 Route::get('/back/user/create',['middleware' => 'auth','uses'=>'UserController@create'] );
 Route::post('/back/user/store',['middleware' => 'auth','uses'=>'UserController@store']);
 Route::get('/back/user/edit/{id}',['middleware' => 'auth','uses'=>'UserController@edit']);
-Route::post('/back/user/update', ['middleware' => 'auth','uses'=>'UserController@update']);
+Route::post('/back/user/update/{id}', ['middleware' => 'auth','uses'=>'UserController@update']);
 /**
- * Cateogry Routes
+ * Admin Cateogry Routes
  */
 Route::get('/back/category',['middleware' => 'auth','uses'=>'CategoryController@index']); 
 Route::get('/back/category/create',['middleware' => 'auth','uses'=>'CategoryController@create']); 
@@ -60,7 +60,7 @@ Route::post('/back/category/store',['middleware' => 'auth','uses'=>'CategoryCont
 Route::get('/back/category/edit/{id}',['middleware' => 'auth','uses'=>'CategoryController@edit']);
 Route::post('/back/category/update/{id}', ['middleware' => 'auth','uses'=>'CategoryController@update']);
 /**
- * Material Cateogry Routes
+ * Admin Material Cateogry Routes
  */
 Route::get('/back/materialcategory',['middleware' => 'auth','uses'=>'MaterialCategoryController@index']);
 Route::get('/back/materialcategory/create',['middleware' => 'auth','uses'=>'MaterialCategoryController@create']);
@@ -68,7 +68,7 @@ Route::post('/back/materialcategory/store',['middleware' => 'auth','uses'=>'Mate
 Route::get('/back/materialcategory/edit/{id}',['middleware' => 'auth','uses'=>'MaterialCategoryController@edit']);
 Route::post('/back/materialcategory/update/{id}', ['middleware' => 'auth','uses'=>'MaterialCategoryController@update']);
 /**
- * Product Routes
+ * Admin Product Routes
  */
 Route::get('/back/product',['middleware' => 'auth','uses'=>'ProductController@index']); 
 Route::get('/back/product/create',['middleware' => 'auth','uses'=>'ProductController@create']); 
@@ -78,12 +78,22 @@ Route::post('/back/product/update/{id}', ['middleware' => 'auth','uses'=>'Produc
 Route::post('/back/product/upload', ['middleware' => 'auth','uses'=>'ProductController@upload']);
 Route::post('/back/product/addMaterial', ['middleware' => 'auth','uses'=>'ProductController@addMaterial']);
 Route::post('/back/product/removeMaterial', ['middleware' => 'auth','uses'=>'ProductController@removeMaterial']);
+Route::post('/back/product/addSubProduct', ['middleware' => 'auth','uses'=>'ProductController@addSubProduct']);
+Route::post('/back/product/removeSubProduct', ['middleware' => 'auth','uses'=>'ProductController@removeSubProduct']);
+
+/**
+ * Admin Sub Product Routes
+ */
+Route::get('/back/subproduct',['middleware' => 'auth','uses'=>'SubProductController@index']);
+Route::get('/back/subproduct/create',['middleware' => 'auth','uses'=>'SubProductController@create']);
+Route::post('/back/subproduct/store',['middleware' => 'auth','uses'=>'SubProductController@store']);
+Route::get('/back/subproduct/edit/{id}',['middleware' => 'auth','uses'=>'SubProductController@edit']);
+Route::post('/back/subproduct/update/{id}', ['middleware' => 'auth','uses'=>'SubProductController@update']);
+Route::post('/back/subproduct/upload', ['middleware' => 'auth','uses'=>'SubProductController@upload']);
+Route::post('/back/subproduct/addMaterial', ['middleware' => 'auth','uses'=>'SubProductController@addMaterial']);
+Route::post('/back/subproduct/removeMaterial', ['middleware' => 'auth','uses'=>'SubProductController@removeMaterial']);
 
 
-
-//front end
-Route::get('/product','ProductController@lists'); 
-Route::get('/product/detail/{id}','ProductController@show');
 /**
  * Material Routes
  */
@@ -102,11 +112,8 @@ Route::get('/back/project',['middleware' => 'auth','uses'=>'ProjectController@in
 Route::get('/back/project/create',['middleware' => 'auth','uses'=>'ProjectController@create']); 
 Route::post('/back/project/store',['middleware' => 'auth','uses'=>'ProjectController@store']);
 Route::get('/back/project/edit/{id}',['middleware' => 'auth','uses'=>'ProjectController@edit']);
-Route::post('/back/project/update', ['middleware' => 'auth','uses'=>'ProjectController@update']);
+Route::post('/back/project/update/{id}', ['middleware' => 'auth','uses'=>'ProjectController@update']);
 Route::post('/back/project/upload', ['middleware' => 'auth','uses'=>'ProjectController@upload']);
-//front end
-Route::get('/project','ProjectController@lists'); 
-Route::get('/project/detail/{id}','ProjectController@show'); 
 
 /**
  * Post Routes
@@ -115,17 +122,31 @@ Route::get('/back/post',['middleware' => 'auth','uses'=>'PostController@index'])
 Route::get('/back/post/create',['middleware' => 'auth','uses'=>'PostController@create']); 
 Route::post('/back/post/store',['middleware' => 'auth','uses'=>'PostController@store']);
 Route::get('/back/post/edit/{id}',['middleware' => 'auth','uses'=>'PostController@edit']);
-Route::post('/back/post/update', ['middleware' => 'auth','uses'=>'PostController@update']);
+Route::post('/back/post/update/{id}', ['middleware' => 'auth','uses'=>'PostController@update']);
 Route::post('/back/post/upload', ['middleware' => 'auth','uses'=>'PostController@upload']);
 /***
 * Image Routes
 */
 Route::post('/back/images/store',['middleware' => 'auth','uses'=>'FileController@store']);
+
+
+
+/***
+ * FRONT END STARTS HERE
+ */
+
+//front end : PRODUCT
+Route::get('/product','ProductController@lists');
+Route::get('/product/detail/{id}','ProductController@show');
+
+//front end : PROJECT
+Route::get('/project','ProjectController@lists');
+Route::get('/project/detail/{id}','ProjectController@show');
+
+//front end: IMAGES
 Route::get('/images/{filename}', function ($filename=null)
 {
 	$path = base_path().Config::get('app.filepath') . $filename;
 	return Response::download($path);
-    
+
 });
-
-

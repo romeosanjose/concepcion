@@ -48,6 +48,7 @@
                 <li><a href="{{url()}}/back/category">Product Category</a></li>
                 <li><a href="{{url()}}/back/materialcategory">Material Category</a></li>
                 <li><a href="{{url()}}/back/product">Product</a></li>
+                <li><a href="{{url()}}/back/subproduct">Sub Product</a></li>
                 <li><a href="{{url()}}/back/material">Material</a></li>
               </ul>
             </li>

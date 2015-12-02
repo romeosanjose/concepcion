@@ -24,7 +24,8 @@ class CreateModuleTable extends Migration
                 array('module_name' => 'product'),
                 array('module_name' => 'post'),
                 array('module_name' => 'material'),
-                array('module_name' => 'home')
+                array('module_name' => 'home'),
+                array('module_name' => 'sub_product')
             )
         );
     }

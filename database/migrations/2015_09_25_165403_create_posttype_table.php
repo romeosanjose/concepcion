@@ -24,11 +24,7 @@ class CreatePosttypeTable extends Migration
                      array('name' => 'news',
                            'description' => 'news and articles'),
                      array('name' => 'hirings',
-                            'description' => 'hiring and latest jobs'),
-                     array('name' => 'products',
-                            'description' => 'latest product'),
-                     array('name' => 'projects',
-                            'description' => 'latest project'),
+                            'description' => 'hiring and latest jobs')
                  )
        );
     }

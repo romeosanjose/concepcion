@@ -68,9 +68,9 @@
                       <h1 class="page-header">PRODUCTS</h1>
                     </div>
                       @foreach ($products as $product)  
-                        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                            <a class="thumbnail" href="{{url()}}/product/detail/{{$product->id}}">
-                                <img class="img-responsive" src="{{url().'/images/product/'. $product->disk_name}}" alt="">
+                        <div class="col-lg-3 col-md-4 col-xs-6 thumb" >
+                            <a class="thumbnail" href="{{url()}}/product/detail/{{$product->id}}" >
+                                <img class="img-responsive img-rounded" src="{{url().'/images/'. $product->disk_name}}" alt="" width="200" height="200" style="max-height:150px;">
                             </a>
                             <span>{{$product->product_name}}</span>
                         </div>

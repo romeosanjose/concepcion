@@ -11,6 +11,7 @@ use App\Model\Files;
 use App\Model\Module;
 use Config;
 use Auth;
+use Redirect;
 
 class PostController extends Controller
 {
@@ -22,18 +23,15 @@ class PostController extends Controller
     public function index(Request $request)
     {
          if ($request->has('search')){
-            $posts = Post::where('is_active',1)
-                    ->where('id','LIKE',"%".$request->input('search')."%")
+            $posts = Post::where('id','LIKE',"%".$request->input('search')."%")
                     ->orWhere('title','LIKE',"%".$request->input('search')."%")
                     ->paginate(5);
         }else{
             if ($request->has('sortby')){
-                $posts = Post::where('is_active',1)
-                    ->orderBy($request->input('sortby')) 
+                $posts = Post::orderBy($request->input('sortby'))
                     ->paginate(5);
             }else{
-                $posts = Post::where('is_active',1)
-                        ->paginate(5);
+                $posts = Post::paginate(5);
             }
         }
 
@@ -74,20 +72,12 @@ class PostController extends Controller
             $postobj->is_published = $ispublished;
             $postobj->is_active = true;
             $postobj->save();
-            
-            if ($request->input('fileId')!='' && $request->input('fileId')!=null ){
-                $fileIdArr = explode(' ', $request->input('fileId'));
-                foreach($fileIdArr as $fileId){
-                    Files::where('id',$fileId)
-                            ->update([
-                                'attachment_id' => $postobj->id
-                            ]);
-                }
-            }
-            
-            return json_encode(array("message"=>"Success! New Post has been added"));
+
+
+
+            return Redirect::to('/back/post/edit/'.$postobj->id);
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+            return Redirect::to('/back/post/create')->withwith('message','Oops! Something went wrong. Please try again later' );
         }
     }
 
@@ -114,7 +104,15 @@ class PostController extends Controller
         $postobj = new Post;
         $post = $postobj->find($id);
         $postTypes = PostType::all();
-        return view('pages.admin.post.edit', ['post'=>$post,'user'=>$user,'postTypes'=>$postTypes]);
+        $moduleId = 3; //post
+
+        //get the image assiociates
+        $postFiles = Files::where('attachment_id',$post->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+        return view('pages.admin.post.edit', ['post'=>$post,'user'=>$user,'postTypes'=>$postTypes,'moduleId'=>$moduleId,'postFiles'=>$postFiles]);
     }
 
     /**
@@ -124,15 +122,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
          try{
              $this->validate($request, [
                 'title' => 'required|max:255|min:3',
                 'content' => 'required|min:1|max:500'
             ]);
-            $ispublished = ($request->input('ispublished')=='1')? true : false;
-            $isactive = ($request->input('isactive')=='1')? true : false;
+            $ispublished = ($request->input('is_published'))? true : false;
+            $isactive = ($request->input('is_active'))? true : false;
             
             $postobj = new Post;
             $postobj->where('id',$request->input('id'))
@@ -143,20 +141,32 @@ class PostController extends Controller
                         'is_published' => $ispublished,
                         'is_active' => $isactive
                     ]);
-            
-            if ($request->input('fileId')!='' && $request->input('fileId')!=null ){
-                $fileIdArr = explode(' ', $request->input('fileId'));
-                foreach($fileIdArr as $fileId){
-                    Files::where('id',$fileId)
-                            ->update([
-                                'attachment_id' => $request->input('id')
-                            ]);
-                }
-            }
-            
-            return json_encode(array("message"=>"Success! Post ". $request->input('title') ." has been updated"));
+
+
+             //update attachment images
+             if ($request->has('img')) {
+                 foreach ($request->input('img') as $img){
+                     //unserialize image value
+                     $imgVal = unserialize($img);
+                     if ($imgVal[1]) {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'attachment_id' => $id
+                             ]);
+                     } else {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'is_active' => false
+                             ]);
+                     }
+                 }
+             }
+             return Redirect::to("/back/post/edit/$id")->with('message', $request->input('title') . ' was successfully updated');
+
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+             return Redirect::to("/back/post/edit/$id")->with('message','Oops! Something went wrong. Please try again later' );
         }
     }
 
@@ -171,22 +181,5 @@ class PostController extends Controller
         //
     }
     
-    public function upload(Request $request){
-        if ($request->hasFile('files'))
-        {
-            if ($request->file('files')[0]->isValid()){    
-                $module = Module::find(3); //post
-                $file = new Files;
-                $fileName = $module->module_name . md5(time()) . '.jpg';
-                $file->disk_name = $fileName;
-                $file->file_name = $request->file('files')[0]->getClientOriginalName();
-                $file->module_id = $module->id; //project
-                $file->save();
-                $fileId = $file->id;
-                $request->file('files')[0]->move(base_path().Config::get('app.filepath') .'/'. $module->module_name, $fileName);
-                echo json_encode(array('fileId'=>$fileId));
 
-            }
-        }
-    }
 }

@@ -45,22 +45,54 @@
                     <input type="hidden" id="product_id" value="{{$product->id}}">
                     <div class="container-fluid" >
                         <div class="col-sm-5">
-                            <label>All Product Materials</label>
-                            <select multiple id="all_materials" class="form-control" style="width:100%;height:400px;">
+                            <label>All Product Materials</label><br>
+                            <input id="search_all_materials" class="form-control" onkeyup="return SearchMaterials('all');">
+                            <select multiple id="all_materials" class="form-control" style="width:100%;height:100px;">
                                 @foreach($allMaterials as $allMaterial)
-                                    <option value="{{$allMaterial->id}}">{{$allMaterial->material_name}}</option>
+                                    <option value="{{$allMaterial->id}}">{{$allMaterial->material_name}} -- {{$allMaterial->price}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-sm-2" style="height:400px;padding-top:10%;">
-                            <button  class="btn btn-success glyphicon glyphicon-chevron-left" style="width:100%;margin-bottom:20px;" onclick="event.preventDefault();removeMaterial();"></button>
-                            <button  class="btn btn-success glyphicon glyphicon-chevron-right" style="width:100%;" onclick="event.preventDefault();addMaterial();"></button>
+                        <div class="col-sm-2" style="padding-top:2%;">
+                            <button  class="btn btn-success glyphicon glyphicon-chevron-left" style="width:100%;margin-bottom:20px;" onclick="event.preventDefault();removeProductMaterial();"></button>
+                            <button  class="btn btn-success glyphicon glyphicon-chevron-right" style="width:100%;" onclick="event.preventDefault();addProductMaterial();"></button>
                         </div>
                         <div class="col-sm-5">
-                            <label>Current Product Materials </label>
-                            <select multiple id="curr_materials" class="form-control" style="width:100%;height:400px;">
+                            <label>Current Product Materials </label><br>
+                            <input id="search_curr_materials" class="form-control" onkeyup="return SearchMaterials('curr');">
+                            <select multiple id="curr_materials" class="form-control" style="width:100%;height:100px;">
                                 @foreach($curMaterials as $curMaterial)
-                                    <option value="{{$curMaterial['id']}}">{{$curMaterial['material_name']}}</option>
+                                    <option value="{{$curMaterial['id']}}">{{$curMaterial['material_name']}} -- {{$curMaterial['price']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PUT SUB PRODUCTS HERE -->
+                <div class="form-group">
+                    <label >Select Sub Products: *</label>
+                    <input type="hidden" id="product_id" value="{{$product->id}}">
+                    <div class="container-fluid" >
+                        <div class="col-sm-5">
+                            <label>All Sub Products </label><br>
+                            <input id="search_all_subproducts" class="form-control" onkeyup="return SearchSubProducts('all');">
+                            <select multiple id="all_subproducts" class="form-control" style="width:100%;height:100px;">
+                                @foreach($allSubProducts as $allSubProduct)
+                                    <option value="{{$allSubProduct->id}}">{{$allSubProduct->sub_product_name}} -- {{$allSubProduct->price}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:2%;">
+                            <button  class="btn btn-success glyphicon glyphicon-chevron-left" style="width:100%;margin-bottom:20px;" onclick="event.preventDefault();removeSubProduct();"></button>
+                            <button  class="btn btn-success glyphicon glyphicon-chevron-right" style="width:100%;" onclick="event.preventDefault();addSubProduct();"></button>
+                        </div>
+                        <div class="col-sm-5">
+                            <label>Current Sub Products</label><br>
+                            <input id="search_curr_subproducts" class="form-control" onkeyup="return SearchSubProducts('curr');">
+                            <select multiple id="curr_subproducts" class="form-control" style="width:100%;height:100px;">
+                                @foreach($curSubProducts as $curSubProduct)
+                                    <option value="{{$curSubProduct['id']}}">{{$curSubProduct['sub_product_name']}} -- {{$curSubProduct['price']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -88,10 +120,11 @@
 
                 <!-- IMAGE UPLOADER --->
                 <div class="form-group">
+                    <input type ="hidden" id="module_id" value="{{$moduleId}}">
                     <label >Product Images: </label><br>
                     <span class="btn btn-success fileinput-button">
                         <i class="glyphicon glyphicon-plus"></i>
-                        <span>upload material image</span>
+                        <span>upload product image</span>
                         <!-- The file input field used as target for the file upload widget -->
                         <input id="fileupload" type="file" name="files[]">
                     </span>

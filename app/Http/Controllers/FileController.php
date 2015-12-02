@@ -25,11 +25,11 @@ class FileController extends Controller
                 $fileName = md5(time()) . '.jpg';
                 $file->disk_name = $fileName;
                 $file->file_name = $request->file('files')[0]->getClientOriginalName();
-                $file->module_id = $request->input('module_id'); //should be 4 = material
+                $file->module_id = $request->input('module_id'); //should be 1 = material
                 $file->is_active = true;
                 $file->save();
                 $request->file('files')[0]->move(base_path() . Config::get('app.filepath') . '/', $fileName);
-                echo json_encode(array('fileId' => $file->id,'fileName'=>$file->disk_name));
+                echo json_encode(array('fileId' => $file->id,'fileName'=>$file->disk_name,'moduleId'=>$file->module_id));
 
             }
         }

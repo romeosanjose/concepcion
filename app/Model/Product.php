@@ -11,4 +11,8 @@ class Product extends Model
     public function materials(){
         return $this->hasMany('App\Model\ProductMaterial');
     }
+
+    public function sub_products(){
+        return $this->hasMany('App\Model\MainSubProduct');
+    }
 }

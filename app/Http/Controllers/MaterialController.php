@@ -108,11 +108,13 @@ class MaterialController extends Controller
         $material = $matObj->find($id);
         $materialCategories = MaterialCategory::all();
         $materialCategId = MaterialCategory::find($material->material_categ_id);
+        $moduleId = 4; //material
         //get the image assiociates
         $matFiles = Files::where('attachment_id',$material->id)
                            ->where('is_active',True)
+                           ->where('module_id',$moduleId)
                            ->get();
-        return view('pages.admin.material.edit', ['material'=>$material, 'materialCategories'=>$materialCategories,'materialCategId'=>$materialCategId,'matFiles'=>$matFiles]);
+        return view('pages.admin.material.edit', ['material'=>$material, 'materialCategories'=>$materialCategories,'materialCategId'=>$materialCategId,'matFiles'=>$matFiles,'moduleId'=>$moduleId]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\MainSubProduct;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use App\Model\Files;
 use App\Model\Module;
 use App\Model\Material;
 use App\Model\ProductMaterial;
+use App\Model\SubProduct;
 use Config;
 use DB;
 use Redirect;
@@ -25,27 +27,28 @@ class ProductController extends Controller
      */
     public function lists(Request $request)
     {
+
+
          if ($request->has('search')){
-            $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
-                                                        'from product ' .
-                                                        'where product.is_active=1 ' .
-                                                        'where product.id LIKE %:search% OR product.product_name LIKE %:search% ' .
-                                                        'group by product.id ',
-                                                    [':search'=>$request->input('search')]
+            $products = DB::select("select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name " .
+                                        "from product " .
+                                        "where product.is_active=1 " .
+                                        "and product.id LIKE '%".$request->input('search')."%' OR product.product_name LIKE '%".$request->input('search'). "%' " .
+                                        "group by product.id "
+
                                                     );
         }else if ($request->has('sortby')){
-             $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
-                                                        'from product ' .
-                                                        'where product.is_active=1 ' .
-                                                        'group by product.id ' .
-                                                        'order by :sortby',
-                                                    [':sortby'=>$request->input('sortby')]
+             $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .                                         'from product ' .
+                                         'where product.is_active=1 ' .
+                                         'group by product.id ' .
+                                         'order by :sortby ',
+                                         [':sortby'=>$request->input('sortby')]
                                                     );
         }else{
-           $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
-                                                        'from product ' .
-                                                        'where product.is_active=1 ' .
-                                                        'group by product.id '
+           $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .
+                                         'from product ' .
+                                         'where product.is_active=1 ' .
+                                         'group by product.id '
                                                     );
 
         }
@@ -61,7 +64,17 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-
+        //1. get all products
+        //2. get subproducts from product
+        //3. create materials array
+        //4. loop all materials
+        //5.  loop curr materials in materials subproduct
+        //6.    if curr material not in material array index
+                    // set material index
+                    // add material price
+        //     else
+                    //get material index
+                    //append material price
          $product = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
                                                         'from product ' .
                                                         'where product.is_active=1 ' .
@@ -153,12 +166,14 @@ class ProductController extends Controller
         $product = $productobj->find($id);
         $productCategories = Category::all();
         $productCategId = Category::find($product->category_id);
+        $moduleId = 2; //product
         //get the image assiociates
         $prodFiles = Files::where('attachment_id',$product->id)
             ->where('is_active',True)
+            ->where('module_id',$moduleId)
             ->get();
 
-
+        //materials sesction
         //get all materials associated
         $curMaterials = array();
         $curMatIds = array();
@@ -178,15 +193,44 @@ class ProductController extends Controller
             $matExtObject = null;
 
         }
-//        echo '<pre>';
-//        print_r($curMatIds);die();
+
        //get all the materials not in current product
         $allMaterials = Material::whereNotIn('id',$curMatIds)
                                 ->orderBy('material_name','asc')
                                 ->get();
 
+
+        //subproducts section
+        //get all subproducts associated
+        $curSubProducts = array();
+        $curSubProductIds = array();
+        $subProducts = Product::find($id)
+            ->sub_products()
+            ->get();
+
+
+        foreach ($subProducts as $pm){
+            //gets the current set materials
+            $subprodExtObject = SubProduct::where('is_active',true)
+                ->where('id',$pm->sub_product_id)
+                ->first();
+
+            array_push($curSubProducts,$subprodExtObject);
+            array_push($curSubProductIds,$pm->sub_product_id);
+            $subprodExtObject = null;
+
+        }
+
+        //get all the subproducts not in current main product
+        $allSubProducts = SubProduct::whereNotIn('id',$curSubProductIds)
+            ->orderBy('sub_product_name','asc')
+            ->get();
+
+
         return view('pages.admin.product.edit', ['product'=>$product, 'productCategories'=>$productCategories, 'productCategId'=>$productCategId,
-                                                 'prodFiles'=>$prodFiles,'allMaterials'=>$allMaterials, 'curMaterials'=> $curMaterials]);
+                                                 'prodFiles'=>$prodFiles,'allMaterials'=>$allMaterials, 'curMaterials'=> $curMaterials,
+                                                 'allSubProducts'=>$allSubProducts, 'curSubProducts'=> $curSubProducts,'moduleId'=>$moduleId
+                                                ]);
     }
 
     /**
@@ -249,6 +293,7 @@ class ProductController extends Controller
     /**
      * API for adding materials being called from js
      */
+
     public function addMaterial(Request $request){
         $prodId = $request->input('product_id');
         $matId = $request->input('material_id');
@@ -286,7 +331,7 @@ class ProductController extends Controller
     }
 
     /**
-     * API or adding materials being called from js
+     * API or removing materials being called from js
      */
     public function removeMaterial(Request $request){
         $prodId = $request->input('product_id');
@@ -295,12 +340,6 @@ class ProductController extends Controller
         ProductMaterial::where('product_id',$prodId)
                                   ->where('material_id',$matId)
                                   ->delete();
-
-//        $prodMat->where('product_id',$prodId)
-//            ->where('material_id',$matId)
-//            ->update([
-//                'is_active' => false
-//            ]);
 
         //get the product-materials
         $curMaterials = array();
@@ -328,4 +367,86 @@ class ProductController extends Controller
         return json_encode(array('curMaterials'=>$curMaterials,'allMaterials'=>$allMaterials));
     }
 
+
+    /**
+     * API for adding subproducts being called from js
+     */
+    public function addSubProduct(Request $request){
+        $prodId = $request->input('product_id');
+        $subProdId = $request->input('sub_product_id');
+        //add sub product
+        $subProd = new MainSubProduct();
+        $subProd->product_id = $prodId;
+        $subProd->sub_product_id = $subProdId;
+        $subProd->save();
+
+        //get all subproducts associated
+        $curSubProducts = array();
+        $curSubProductIds = array();
+        $subProducts = Product::find($prodId)
+            ->sub_products()
+            ->get();
+
+
+        foreach ($subProducts as $pm){
+            //gets the current set materials
+            $subprodExtObject = SubProduct::where('is_active',true)
+                ->where('id',$pm->sub_product_id)
+                ->first();
+
+            array_push($curSubProducts,$subprodExtObject);
+            array_push($curSubProductIds,$pm->sub_product_id);
+            $subprodExtObject = null;
+
+        }
+
+        //get all the subproducts not in current main product
+        $allSubProducts = SubProduct::whereNotIn('id',$curSubProductIds)
+            ->orderBy('sub_product_name','asc')
+            ->get();
+
+        //return current and all materials
+        return json_encode(array('curSubProducts'=>$curSubProducts,'allSubProducts'=>$allSubProducts));
+    }
+
+
+    /**
+     * API or removing materials being called from js
+     */
+    public function removeSubProduct(Request $request){
+        $prodId = $request->input('product_id');
+        $subProdId = $request->input('sub_product_id');
+        //delete sub product
+        MainSubProduct::where('product_id',$prodId)
+            ->where('sub_product_id',$subProdId)
+            ->delete();
+
+        //get all subproducts associated
+        $curSubProducts = array();
+        $curSubProductIds = array();
+        $subProducts = Product::find($prodId)
+            ->sub_products()
+            ->get();
+
+
+        foreach ($subProducts as $pm){
+            //gets the current set materials
+            $subprodExtObject = SubProduct::where('is_active',true)
+                ->where('id',$pm->sub_product_id)
+                ->first();
+
+            array_push($curSubProducts,$subprodExtObject);
+            array_push($curSubProductIds,$pm->sub_product_id);
+            $subprodExtObject = null;
+
+        }
+
+        //get all the subproducts not in current main product
+        $allSubProducts = SubProduct::whereNotIn('id',$curSubProductIds)
+            ->orderBy('sub_product_name','asc')
+            ->get();
+
+        //return current and all materials
+        return json_encode(array('curSubProducts'=>$curSubProducts,'allSubProducts'=>$allSubProducts));
+    }
 }

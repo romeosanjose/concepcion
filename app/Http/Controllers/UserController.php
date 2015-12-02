@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Validator;
+use Redirect;
 
 
 
@@ -16,18 +17,15 @@ class UserController extends Controller
     public function index(Request $request){
         
         if ($request->has('search')){
-            $users = User::where('is_active',1)
-                    ->where('id','LIKE',"%".$request->input('search')."%")
+            $users = User::where('id','LIKE',"%".$request->input('search')."%")
                     ->orWhere('email','LIKE',"%".$request->input('search')."%")
                     ->paginate(5);
         }else{
             if ($request->has('sortby')){
-                $users = User::where('is_active',1)
-                    ->orderBy($request->input('sortby')) 
+                $users = User::orderBy($request->input('sortby'))
                     ->paginate(5);
             }else{
-                $users = User::where('is_active',1)
-                        ->paginate(5);
+                $users = User::paginate(5);
             }
         }
 
@@ -55,6 +53,7 @@ class UserController extends Controller
         try{
             $this->validate($request, [
                 'password' => 'required|confirmed|min:6',
+                'password_confirmation' => 'required|min:6',
                 'email' => 'required|email|max:255|unique:users'
             ]);
 
@@ -64,13 +63,13 @@ class UserController extends Controller
             $userobj->contact = $request->input('contact');
             $userobj->firstname = $request->input('firstname');
             $userobj->lastname = $request->input('lastname');
-            $userobj->is_admin = ($request->input('isadmin')=='1')? true : false;
+            $userobj->is_admin = ($request->input('is_admin'))? true : false;
             $userobj->is_active = true;
             $userobj->save();
-            
-            return json_encode(array("message"=>"Success! New user has been added"));
+
+            return Redirect::to('/back/user/edit/'.$userobj->id);
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+            return Redirect::to('/back/user/create')->withwith('message','Oops! Something went wrong. Please try again later' );
         }
         
     }
@@ -108,16 +107,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
          try{
             $this->validate($request, [
-                'username' => 'required|max:255',
                 'email' => 'required|email|max:255'
             ]);
 
-            $is_admin = ($request->input('isadmin')=='1')? true : false;
-            $is_active = ($request->input('isactive')=='1')? true : false;
+            $is_admin = ($request->input('is_admin'))? true : false;
+            $is_active = ($request->input('is_active'))? true : false;
             $userobj = new User;
             $userobj->where('id',$request->input('id'))
                     ->update([
@@ -128,37 +126,13 @@ class UserController extends Controller
                         'is_admin' => $is_admin,
                         'is_active' => $is_active
                     ]);
-            
-            return json_encode(array("message"=>"Success! user ". $request->input('id') ." has been updated"));
+
+             return Redirect::to("/back/user/edit/$id")->with('message', $request->input('email') . ' was successfully updated');
         }catch(Exception $e){
-            return json_encode(array("message"=>"Oops! Something went wrong. Please try again later"));
+             return Redirect::to("/back/user/edit/$id")->with('message','Oops! Something went wrong. Please try again later' );
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
-    private function getRequestVariables($request){
-        $user = array();
-        if ($request !== null){
-            $user = array(
-              "username" =>  $request::input('username'),
-              "password" =>  $request::input('password'),
-              "email" =>  $request::input('email'),
-              "firstname" =>  $request::input('firstname'),
-              "lastname" =>  $request::input('lastname'),
-              "isadmin" =>  $request::input('isadmin')  
-            );
-        }
-       return $user; 
-    }
     
 }
