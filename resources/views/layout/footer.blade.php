@@ -12,5 +12,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{URL::asset('assets/js/jquery-1.11.3.min.js')}}"></script>
     <script src="{{URL::asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('assets/vendor/Gallery-master/js/jquery.blueimp-gallery.min.js')}}"></script>
+    <script src="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/js/bootstrap-image-gallery.min.js')}}"></script>
   </body>
 </html>

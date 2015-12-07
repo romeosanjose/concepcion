@@ -15,6 +15,54 @@ use DB;
 class ProjectController extends Controller
 {
 
+    public function lists(Request $request)
+    {
+
+
+        if ($request->has('search')){
+            $projects = DB::select("select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name " .
+                "from project " .
+                "where project.is_active=1 " .
+                "and project.id LIKE '%".$request->input('search')."%' OR project.project_name LIKE '%".$request->input('search'). "%' " .
+                "group by project.id "
+
+            );
+        }else if ($request->has('sortby')){
+            $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from project ' .
+                'where project.is_active=1 ' .
+                'group by project.id ' .
+                'order by :sortby ',
+                [':sortby'=>$request->input('sortby')]
+            );
+        }else{
+            $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from project ' .
+                'where project.is_active=1 ' .
+                'group by project.id '
+            );
+
+        }
+
+        return view('pages.project.list', ['projects'=>$projects]);
+    }
+
+
+    public function show($id)
+    {
+        //$user = Auth::user();
+        $projectobj = new Project;
+        $project = $projectobj->find($id);
+        $moduleId = 1; //project
+
+        //get the image assiociates
+        $projFiles = Files::where('attachment_id',$project->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+        return view('pages.project.show', ['project'=>$project,'projFiles'=>$projFiles]);
+    }
 
 
     /**

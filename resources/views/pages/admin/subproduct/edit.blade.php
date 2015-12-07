@@ -24,11 +24,11 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="product_name">Enter Sub Product Name: *</label>
-                    <input type="text" class="form-control" name="product_name" value="{{$product->sub_product_name}}">
+                    <input type="text" class="form-control" name="sub_product_name" value="{{$product->sub_product_name}}">
                 </div>
                 <div class="form-group">
                     <label for="product_desc">Enter Sub Product Description: *</label>
-                    <textarea  class="form-control" name="product_desc">{{$product->sub_product_desc}}</textarea>
+                    <textarea  class="form-control" name="sub_product_desc">{{$product->sub_product_desc}}</textarea>
                 </div>
                 <!-- PUT MATERIALS HERE -->
                 <div class="form-group">
@@ -47,6 +47,8 @@
                         <div class="col-sm-2" style="padding-top:2%;">
                             <button  class="btn btn-success glyphicon glyphicon-chevron-left" style="width:100%;margin-bottom:20px;" onclick="event.preventDefault();removeSubProductMaterial();"></button>
                             <button  class="btn btn-success glyphicon glyphicon-chevron-right" style="width:100%;" onclick="event.preventDefault();addSubProductMaterial();"></button>
+                            <label for="mat_price">Material Price</label>
+                            <input id="mat_price" name="mat_price" type="text" class="form-control">
                         </div>
                         <div class="col-sm-5">
                             <label>Current Sub Product Materials </label><br>

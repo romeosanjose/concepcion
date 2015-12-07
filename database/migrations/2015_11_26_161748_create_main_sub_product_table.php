@@ -23,7 +23,20 @@ class CreateMainSubProductTable extends Migration
             [
                 'product_id' => 1,
                 'sub_product_id' => 1,
-            ]);
+            ],
+            [
+                'product_id' => 1,
+                'sub_product_id' => 2,
+            ],
+            [
+                'product_id' => 1,
+                'sub_product_id' => 3,
+            ],
+            [
+                'product_id' => 1,
+                'sub_product_id' => 4,
+            ]
+            );
     }
 
     /**

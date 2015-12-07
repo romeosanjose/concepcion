@@ -67,9 +67,9 @@ class SubProductController extends Controller
                 'price' => 'required|numeric',
                 'size' => 'required|numeric'
             ]);
-            $productobj = new Product;
-            $productobj->product_name = $request->input('sub_product_name');
-            $productobj->product_desc = $request->input('sub_product_desc');
+            $productobj = new SubProduct;
+            $productobj->sub_product_name = $request->input('sub_product_name');
+            $productobj->sub_product_desc = $request->input('sub_product_desc');
             $productobj->size = $request->input('size');
             $productobj->price = $request->input('price');
             $productobj->is_active = true;
@@ -189,10 +189,13 @@ class SubProductController extends Controller
     public function addMaterial(Request $request){
         $prodId = $request->input('sub_product_id');
         $matId = $request->input('material_id');
+        $matPrice = $request->input('price');
         //add material product
         $prodMat = new SubProductMaterial();
         $prodMat->sub_product_id = $prodId;
         $prodMat->material_id = $matId;
+        $prodMat->mat_sub_price = $matPrice;
+
         $prodMat->is_active = true;
         $prodMat->save();
 

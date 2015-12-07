@@ -24,11 +24,11 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="product_name">Enter Sub Product Name: *</label>
-                    <input type="text" class="form-control" name="product_name">
+                    <input type="text" class="form-control" name="sub_product_name">
                 </div>
                 <div class="form-group">
                     <label for="product_desc">Enter Sub Product Description: *</label>
-                    <textarea  class="form-control" name="product_desc"></textarea>
+                    <textarea  class="form-control" name="sub_product_desc"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="price">Enter Price: </label>

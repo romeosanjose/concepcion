@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\MainSubProduct;
+use App\Model\SubProductMaterial;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,8 @@ class ProductController extends Controller
 
                                                     );
         }else if ($request->has('sortby')){
-             $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .                                         'from product ' .
+             $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .
+                                         'from product ' .
                                          'where product.is_active=1 ' .
                                          'group by product.id ' .
                                          'order by :sortby ',
@@ -64,26 +66,145 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //1. get all products
-        //2. get subproducts from product
-        //3. create materials array
-        //4. loop all materials
-        //5.  loop curr materials in materials subproduct
-        //6.    if curr material not in material array index
-                    // set material index
-                    // add material price
-        //     else
-                    //get material index
-                    //append material price
-         $product = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 1) as disk_name ' .
-                                                        'from product ' .
-                                                        'where product.is_active=1 ' .
-                                                        'and product.id=:id ' .
-                                                        'group by product.id ',
-                                                    [':id'=>$id]  
-                                                    );
-        return view('pages.product.show', ['product'=>$product]);   
+        $product = Product::find($id);
+        $moduleId = 2; //product
+        //get the image assiociates
+        $prodFiles = Files::where('attachment_id',$product->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+        //1. get subproducts from product
+        $curSubProducts = array();
+        $curSubProductsNames = array();
+        $matPriceArray= '';
+        $subProducts = Product::find($id)
+            ->sub_products()
+            ->get();
+
+        foreach ($subProducts as $pm){
+            $subprodExtObject = SubProduct::where('is_active',true)
+                ->where('id',$pm->sub_product_id)
+                ->first();
+            array_push($curSubProducts,$subprodExtObject);
+            array_push($curSubProductsNames,$subprodExtObject->sub_product_name);
+            $subprodExtObject = null;
+        }
+        //2. create materials array
+        $allMaterialsArr = Material::all();
+        //3. loop all materials
+        $currMaterialsDet = array();
+        foreach($curSubProducts as $curSubProduct){
+            $prodMaterials = SubProduct::find($curSubProduct->id)
+                ->materials()
+                ->get();
+
+            foreach ($prodMaterials as $pm){
+                //gets the current set materials
+                $matExtObject = Material::where('is_active',true)
+                    ->where('id',$pm->material_id)
+                    ->first();
+
+                array_push($currMaterialsDet,array('subprod_name'=>$curSubProduct->sub_product_name,'mat_sub_id'=>$matExtObject->id,'mat_sub_name'=>$matExtObject->material_name,'mat_sub_price'=>$pm->mat_sub_price));
+                $matPriceArray[$matExtObject->material_name] = array();
+                $matExtObject = null;
+
+            }
+
+        }
+
+//        echo '<pre>';
+        $count= 0;
+        foreach ($curSubProducts as $cuuProd) {
+
+            foreach ($currMaterialsDet as $matItem) {
+                $matCount = SubProductMaterial::where('sub_product_id',$cuuProd->id)
+                                ->where('material_id',$matItem['mat_sub_id'])
+                                ->first();
+                if ($matCount){
+
+
+                    //check if key value pairs exist first
+                    if (!empty($matPriceArray[$matItem['mat_sub_name']])){
+                        $isExist = False;
+
+                        if (array_key_exists($count,$matPriceArray[$matItem['mat_sub_name']])) {
+
+                            if (array_key_exists($cuuProd->sub_product_name, $matPriceArray[$matItem['mat_sub_name']][$count])) {
+                                if ($count < count($matPriceArray)) {
+//                                    print 'key: ' . key($matPriceArray[$matItem['mat_sub_name']][$count]) . ' productname: ' . $cuuProd->sub_product_name . '<br>';
+                                    if (key($matPriceArray[$matItem['mat_sub_name']][$count]) == $cuuProd->sub_product_name) {
+//                                        print 'exist<br>';
+//                                        print 'price: ' . $matPriceArray[$matItem['mat_sub_name']][$count][$cuuProd->sub_product_name] . ' price actual: ' . $matCount->mat_sub_price . '<br>';
+                                        if ($matPriceArray[$matItem['mat_sub_name']][$count][$cuuProd->sub_product_name] == $matCount->mat_sub_price) {
+
+                                            $isExist = True;
+                                            continue;
+                                        }
+                                    }
+                                }else{
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!$isExist){
+                            array_push($matPriceArray[$matItem['mat_sub_name']], array($cuuProd->sub_product_name=>$matCount->mat_sub_price) );
+                        }
+
+                    }else{
+                        array_push($matPriceArray[$matItem['mat_sub_name']], array($cuuProd->sub_product_name=>$matCount->mat_sub_price) );
+                    }
+
+                } else {
+
+
+                    //check if key value pairs exist first
+                    if (!empty($matPriceArray[$matItem['mat_sub_name']])){
+                        $isExist = False;
+                        if (array_key_exists($count,$matPriceArray[$matItem['mat_sub_name']])) {
+                            if (array_key_exists($cuuProd->sub_product_name, $matPriceArray[$matItem['mat_sub_name']][$count])) {
+                                if ($count < count($matPriceArray)) {
+                                    if (key($matPriceArray[$matItem['mat_sub_name']][$count]) == $cuuProd->sub_product_name) {
+                                        if ($matPriceArray[$matItem['mat_sub_name']][$count][$cuuProd->sub_product_name] == '&nbsp;') {
+
+                                            $isExist = True;
+                                            continue;
+                                        }
+                                    }
+                                }else{
+                                    break;
+                                }
+                            }
+                        }
+                       if (!$isExist){
+                            array_push($matPriceArray[$matItem['mat_sub_name']], array($cuuProd->sub_product_name=>'&nbsp;') );
+                        }
+
+                    }else{
+                        array_push($matPriceArray[$matItem['mat_sub_name']], array($cuuProd->sub_product_name=>'&nbsp;') );
+                    }
+
+
+
+                }
+
+
+            }
+            $count++;
+        }
+
+//        print_r($matPriceArray);
+        //print_r($curSubProducts);
+//        echo 'product';
+//        dd($product);
+//        die();
+
+        return view('pages.product.show', ['product'=>$product,'curSubProducts'=>$curSubProducts,'matPriceArray'=>$matPriceArray,'prodFiles'=>$prodFiles]);
     }
+
+
+
 
     /**
      * Display a listing of the resource.

@@ -145,9 +145,14 @@ $(document).ready(function(){
      */
     addSubProductMaterial = function(){
         //checks if value of items are more than one
+        if ($('#mat_price').val()==''){
+            alert('Please set a price first on this material for this sub-product,before adding it');
+            return false;
+        }
         var foo = [];
         var prodId = $('#product_id').val();
         var matId = 0;
+        var matPrice = $('#mat_price').val();
         //1. get the value of the selected in listbox and store it
         $('#all_materials :selected').each(function(i, selected){
             foo[i] = $(selected).text();
@@ -165,8 +170,9 @@ $(document).ready(function(){
             },
             method: 'POST',
             url: ADD_SUB_PRODUCT_MATERIAL,
-            data: {sub_product_id:prodId,material_id:matId},
+            data: {sub_product_id:prodId,material_id:matId,price:matPrice},
             success:function(data){
+                $('#mat_price').val('');
                 refreshMaterials(data);
             }
         });
