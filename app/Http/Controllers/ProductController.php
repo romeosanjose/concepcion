@@ -74,6 +74,24 @@ class ProductController extends Controller
             ->where('module_id',$moduleId)
             ->get();
 
+        //get product materials
+        $prodMaterials = Product::find($id)
+            ->materials()
+            ->get();
+        $curMaterials = array();
+        foreach ($prodMaterials as $pm){
+            //gets the current set materials
+            $matExtObject = Material::where('is_active',true)
+                ->where('id',$pm->material_id)
+                ->first();
+
+            array_push($curMaterials,$matExtObject);
+//            array_push($curMatIds,$pm->material_id);
+            $matExtObject = null;
+
+        }
+
+
         //1. get subproducts from product
         $curSubProducts = array();
         $curSubProductsNames = array();
@@ -90,9 +108,7 @@ class ProductController extends Controller
             array_push($curSubProductsNames,$subprodExtObject->sub_product_name);
             $subprodExtObject = null;
         }
-        //2. create materials array
-        $allMaterialsArr = Material::all();
-        //3. loop all materials
+
         $currMaterialsDet = array();
         foreach($curSubProducts as $curSubProduct){
             $prodMaterials = SubProduct::find($curSubProduct->id)
@@ -194,13 +210,8 @@ class ProductController extends Controller
             $count++;
         }
 
-//        print_r($matPriceArray);
-        //print_r($curSubProducts);
-//        echo 'product';
-//        dd($product);
-//        die();
 
-        return view('pages.product.show', ['product'=>$product,'curSubProducts'=>$curSubProducts,'matPriceArray'=>$matPriceArray,'prodFiles'=>$prodFiles]);
+        return view('pages.product.show', ['product'=>$product,'curSubProducts'=>$curSubProducts,'matPriceArray'=>$matPriceArray,'prodFiles'=>$prodFiles,'curMaterials'=>$curMaterials]);
     }
 
 

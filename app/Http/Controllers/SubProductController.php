@@ -16,7 +16,46 @@ use Redirect;
 class SubProductController extends Controller
 {
     
-    
+    public function show($name){
+
+        $products = SubProduct::where('sub_product_name',$name)->get();
+        $product = null;
+        foreach($products as $p){
+            $product = $p;
+        }
+
+        $moduleId = 6; //project
+        //get the image assiociates
+        $prodFiles = Files::where('attachment_id',$product->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+
+        //get all materials associated
+        $curMaterials = array();
+        $curMatIds = array();
+        $prodMaterials = SubProduct::find($product->id)
+            ->materials()
+            ->get();
+
+
+        foreach ($prodMaterials as $pm){
+            //gets the current set materials
+            $matExtObject = Material::where('is_active',true)
+                ->where('id',$pm->material_id)
+                ->first();
+
+            array_push($curMaterials,$matExtObject);
+            array_push($curMatIds,$pm->material_id);
+            $matExtObject = null;
+
+        }
+
+
+        return view('pages.sub_product.show', ['product'=>$product,'prodFiles'=>$prodFiles,'curMaterials'=> $curMaterials]);
+    }
+
     /**
      * Display a listing of the resource.
      *

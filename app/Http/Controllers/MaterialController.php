@@ -9,10 +9,77 @@ use App\Model\Material;
 use App\Model\MaterialCategory;
 use App\Model\Files;
 use Redirect;
-
+use DB;
 
 class MaterialController extends Controller
 {
+
+    public function lists(Request $request)
+    {
+
+
+        if ($request->has('search')){
+            $materials = DB::select("select material.*,(select disk_name from files where attachment_id=material.id and module_id= 4 and is_active=1 order by id desc limit 1) as disk_name " .
+                "from material " .
+                "where material.is_active=1 " .
+                "and material.id LIKE '%".$request->input('search')."%' OR material.material_name LIKE '%".$request->input('search'). "%' " .
+                "group by material.id "
+
+            );
+        }else if ($request->has('sortby')){
+            $materials = DB::select('select material.*,(select disk_name from files where attachment_id=material.id and module_id= 4 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from material ' .
+                'where material.is_active=1 ' .
+                'group by material.id ' .
+                'order by :sortby ',
+                [':sortby'=>$request->input('sortby')]
+            );
+        }else{
+            $materials = DB::select('select material.*,(select disk_name from files where attachment_id=material.id and module_id= 4 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from material ' .
+                'where material.is_active=1 ' .
+                'group by material.id '
+            );
+
+        }
+
+        return view('pages.materials.list', ['materials'=>$materials]);
+    }
+
+    public function show($id){
+        $matObj = new Material;
+        $material = $matObj->find($id);
+
+        $materialCategories = MaterialCategory::all();
+        $materialCategId = MaterialCategory::find($material->material_categ_id);
+        $moduleId = 4; //material
+        //get the image assiociates
+        $matFiles = Files::where('attachment_id',$material->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+        return view('pages.materials.detail', ['material'=>$material, 'materialCategories'=>$materialCategories,'materialCategId'=>$materialCategId,'matFiles'=>$matFiles,'moduleId'=>$moduleId]);
+    }
+
+    public function detail($name){
+//        $matObj = new Material;
+//        $material = $matObj->find($id);
+        $materials = Material::where('material_name',$name)->get();
+        $material = null;
+        foreach($materials as $m){
+            $material = $m;
+        }
+        $materialCategories = MaterialCategory::all();
+        $materialCategId = MaterialCategory::find($material->material_categ_id);
+        $moduleId = 4; //material
+        //get the image assiociates
+        $matFiles = Files::where('attachment_id',$material->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+        return view('pages.materials.detail', ['material'=>$material, 'materialCategories'=>$materialCategories,'materialCategId'=>$materialCategId,'matFiles'=>$matFiles,'moduleId'=>$moduleId]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,6 +132,7 @@ class MaterialController extends Controller
             $this->validate($request, [
                 'material_name' => 'required|unique:material|max:255|min:3',
                 'material_desc' => 'required|min:10',
+                'material_code'=>'required:min:3',
                 'price' => 'required:numeric',
                 'size' => 'required:numeric'
             ]);
@@ -73,6 +141,7 @@ class MaterialController extends Controller
             $matObj->material_name = $request->input('material_name');
             $matObj->material_desc = $request->input('material_desc');
             $matObj->material_categ_id = $request->input('material_category');
+            $matObj->material_code = $request->input('material_code');
             $matObj->price = $request->input('price');
             $matObj->size = $request->input('size');
             $matObj->is_active = true;
@@ -85,16 +154,7 @@ class MaterialController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -130,6 +190,7 @@ class MaterialController extends Controller
             $this->validate($request, [
                 'material_name' => 'required|max:255|min:3',
                 'material_desc' => 'required|min:10',
+                'material_code'=>'required|min:3',
                 'price' => 'required:numeric',
                 'size' => 'required:numeric'
             ]);
@@ -141,6 +202,7 @@ class MaterialController extends Controller
                     'material_name' => $request->input('material_name'),
                     'material_desc' => $request->input('material_desc'),
                     'material_categ_id' => $request->input('material_category'),
+                    'material_code' => $request->input('material_code'),
                     'size' => $request->input('size'),
                     'price' => $request->input('price'),
                     'is_active' => $is_active

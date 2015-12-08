@@ -39,6 +39,10 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="material_code">Enter Material Code : *</label>
+                    <input type="text" class="form-control" id="material_code" name="material_code" value="{{$material->material_code}}">
+                </div>
+                <div class="form-group">
                     <label for="price">Enter Price: </label>
                     <input type="text" class="form-control" name="price" value="{{$material->price}}">
                 </div>

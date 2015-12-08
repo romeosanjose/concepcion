@@ -17,6 +17,7 @@ class CreateMaterialsTable extends Migration
             $table->string('material_name')->unique();;
             $table->string('material_desc');
             $table->string('material_categ_id');
+            $table->string('material_code');
             $table->float('price');
             $table->float('gross_price');
             $table->decimal('size',6,2);
@@ -29,6 +30,7 @@ class CreateMaterialsTable extends Migration
                 'material_name' => 'Sample Material',
                 'material_desc' => 'Sample Material Description',
                 'material_categ_id' => 1,
+                'material_code'=>'YD-01',
                 'price' => 14.0,
                 'gross_price' => 15.0,
                 'size' => 15.10,

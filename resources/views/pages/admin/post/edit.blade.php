@@ -31,7 +31,7 @@
                     <textarea  class="form-control" name="content">{{$post->content}}</textarea>
                 </div>
                 <select class="form-control" name="post_type">
-                    <option selected disabled value="{{$post->post_type}}">Please select one option</option>
+                    <option  value="{{$post->post_type}}">{{$postTypeId->name}}</option>
                     @foreach($postTypes as $postType)
                         <option value="{{$postType->id}}">{{$postType->name}}</option>
                     @endforeach
@@ -95,7 +95,7 @@
                     <button  class="btn btn-success" type="submit" style="width:100%;">Update</button>
                 </div>
                 <div class="form-group">
-                    <a href="/back/material" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                    <a href="/back/post" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
                 </div>
 
             </form>

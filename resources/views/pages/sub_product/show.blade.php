@@ -50,51 +50,21 @@
             </div>
         @endif
         <br>
-            <dl class="dl-horizontal">
-                <dt>Product Name:</dt>
-                <dd>{{$product->product_name}}</dd>
-            </dl>
-            <dl class="dl-horizontal">
-                <dt>Product Description:</dt>
-                <dd>{{$product->product_desc}}</dd>
-            </dl>
-            <dl class="dl-horizontal">
-                <dt>Product Code:</dt>
-                <dd>{{$product->product_code}}</dd>
-            </dl>
-
-        @if (count($curSubProducts) > 0)
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Materials</th>
-                  @foreach($curSubProducts as $subProd)
-                     <th><a href="/subproduct/{{$subProd->sub_product_name}}">{{$subProd->sub_product_name}}</a></th>
-                  @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($matPriceArray as $key => $val)
-
-                    <tr>
-                        <td><a href="/material/detail/{{$key}}">{{$key}}</a></td>
-                        @foreach($val as $va)
-                            @foreach($va as $v)
-                                <td>{{$v}}</td>
-                            @endforeach
-                        @endforeach
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        @else
 
                 <dl class="dl-horizontal">
-                    <dt>Product Price:</dt>
+                    <dt>Sub Product Name:</dt>
+                    <dd>{{$product->sub_product_name}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Sub Product Description:</dt>
+                    <dd>{{$product->sub_product_desc}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Sub Product Price:</dt>
                     <dd>{{$product->price}}</dd>
                 </dl>
                 <dl class="dl-horizontal">
-                    <dt>Product Size:</dt>
+                    <dt>Sub Product Size:</dt>
                     <dd>{{$product->size}}</dd>
                 </dl>
                 <dl class="dl-horizontal">
@@ -113,7 +83,7 @@
                         </thead>
                         @foreach ($curMaterials as $curmat)
                             <tr>
-                                <td>{{$curmat->material_name}}</td>
+                                <td><a href="/material/detail/{{$curmat->material_name}}">{{$curmat->material_name}}</a></td>
                                 <td>{{$curmat->material_code}}</td>
                                 <td>{{$curmat->price}}</td>
                                 <td>{{$curmat->size}}</td>
@@ -121,7 +91,7 @@
                         @endforeach
                     </table>
                 @endif
-        @endif
+
 
     </div><!--end of row -->
     

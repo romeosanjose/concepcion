@@ -8,13 +8,71 @@ use App\Http\Controllers\Controller;
 use App\Model\Post;
 use App\Model\PostType;
 use App\Model\Files;
-use App\Model\Module;
 use Config;
 use Auth;
 use Redirect;
+use DB;
 
 class PostController extends Controller
 {
+
+    public function lists(Request $request,$postType)
+    {
+
+        if ($request->has('search')){
+            $posts = DB::select("select post.*,(select disk_name from files where attachment_id=post.id and module_id= 3 and is_active=1 order by id desc limit 1) as disk_name " .
+                "from post " .
+                "where post.is_active=1 " .
+                "and post.post_type=:postType " .
+                "and post.id LIKE '%".$request->input('search')."%' OR post.title LIKE '%".$request->input('search'). "%' " .
+                "group by post.id ",
+                [':postType'=>$postType]
+
+            );
+        }else if ($request->has('sortby')){
+            $posts = DB::select('select post.*,(select disk_name from files where attachment_id=post.id and module_id= 3 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from post ' .
+                'where post.is_active=1 ' .
+                "and post.post_type=:postType " .
+                'group by post.id ' .
+                'order by :sortby ',
+                [':postType'=>$postType,':sortby'=>$request->input('sortby')]
+            );
+        }else{
+            $posts = DB::select('select post.*,(select disk_name from files where attachment_id=post.id and module_id= 3 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from post ' .
+                'where post.is_active=1 ' .
+                "and post.post_type=:postType " .
+                'group by post.id ',
+                [':postType'=>$postType]
+            );
+
+        }
+        return view('pages.post.list', ['posts'=>$posts,'postType'=>$postType]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id,$postType)
+    {
+
+        $post = Post::find($id);
+
+        $moduleId = 3; //post
+
+        //get the image assiociates
+        $postFiles = Files::where('attachment_id',$post->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+
+        return view('pages.post.show', ['post'=>$post,'postFiles'=>$postFiles]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -64,7 +122,7 @@ class PostController extends Controller
                 'title' => 'required|unique:post|max:255|min:3',
                 'content' => 'required|min:1|max:500'
             ]);
-            $ispublished = ($request->input('ispublished')=='1')? true : false;
+            $ispublished = ($request->input('is_published'))? true : false;
             $postobj = new Post;
             $postobj->title = $request->input('title');
             $postobj->content = $request->input('content');
@@ -81,16 +139,7 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,6 +153,7 @@ class PostController extends Controller
         $postobj = new Post;
         $post = $postobj->find($id);
         $postTypes = PostType::all();
+        $postTypeId = PostType::find($post->post_type);
         $moduleId = 3; //post
 
         //get the image assiociates
@@ -112,7 +162,7 @@ class PostController extends Controller
             ->where('module_id',$moduleId)
             ->get();
 
-        return view('pages.admin.post.edit', ['post'=>$post,'user'=>$user,'postTypes'=>$postTypes,'moduleId'=>$moduleId,'postFiles'=>$postFiles]);
+        return view('pages.admin.post.edit', ['post'=>$post,'user'=>$user,'postTypes'=>$postTypes,'moduleId'=>$moduleId,'postFiles'=>$postFiles,'postTypeId'=>$postTypeId]);
     }
 
     /**
@@ -124,16 +174,19 @@ class PostController extends Controller
      */
     public function update(Request $request,$id)
     {
+
          try{
              $this->validate($request, [
                 'title' => 'required|max:255|min:3',
                 'content' => 'required|min:1|max:500'
+
             ]);
+
             $ispublished = ($request->input('is_published'))? true : false;
             $isactive = ($request->input('is_active'))? true : false;
             
             $postobj = new Post;
-            $postobj->where('id',$request->input('id'))
+            $postobj->where('id',$id)
                     ->update([
                         'title' => $request->input('title'),
                         'content' => $request->input('content'),

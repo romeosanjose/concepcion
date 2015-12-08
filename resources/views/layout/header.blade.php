@@ -39,16 +39,19 @@
               <ul class="nav navbar-nav">
                 <li><a href="{{url()}}">Home</a></li>
                 <li><a href="{{url()}}/product">Product</a></li>
+                <li><a href="{{url()}}/material">Material</a></li>
                 <li><a href="{{url()}}/project">Project</a></li>
-                <li><a href="{{url()}}/about">About</a></li>
-                <li><a href="{{url()}}/contact">Contact</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Post <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{url()}}/news">News</a></li>
-                    <li><a href="{{url()}}/jobs">Job Posting</a></li>
+                    <li><a href="{{url()}}/post/1">News</a></li>
+                    <li><a href="{{url()}}/post/2">Job Posting</a></li>
                   </ul>
                 </li>
+                <li><a href="{{url()}}/about">About</a></li>
+                <li><a href="{{url()}}/contact">Contact</a></li>
+                <li><a href="{{url()}}/services">Services</a></li>
+
               </ul>
             </div>
           </div>

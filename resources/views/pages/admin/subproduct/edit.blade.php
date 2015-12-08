@@ -20,14 +20,14 @@
         @endif
         <div class="class="class="col-md-12">
             <h2>Edit Sub Product</h2>
-            <form action="/back/product/update/{{$product->id}}" method="POST">
+            <form action="/back/subproduct/update/{{$product->id}}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                    <label for="product_name">Enter Sub Product Name: *</label>
+                    <label for="sub_product_name">Enter Sub Product Name: *</label>
                     <input type="text" class="form-control" name="sub_product_name" value="{{$product->sub_product_name}}">
                 </div>
                 <div class="form-group">
-                    <label for="product_desc">Enter Sub Product Description: *</label>
+                    <label for="sub_product_desc">Enter Sub Product Description: *</label>
                     <textarea  class="form-control" name="sub_product_desc">{{$product->sub_product_desc}}</textarea>
                 </div>
                 <!-- PUT MATERIALS HERE -->

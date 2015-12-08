@@ -36,7 +36,7 @@
                   <!-- Search body -->
                   <div id="search" class="panel-collapse collapse">
                       <div class="panel-body">
-                          <form class="navbar-form" role="search" action="{{url()}}/project" method="GET">
+                          <form class="navbar-form" role="search" action="{{url()}}/post" method="GET">
                               <div class="form-group">
                                   <input type="text" class="form-control" placeholder="Search" name="search">
                               </div>
@@ -51,8 +51,8 @@
           <!-- Main Menu -->
           <div class="side-menu-container">
               <ul class="nav navbar-nav">
-                    <li><a href="{{url()}}/project?sortby=project.project_name"><span class="glyphicon"></span>Sort by Project Name</a></li>
-                    <li><a href="{{url()}}/project?sortby=project.updated_at"><span class="glyphicon"></span>Sort by Project Creation Date</a></li>
+                    <li><a href="{{url()}}/post{{$postType}}?sortby=post.title"><span class="glyphicon"></span>Sort by Post Title</a></li>
+                    <li><a href="{{url()}}/post{{$postType}}?sortby=post.updated_at"><span class="glyphicon"></span>Sort by Post Creation Date</a></li>
               </ul>
           </div><!-- /.navbar-collapse -->
       </nav>
@@ -63,16 +63,30 @@
           <div class="container-fluid">
               <div class="side-body">
                     <div class="col-lg-12">
-                      <h1 class="page-header">PROJECTS</h1>
+                      @if ($postType == 1)
+                        <h1 class="page-header">NEWS</h1>
+                      @else
+                        <h1 class="page-header">JOB POSTINGS</h1>
+                      @endif
                     </div>
-                      @foreach ($projects as $project)  
-                        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                            <a class="thumbnail" href="{{url()}}/project/detail/{{$project->id}}">
-                                <img class="img-responsive" src="{{url().'/images/'. $project->disk_name}}" alt="">
-                            </a>
-                            <span>{{$project->project_name}}</span>
-                        </div>
-                       @endforeach 
+
+                    <div class="list-group col-lg-12">
+                      @foreach ($posts as $post)
+                        <a href="{{url()}}/post/detail/{{$post->id}}/{{$postType}}" class="list-group-item">
+                            <h3>{{$post->title}}</h3>
+                            @if (strlen($post->content) > 20)
+                                <p>{{substr( $post->content, 0, 50 ) . '...'}}</p>
+                            @else
+                                <p>{{$post->content}}</p>
+                            @endif
+                        </a>
+                      @endforeach
+                    </div>
+
+
+
+
+
                  </div>
           </div>  
 

@@ -135,13 +135,33 @@ Route::post('/back/images/store',['middleware' => 'auth','uses'=>'FileController
  * FRONT END STARTS HERE
  */
 
+
 //front end : PRODUCT
 Route::get('/product','ProductController@lists');
 Route::get('/product/detail/{id}','ProductController@show');
 
+//front end : SUB-PRODUCT
+Route::get('/subproduct/{name}','SubProductController@show');
+
+//front end : MATERIAL
+Route::get('/material','MaterialController@lists');
+Route::get('/material/detail/{name}','MaterialController@detail');
+Route::get('/material/show/{id}','MaterialController@show');
+
 //front end : PROJECT
 Route::get('/project','ProjectController@lists');
 Route::get('/project/detail/{id}','ProjectController@show');
+
+//front end : POST
+Route::get('/post/{postType}','PostController@lists');
+Route::get('/post/detail/{id}/{postType}','PostController@show');
+
+//front end :SERVICES
+Route::get('/services',function(){return view('pages.services.show');});
+//front end :CONTACTS
+Route::get('/contact',function(){return view('pages.contactus.show');});
+//front end :ABOUT
+Route::get('/about	',function(){return view('pages.aboutus.show');});
 
 //front end: IMAGES
 Route::get('/images/{filename}', function ($filename=null)
