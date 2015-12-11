@@ -51,8 +51,8 @@
           <!-- Main Menu -->
           <div class="side-menu-container">
               <ul class="nav navbar-nav">
-                    <li><a href="{{url()}}/post{{$postType}}?sortby=post.title"><span class="glyphicon"></span>Sort by Post Title</a></li>
-                    <li><a href="{{url()}}/post{{$postType}}?sortby=post.updated_at"><span class="glyphicon"></span>Sort by Post Creation Date</a></li>
+                    <li><a href="{{url()}}/post/{{$postType}}?sortby=post.title"><span class="glyphicon"></span>Sort by Post Title</a></li>
+                    <li><a href="{{url()}}/post/{{$postType}}?sortby=post.updated_at"><span class="glyphicon"></span>Sort by Post Creation Date</a></li>
               </ul>
           </div><!-- /.navbar-collapse -->
       </nav>

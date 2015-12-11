@@ -37,20 +37,20 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="{{url()}}">Home</a></li>
-                <li><a href="{{url()}}/product">Product</a></li>
-                <li><a href="{{url()}}/material">Material</a></li>
-                <li><a href="{{url()}}/project">Project</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/product">Product</a></li>
+                <li><a href="/material">Material</a></li>
+                <li><a href="/project">Project</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Post <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{url()}}/post/1">News</a></li>
-                    <li><a href="{{url()}}/post/2">Job Posting</a></li>
+                    <li><a href="/post/1">News</a></li>
+                    <li><a href="/post/2">Job Posting</a></li>
                   </ul>
                 </li>
-                <li><a href="{{url()}}/about">About</a></li>
-                <li><a href="{{url()}}/contact">Contact</a></li>
-                <li><a href="{{url()}}/services">Services</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/services">Services</a></li>
 
               </ul>
             </div>

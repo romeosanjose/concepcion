@@ -113,7 +113,7 @@
                         </thead>
                         @foreach ($curMaterials as $curmat)
                             <tr>
-                                <td>{{$curmat->material_name}}</td>
+                                <td><a href="/material/detail/{{$curmat->material_name}}">{{$curmat->material_name}}</td>
                                 <td>{{$curmat->material_code}}</td>
                                 <td>{{$curmat->price}}</td>
                                 <td>{{$curmat->size}}</td>

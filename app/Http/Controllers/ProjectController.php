@@ -23,6 +23,7 @@ class ProjectController extends Controller
             $projects = DB::select("select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name " .
                 "from project " .
                 "where project.is_active=1 " .
+                "and project.is_public=1 " .
                 "and project.id LIKE '%".$request->input('search')."%' OR project.project_name LIKE '%".$request->input('search'). "%' " .
                 "group by project.id "
 
@@ -31,6 +32,7 @@ class ProjectController extends Controller
             $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name ' .
                 'from project ' .
                 'where project.is_active=1 ' .
+                "and project.is_public=1 " .
                 'group by project.id ' .
                 'order by :sortby ',
                 [':sortby'=>$request->input('sortby')]
@@ -39,6 +41,7 @@ class ProjectController extends Controller
             $projects = DB::select('select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name ' .
                 'from project ' .
                 'where project.is_active=1 ' .
+                "and project.is_public=1 " .
                 'group by project.id '
             );
 
@@ -51,12 +54,15 @@ class ProjectController extends Controller
     public function show($id)
     {
         //$user = Auth::user();
-        $projectobj = new Project;
-        $project = $projectobj->find($id);
+        $projects = Project::where('id',$id)->where('is_public',1)->get();
+        $project = null;
+        foreach ($projects as $p)
+            $project = $p;
+
         $moduleId = 1; //project
 
         //get the image assiociates
-        $projFiles = Files::where('attachment_id',$project->id)
+        $projFiles = Files::where('attachment_id',$id)
             ->where('is_active',True)
             ->where('module_id',$moduleId)
             ->get();

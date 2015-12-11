@@ -24,7 +24,7 @@ class HomeController extends Controller
                     ->where('is_active',1)
                     ->orderBy('updated_at','desc')
                     ->first();
-        
+
         return view('pages.home',['post'=> $post, 'product'=>$product, 'project'=>$project]);
     }
     

@@ -29,6 +29,7 @@
                     <th>&nbsp;</th>
                     <th><a href="{{url()}}/back/post?sortby=id">ID</a></th>
                     <th><a href="{{url()}}/back/post?sortby=title">Title</a></th>
+                    <th><a href="{{url()}}/back/post?sortby=post_type">Post Type</a></th>
                     <th><a href="{{url()}}/back/post?sortby=is_published">Published</a></th>
                     <th><a href="{{url()}}/back/post?sortby=is_active">Active</a></th>
                     <th><a href="{{url()}}/back/post?sortby=created_at">Created</a></th>
@@ -40,6 +41,11 @@
                   <td><a href="{{url()}}/back/post/edit/{{$post->id}}" class="btn-success btn-sm"/>edit</a></td>
                   <td>{{$post->id}}</td>
                   <td>{{$post->title}}</td>
+                  @if ($post->post_type == 1)
+                    <td>News</td>
+                  @else
+                        <td>Hiring</td>
+                  @endif
                   <td>{{$post->is_published}}</td>
                   <td>{{$post->is_active}}</td>
                   <td>{{$post->created_at}}</td>

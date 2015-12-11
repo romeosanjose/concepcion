@@ -7,7 +7,7 @@
 
 <div class="content">
      <div class="row">
-
+     @if ($project != null)
         <dl class="dl-horizontal">
           <dt>Project Name</dt>
           <dd>{{$project->project_name}}</dd>
@@ -66,7 +66,7 @@
          @endif
 
 
-
+    @endif
     </div><!--end of row -->
     
 
