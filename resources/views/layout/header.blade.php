@@ -15,17 +15,18 @@
     <!-- Custom styles for this template -->
     <link href="{{URL::asset('assets/css/carousel.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/thumbnail.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 
     
   </head>
-  @if(Request::is('/'))
-    @include('layout.carousel',['post'=> $post, 'product'=>$product, 'project'=>$project])
-  @endif
+  {{--@if(Request::is('/'))--}}
+    {{--@include('layout.carousel',['post'=> $post, 'product'=>$product, 'project'=>$project])--}}
+  {{--@endif--}}
   <body class="cbp-spmenu-push pace-done">
     <div class="navbar-wrapper">
       <div class="container">
 
-        <nav class="navbar navbar-inverse navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

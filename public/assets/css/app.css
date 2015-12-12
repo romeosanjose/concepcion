@@ -15,8 +15,6 @@
     
 }
 
-
-
 .add {
     width: 100px;
     height: 30px;
@@ -25,6 +23,16 @@
 
 }
 
+.carousel-custom
+{
+    height: 100vh;
+}
+.carousel-custom .item
+{
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+}
 
 
 #custom-search-input {

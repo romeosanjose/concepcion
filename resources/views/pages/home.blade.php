@@ -1,48 +1,75 @@
 @include('layout.header',['post'=> $post, 'product'=>$product, 'project'=>$project])
 
- <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
+        <!-- Full Page Image Background Carousel Header -->
+<header id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
-        @if ($product)
-          <div class="col-lg-4">
-            <img class="img-circle" src="/assets/images/product140.png" alt="Generic placeholder image" width="140" height="140" >
-            <h2>Latest Product</h2>
-            <p>
-              <h3>{{$product->product_name}}</h3>
-                  {{$product->product_desc}}
-            </p>
-            <p><a class="btn btn-default" href="{{url()}}/product/detail/{{$product->id}}" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-        @endif
-        @if ($post)
-          <div class="col-lg-4">
-            <img class="img-circle" src="/assets/images/news140.png" alt="Generic placeholder image" width="140" height="140" >
-            <h2>Latest News</h2>
-            <p>
-                <h3>{{$post->title}}</h3>
-                  {{$post->content}}
-            </p>
-            <p><a class="btn btn-default" href="{{url()}}/post/detail/{{$post->id}}/1" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-        @endif
-        @if ($project)
-          <div class="col-lg-4">
-            <img class="img-circle" src="/assets/images/project140.png" alt="Generic placeholder image" width="140" height="140">
-            <h2>Latest Project</h2>
-            <p>
-                <h3>{{$project->project_name}}</h3>
-                  {{$project->project_desc}}
-            </p>
-            <p><a class="btn btn-default" href="{{url()}}/project/detail/{{$project->id}}" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-        @endif
-      </div><!-- /.row -->
+    <!-- Wrapper for Slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <!-- Set the first background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('/assets/images/product.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1 style="font-size: 3em;">Latest Product</h1>
+                    <h1 style="font-size: 4em;">{{$product->product_name}}</h1>
+                    <h5>{{ str_limit($product->product_desc, $limit = 50, $end = '...') }}</h5>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="{{url()}}/product/detail/{{$product->id}}" role="button">View details &raquo;</a>
+                    </p>
+                </div>
+        </div>
+        <div class="item">
+            <!-- Set the second background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('/assets/images/news.jpg');"></div>
+            <div class="carousel-caption">
+
+                    <h1 style="font-size: 3em;">Latest Product</h1>
+                    <h1 style="font-size: 4em;">{{$post->title}}</h1>
+                    <h5>{{ str_limit($post->content, $limit = 50, $end = '...') }}</h5>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="{{url()}}/post/detail/{{$post->id}}/1" role="button">View details &raquo;</a>
+                    </p>
+
+            </div>
+        </div>
+        <div class="item">
+            <!-- Set the third background image using inline CSS below. -->
+            <div class="fill" style="background-image:url('/assets/images/project.jpg');"></div>
+               <div class="carousel-caption">
+                        <h1 style="font-size: 3em;">Latest Project</h1>
+                        <h1 style="font-size: 4em;">{{$project->project_name}}</h1>
+                        <h5>{{ str_limit($project->project_desc, $limit = 50, $end = '...') }}</h5>
+                        <p>
+                        <p><a class="btn btn-lg btn-primary" href="{{url()}}/project/detail/{{$project->id}}" role="button">View details &raquo;</a></p>
+                         </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="icon-next"></span>
+    </a>
+
+</header>
+
+
+<script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+</script>
 
       
 @include('layout.footer')
-</div>
