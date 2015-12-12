@@ -1,9 +1,11 @@
-@include('layout.header')  
+@include('layout.header')
+
 <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Gallery-master/css/blueimp-gallery.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/css/bootstrap-image-gallery.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/css/slide.css')}}" rel="stylesheet">
 
-
+@include('layout.slide')
 <div class="content">
     <div class="row">
         @if (count($prodFiles) > 0)
@@ -64,6 +66,9 @@
             </dl>
 
         @if (count($curSubProducts) > 0)
+                <button  type="button" class="btn btn-primary" aria-label="Left Align" id="showLeftPush">
+                    <span>Customize Product</span>
+                </button>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -87,6 +92,7 @@
                 @endforeach
                 </tbody>
             </table>
+
         @else
 
                 <dl class="dl-horizontal">
@@ -102,6 +108,9 @@
                     <dd>{{$product->updated_at}}</dd>
                 </dl>
                 @if (count($curMaterials) > 0 )
+                    <button  type="button" class="btn btn-primary" aria-label="Left Align" id="showLeftPush">
+                        <span>Customize Product</span>
+                    </button>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -120,11 +129,18 @@
                             </tr>
                         @endforeach
                     </table>
+                    <!--insert product custom here -->
+
                 @endif
+                <br>
+
+    </div>
+                <!-- end of product customization -->
+
         @endif
 
     </div><!--end of row -->
-    
+
 
 @include('layout.footer')
 </div>

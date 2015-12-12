@@ -3,14 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var loadHome = function(){
-    alert(1);
-    $.ajax({
-      method: "GET",
-      url: "http://localhost/laravel/thesis/Ecom/public/home",
-      datatype: "html"
-    })
-    .done(function( msg ) {
-        $('#body').html(msg);
+
+var process = function(){
+    var totalPrice = 0;
+    $('.checkbox').each(function(index){
+            if ($(this).find('.material_chk').is( ':checked')){
+                var price = $(this).find('.material_chk').val();
+                var items = $(this).nextAll('input').first().val();
+                //if (items == ''){
+                //    console.log(1);
+                //    setTimeout(function(){ $('.message').fadeOut('slow'); }, 5000);
+                //    return false;
+                //}
+                var total = price * items;
+                totalPrice = totalPrice + total;
+            }
     });
+    console.log(totalPrice);
+    var label = '<h5>Total Price ------------------------- PHP  ' + totalPrice + '</h5>';
+    $('.result').html($(label));
 }

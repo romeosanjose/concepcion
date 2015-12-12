@@ -15,12 +15,13 @@
     <!-- Custom styles for this template -->
     <link href="{{URL::asset('assets/css/carousel.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/thumbnail.css')}}" rel="stylesheet">
+
     
   </head>
   @if(Request::is('/'))
     @include('layout.carousel',['post'=> $post, 'product'=>$product, 'project'=>$project])
   @endif
-  <body>
+  <body class="cbp-spmenu-push pace-done">
     <div class="navbar-wrapper">
       <div class="container">
 
@@ -33,11 +34,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Concepsion Glass and Aluminum Service</a>
+              <a class="navbar-brand" href="/">Concepsion Glass and Aluminum Service</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
                 <li><a href="/product">Product</a></li>
                 <li><a href="/material">Material</a></li>
                 <li><a href="/project">Project</a></li>

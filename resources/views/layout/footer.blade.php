@@ -14,5 +14,9 @@
     <script src="{{URL::asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('assets/vendor/Gallery-master/js/jquery.blueimp-gallery.min.js')}}"></script>
     <script src="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/js/bootstrap-image-gallery.min.js')}}"></script>
+    <script src="{{URL::asset('assets/js/classie.js')}}"></script>
+    <script src="{{URL::asset('assets/js/selector.js')}}"></script>
+    <script src="{{URL::asset('assets/js/slide.js')}}"></script>
+    <script src="{{URL::asset('assets/js/app.js')}}"></script>
   </body>
 </html>

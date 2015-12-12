@@ -9,6 +9,7 @@ use App\Model\SubProduct;
 use App\Model\Files;
 use App\Model\Material;
 use App\Model\SubProductMaterial;
+use App\Model\MaterialCategory;
 use Config;
 use DB;
 use Redirect;
@@ -39,7 +40,7 @@ class SubProductController extends Controller
             ->materials()
             ->get();
 
-
+        $matcategids = array();
         foreach ($prodMaterials as $pm){
             //gets the current set materials
             $matExtObject = Material::where('is_active',true)
@@ -48,12 +49,17 @@ class SubProductController extends Controller
 
             array_push($curMaterials,$matExtObject);
             array_push($curMatIds,$pm->material_id);
+            array_push($matcategids,$matExtObject->material_categ_id);
             $matExtObject = null;
 
         }
 
+        //get materialcategory from materials
+        $materialCategs = MaterialCategory::whereIn('id',$matcategids)->get();
+        //all materials
+        $allMaterials = Material::all();
 
-        return view('pages.sub_product.show', ['product'=>$product,'prodFiles'=>$prodFiles,'curMaterials'=> $curMaterials]);
+        return view('pages.sub_product.show', ['product'=>$product,'prodFiles'=>$prodFiles,'curMaterials'=> $curMaterials,'materialCategs'=>$materialCategs,'allMaterials'=>$allMaterials]);
     }
 
     /**
@@ -148,6 +154,7 @@ class SubProductController extends Controller
             ->get();
 
 
+
         foreach ($prodMaterials as $pm){
             //gets the current set materials
             $matExtObject = Material::where('is_active',true)
@@ -159,6 +166,8 @@ class SubProductController extends Controller
             $matExtObject = null;
 
         }
+
+
 
         $allMaterials = Material::whereNotIn('id',$curMatIds)
                                 ->orderBy('material_name','asc')

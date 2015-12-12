@@ -22,7 +22,7 @@
          </dl>
 
          @if (count($postFiles) > 0)
-             <h4>Project Images</h4>
+             <h4>Images</h4>
              <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
                  <!-- The container for the modal slides -->
                  <div class="slides"></div>

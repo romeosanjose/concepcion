@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Product;
 use App\Model\Category;
 use App\Model\Files;
-use App\Model\Module;
+use App\Model\MaterialCategory;
 use App\Model\Material;
 use App\Model\ProductMaterial;
 use App\Model\SubProduct;
@@ -79,6 +79,7 @@ class ProductController extends Controller
             ->materials()
             ->get();
         $curMaterials = array();
+        $matcategids = array();
         foreach ($prodMaterials as $pm){
             //gets the current set materials
             $matExtObject = Material::where('is_active',true)
@@ -86,10 +87,14 @@ class ProductController extends Controller
                 ->first();
 
             array_push($curMaterials,$matExtObject);
-//            array_push($curMatIds,$pm->material_id);
+            array_push($matcategids,$matExtObject->material_categ_id);
             $matExtObject = null;
 
         }
+        //get materialcategory from materials
+        $materialCategs = MaterialCategory::whereIn('id',$matcategids)->get();
+        //all materials
+        $allMaterials = Material::all();
 
 
         //1. get subproducts from product
@@ -211,7 +216,7 @@ class ProductController extends Controller
         }
 
 
-        return view('pages.product.show', ['product'=>$product,'curSubProducts'=>$curSubProducts,'matPriceArray'=>$matPriceArray,'prodFiles'=>$prodFiles,'curMaterials'=>$curMaterials]);
+        return view('pages.product.show', ['product'=>$product,'curSubProducts'=>$curSubProducts,'matPriceArray'=>$matPriceArray,'prodFiles'=>$prodFiles,'curMaterials'=>$curMaterials,'materialCategs'=>$materialCategs,'allMaterials'=>$allMaterials]);
     }
 
 

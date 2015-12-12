@@ -27,7 +27,7 @@
                 <h3>{{$post->title}}</h3>
                   {{$post->content}}
             </p>
-            <p><a class="btn btn-default" href="{{url()}}/post/detail/{{$post->id}}" role="button">View details &raquo;</a></p>
+            <p><a class="btn btn-default" href="{{url()}}/post/detail/{{$post->id}}/1" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
         @endif
         @if ($project)

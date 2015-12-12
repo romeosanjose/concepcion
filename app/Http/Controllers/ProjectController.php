@@ -17,8 +17,6 @@ class ProjectController extends Controller
 
     public function lists(Request $request)
     {
-
-
         if ($request->has('search')){
             $projects = DB::select("select project.*,(select disk_name from files where attachment_id=project.id and module_id= 1 and is_active=1 order by id desc limit 1) as disk_name " .
                 "from project " .
@@ -44,7 +42,6 @@ class ProjectController extends Controller
                 "and project.is_public=1 " .
                 'group by project.id '
             );
-
         }
 
         return view('pages.project.list', ['projects'=>$projects]);

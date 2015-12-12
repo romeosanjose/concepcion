@@ -2,12 +2,14 @@
 <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Gallery-master/css/blueimp-gallery.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/css/bootstrap-image-gallery.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/css/slide.css')}}" rel="stylesheet">
 
+@include('layout.slide')
 
 <div class="content">
     <div class="row">
         @if (count($prodFiles) > 0)
-            <h4>Product Images</h4>
+            <h4>Sub Product Images</h4>
             <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
                 <!-- The container for the modal slides -->
                 <div class="slides"></div>
@@ -71,6 +73,9 @@
                     <dt>Last Updated</dt>
                     <dd>{{$product->updated_at}}</dd>
                 </dl>
+                <button  type="button" class="btn btn-primary" aria-label="Left Align" id="showLeftPush">
+                    <span>Customize Product</span>
+                </button>
                 @if (count($curMaterials) > 0 )
                     <table class="table table-hover">
                         <thead>
@@ -90,7 +95,10 @@
                             </tr>
                         @endforeach
                     </table>
+
+
                 @endif
+
 
 
     </div><!--end of row -->
