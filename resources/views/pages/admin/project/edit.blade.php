@@ -23,19 +23,11 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="project_name">Enter Project Name: *</label>
-                    <input type="text" class="form-control" name="project_name" value="{{$project->project_name}}">
+                    <input type="text" class="form-control" name="project_name" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required value="{{$project->project_name}}">
                 </div>
                 <div class="form-group">
                     <label for="project_desc">Enter Project Description: *</label>
-                    <textarea  class="form-control" name="project_desc">{{$project->project_desc}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="price">Enter Price: </label>
-                    <input type="text" class="form-control" name="price" value="{{$project->price}}">
-                </div>
-                <div class="form-group">
-                    <label for="size">Enter Size: </label>
-                    <input type="text" class="form-control" name="size" value="{{$project->size}}">
+                    <textarea  class="form-control" name="project_desc" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required>{{$project->project_desc}}</textarea>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
@@ -98,7 +90,10 @@
                     <button  class="btn btn-success" type="submit" style="width:100%;">Update</button>
                 </div>
                 <div class="form-group">
-                    <a href="/back/material" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                    <a href="/back/project" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                </div>
+                <div class="form-group">
+                    <a href="/back/project/create" class="btn btn-info" style="width:100%;"/>Add Another Project</button></a>
                 </div>
 
             </form>

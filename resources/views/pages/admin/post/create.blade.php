@@ -25,11 +25,11 @@
 
                 <div class="form-group">
                     <label for="title">enter title: *</label>
-                    <input type="title" class="form-control" name="title">
+                    <input type="title" class="form-control" name="title" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required>
                 </div>
                 <div class="form-group">
                     <label for="content">enter content: *</label>
-                    <textarea  class="form-control" name="content"></textarea>
+                    <textarea  class="form-control" name="content" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required></textarea>
                 </div>
                 <select class="form-control" name="post_type">
                     <option selected disabled>Please select one option</option>

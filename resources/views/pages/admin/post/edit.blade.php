@@ -24,11 +24,11 @@
 
                 <div class="form-group">
                     <label for="title">enter title: *</label>
-                    <input type="title" class="form-control" name="title" value="{{$post->title}}">
+                    <input type="title" class="form-control" name="title" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required value="{{$post->title}}">
                 </div>
                 <div class="form-group">
                     <label for="content">enter content: *</label>
-                    <textarea  class="form-control" name="content">{{$post->content}}</textarea>
+                    <textarea  class="form-control" name="content" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required>{{$post->content}}</textarea>
                 </div>
                 <select class="form-control" name="post_type">
                     <option  value="{{$post->post_type}}">{{$postTypeId->name}}</option>
@@ -96,6 +96,9 @@
                 </div>
                 <div class="form-group">
                     <a href="/back/post" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                </div>
+                <div class="form-group">
+                    <a href="/back/post/create" class="btn btn-info" style="width:100%;"/>Add Another Post</button></a>
                 </div>
 
             </form>

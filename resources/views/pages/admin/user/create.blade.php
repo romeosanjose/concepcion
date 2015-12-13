@@ -23,37 +23,40 @@
     <form action="/back/user/store" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
-          <label  for="email">enter email address: *</label>
-          <input type="email" class="form-control" name="email">
+          <label  for="email">Enter Email Address: *</label>
+          <input type="email" class="form-control" name="email" required>
         </div>
         <div class="form-group">
-            <label for="password">enter password: *</label>
-            <input type="password" class="form-control" name="password">
+            <label for="password">Enter Password: *</label>
+            <input type="password" class="form-control" name="password" required>
         </div>
         <div class="form-group">
-            <label  for="password_confirmation">confirm password: *</label>
-            <input type="password" class="form-control" name="password_confirmation">
+            <label  for="password_confirmation">Confirm Password: *</label>
+            <input type="password" class="form-control" name="password_confirmation" required>
         </div>
         <div class="form-group">
-          <label  for="contact">enter contact:</label>
-          <input type="text" class="form-control" name="contact" >
+          <label  for="contact">Enter Contact:</label>
+          <input  class="form-control" name="contact" type="number"  min="0" max="9999"  size="4">
         </div>
         <div class="form-group">
-          <label  for="firstname">enter first name:</label>
-          <input type="firstname" class="form-control" name="firstname">
+          <label  for="firstname">Enter First Name:</label>
+          <input type="firstname" class="form-control" name="firstname" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 ">
         </div>
         <div class="form-group">
-          <label  for="firstname">enter last name:</label>
-          <input type="lastname" class="form-control" name="lastname">
+          <label  for="firstname">Enter Last Name:</label>
+          <input type="lastname" class="form-control" name="lastname" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 ">
         </div>
        <div class="form-group">
           <div class="checkbox">
-              <label><input type="checkbox" id="is_admin">admin</label>
+              <label><input type="checkbox" id="is_admin">Admin</label>
           </div>
        </div>
-
-      <button class="btn btn-success" type="submit">Create</button>
-      <a href="/back/user" class="btn btn-info"/>Cancel</button></a>
+        <div class="form-group">
+            <button class="btn btn-success" type="submit" style="width:100%;">Create</button>
+        </div>
+        <div class="form-group">
+            <a href="/back/user" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+        </div>
     </form>
 
   </div>

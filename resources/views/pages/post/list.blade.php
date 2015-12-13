@@ -36,7 +36,7 @@
                   <!-- Search body -->
                   <div id="search" class="panel-collapse collapse">
                       <div class="panel-body">
-                          <form class="navbar-form" role="search" action="{{url()}}/post" method="GET">
+                          <form class="navbar-form" role="search" action="{{url()}}/post/{{$postType}}" method="GET">
                               <div class="form-group">
                                   <input type="text" class="form-control" placeholder="Search" name="search">
                               </div>

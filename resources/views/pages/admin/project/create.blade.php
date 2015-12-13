@@ -24,11 +24,11 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="project_name">Enter Project Name: *</label>
-                    <input type="text" class="form-control" name="project_name">
+                    <input type="text" class="form-control" name="project_name" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required>
                 </div>
                 <div class="form-group">
                     <label for="project_desc">Enter Project Description: *</label>
-                    <textarea  class="form-control" name="project_desc"></textarea>
+                    <textarea  class="form-control" name="project_desc" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required></textarea>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">

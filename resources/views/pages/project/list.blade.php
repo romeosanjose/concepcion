@@ -68,7 +68,11 @@
                       @foreach ($projects as $project)  
                         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                             <a class="thumbnail" href="{{url()}}/project/detail/{{$project->id}}">
+                               @if ($project->disk_name != '')
                                 <img class="img-responsive" src="{{url().'/images/'. $project->disk_name}}" alt="">
+                               @else
+                                    <img class="img-responsive" src="/assets/images/noimage.png" alt="NO IMAGE" width="150" height="150">
+                               @endif
                             </a>
                             <span>{{$project->project_name}}</span>
                         </div>

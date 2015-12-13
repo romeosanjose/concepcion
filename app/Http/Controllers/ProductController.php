@@ -269,7 +269,7 @@ class ProductController extends Controller
         try{
             $this->validate($request, [
                 'product_name' => 'required|unique:product|max:255|min:3',
-                'product_desc' => 'required|min:1|max:500',
+                'product_desc' => 'required|min:10|max:500',
                 'price' => 'required|numeric',
                 'size' => 'required|numeric'
             ]);
@@ -382,7 +382,7 @@ class ProductController extends Controller
          try{
              $this->validate($request, [
                  'product_name' => 'required|max:255|min:3',
-                 'product_desc' => 'required|min:1|max:500',
+                 'product_desc' => 'required|min:10|max:500',
                  'price' => 'required|numeric',
                  'size' => 'required|numeric'
              ]);

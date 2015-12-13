@@ -8,10 +8,19 @@
 <div class="content">
      <div class="row">
 
-     <pre>
-         Serviced offered:
-            skylight polycarbonate , arcylic plastic , store front section & patch fitting for doors & windows , sliding doors & windows , glass etching tempered glass safety glass top glass bevelled glass face mirror alum. screen for doors windows frameless doors
-     </pre>
+         <div class="col-lg-12">
+             <h1 align="center">SERVICE OFFERED:</h1>
+             <div class="box">
+                 <ul>
+                     <li>Skylight polycarbonate</li>
+                     <li>Arcylic plastic</li>
+                     <li>Store front section & patch fitting for doors & windows</li>
+                     <li>Sliding doors & windows</li>
+                     <li>Glass etching tempered glass safety glass top glass bevelled glass face mirror alum</li>
+                     <li>Screen for doors windows frameless doors</li>
+                 </ul>
+             </div>
+         </div>
 
 
 

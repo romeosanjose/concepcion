@@ -51,8 +51,8 @@
           <!-- Main Menu -->
           <div class="side-menu-container">
               <ul class="nav navbar-nav">
-                    <li><a href="{{url()}}/material?sortby=material.material_name"><span class="glyphicon"></span>Sort by Material Name</a></li>
-                    <li><a href="{{url()}}/material?sortby=material.updated_at"><span class="glyphicon"></span>Sort by Material Creation Date</a></li>
+                    <li><a href="/material?sortby=material.material_name"><span class="glyphicon"></span>Sort by Material Name</a></li>
+                    <li><a href="/material?sortby=material.updated_at"><span class="glyphicon"></span>Sort by Material Creation Date</a></li>
               </ul>
           </div><!-- /.navbar-collapse -->
       </nav>
@@ -67,8 +67,12 @@
                     </div>
                       @foreach ($materials as $material)
                         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                            <a class="thumbnail" href="{{url()}}/material/show/{{$material->id}}">
-                                <img class="img-responsive" src="{{url().'/images/project/'. $material->disk_name}}" alt="">
+                            <a class="thumbnail" href="/material/show/{{$material->id}}">
+                                @if ($material->disk_name != '')
+                                    <img class="img-responsive" src="{{'/images/'. $material->disk_name}}" alt="" >
+                                @else
+                                    <img class="img-responsive" src="/assets/images/noimage.png" alt="NO IMAGE" width="150" height="150">
+                                @endif
                             </a>
                             <span>{{$material->material_name}}</span>
                         </div>

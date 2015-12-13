@@ -24,39 +24,46 @@
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
       <div class="form-group">
-        <label  for="email">enter email address: *</label>
-        <input type="email" class="form-control" name="email" value="{{$user->email}}">
+        <label  for="email">Enter Email Address: *</label>
+        <input type="email" class="form-control" name="email" value="{{$user->email}}" required>
       </div>
       <div class="form-group">
-        <label  for="contact">enter contact:</label>
-        <input type="text" class="form-control" name="contact" value="{{$user->contact}}">
+        <label  for="contact">Enter Contact:</label>
+        <input type="text" class="form-control" name="contact" value="{{$user->contact}}" type="number"  min="0" max="9999"  size="4">
       </div>
       <div class="form-group">
-        <label  for="firstname">enter first name:</label>
-        <input type="firstname" class="form-control" name="firstname" value="{{$user->firstname}}">
+        <label  for="firstname">Enter First Name:</label>
+        <input type="firstname" class="form-control" name="firstname" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " value="{{$user->firstname}}">
       </div>
       <div class="form-group">
-        <label  for="firstname">enter last name:</label>
-        <input type="lastname" class="form-control" name="lastname" value="{{$user->lastname}}">
+        <label  for="firstname">Enter Last Name:</label>
+        <input type="lastname" class="form-control" name="lastname" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " value="{{$user->lastname}}">
       </div>
 
       <div class="checkbox">
         @if ($user->is_admin)
-          <label><input type="checkbox" name="is_admin" checked>admin</label>
+          <label><input type="checkbox" name="is_admin" checked>Admin</label>
         @else
-          <label><input type="checkbox" name="is_admin">admin</label>
+          <label><input type="checkbox" name="is_admin">Admin</label>
         @endif
       </div>
       <div class="checkbox">
         @if ($user->is_active)
-          <label><input type="checkbox" name="is_active" checked>active</label>
+          <label><input type="checkbox" name="is_active" checked>Active</label>
         @else
-          <label><input type="checkbox" name="is_active">active</label>
+          <label><input type="checkbox" name="is_active">Active</label>
         @endif
      </div>
 
-      <button class="btn btn-success" type="submit">Update</button>
-      <a href="/back/user" class="btn btn-info"/>Cancel</button></a>
+      <div class="form-group">
+      <button class="btn btn-success" type="submit" style="width:100%;">Update</button>
+      </div>
+      <div class="form-group">
+        <a href="/back/user" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+      </div>
+      <div class="form-group">
+        <a href="/back/user/create" class="btn btn-info" style="width:100%;"/>Add Another User</button></a>
+        </div>
     </form>
 
   </div>

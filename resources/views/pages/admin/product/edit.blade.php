@@ -24,11 +24,11 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="product_name">Enter Product Name: *</label>
-                    <input type="text" class="form-control" name="product_name" value="{{$product->product_name}}">
+                    <input type="text" class="form-control" name="product_name" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required value="{{$product->product_name}}">
                 </div>
                 <div class="form-group">
                     <label for="product_desc">Enter Product Description: *</label>
-                    <textarea  class="form-control" name="product_desc">{{$product->product_desc}}</textarea>
+                    <textarea  class="form-control" name="product_desc" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required>{{$product->product_desc}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="product_category">Select Product Category: *</label>
@@ -101,11 +101,11 @@
 
                 <div class="form-group">
                     <label for="price">Enter Price: </label>
-                    <input type="text" class="form-control" name="price" value="{{$product->price}}">
+                    <input  class="form-control" type="number" name="price" min="0" max="9999" step="0.01" size="4" required value="{{$product->price}}">
                 </div>
                 <div class="form-group">
                     <label for="size">Enter Size: </label>
-                    <input type="text" class="form-control" name="size" value="{{$product->size}}">
+                    <input type="text" class="form-control" name="size" required value="{{$product->size}}">
                 </div>
                 <div class="form-group">
                     <label >Set Product State: </label>
@@ -157,6 +157,9 @@
                 </div>
                 <div class="form-group">
                     <a href="/back/product" class="btn btn-info" style="width:100%;"/>Cancel</button></a>
+                </div>
+                <div class="form-group">
+                    <a href="/back/product/create" class="btn btn-info" style="width:100%;"/>Add Another Product</button></a>
                 </div>
             </form>
 

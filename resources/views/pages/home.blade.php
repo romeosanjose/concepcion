@@ -29,7 +29,7 @@
             <div class="fill" style="background-image:url('/assets/images/news.jpg');"></div>
             <div class="carousel-caption">
 
-                    <h1 style="font-size: 3em;">Latest Product</h1>
+                    <h1 style="font-size: 3em;">Latest News</h1>
                     <h1 style="font-size: 4em;">{{$post->title}}</h1>
                     <h5>{{ str_limit($post->content, $limit = 50, $end = '...') }}</h5>
                     <p>

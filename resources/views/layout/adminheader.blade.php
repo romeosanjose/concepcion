@@ -46,12 +46,17 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{url()}}/back/category">Product Category</a></li>
-                <li><a href="{{url()}}/back/materialcategory">Material Category</a></li>
                 <li><a href="{{url()}}/back/product">Product</a></li>
                 <li><a href="{{url()}}/back/subproduct">Sub Product</a></li>
-                <li><a href="{{url()}}/back/material">Material</a></li>
               </ul>
             </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Materials <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{url()}}/back/materialcategory">Material Category</a></li>
+                  <li><a href="{{url()}}/back/material">Material</a></li>
+                </ul>
+              </li>
             <li><a href="{{url()}}/back/project">Project</a></li>
             <li><a href="{{url()}}/back/post">Post</a></li>
             <li><a href="{{url()}}/back/logout">Logout</a></li>

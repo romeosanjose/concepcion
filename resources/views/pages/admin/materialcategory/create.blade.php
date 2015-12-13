@@ -24,11 +24,11 @@
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
                 <label for="material_categ_name">Enter Material Category Name: *</label>
-                <input type="text" class="form-control" name="material_categ_name">
+                <input type="text" class="form-control" name="material_categ_name" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required>
               </div>
               <div class="form-group">
                 <label for="material_categ_desc">Enter Material Category Description: *</label>
-                <textarea  class="form-control" name="material_categ_desc"></textarea>
+                <textarea  class="form-control" name="material_categ_desc" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required></textarea>
               </div>
             <button class="btn btn-success" type="submit">Create</button>
             <a href="/back/materialcategory" class="btn btn-info"/>Cancel</button></a>
