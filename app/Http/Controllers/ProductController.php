@@ -270,8 +270,7 @@ class ProductController extends Controller
             $this->validate($request, [
                 'product_name' => 'required|unique:product|max:255|min:3',
                 'product_desc' => 'required|min:10|max:500',
-                'price' => 'required|numeric',
-                'size' => 'required|numeric'
+                'price' => 'required|numeric'
             ]);
             $productobj = new Product;
             $productobj->product_name = $request->input('product_name');
@@ -383,8 +382,7 @@ class ProductController extends Controller
              $this->validate($request, [
                  'product_name' => 'required|max:255|min:3',
                  'product_desc' => 'required|min:10|max:500',
-                 'price' => 'required|numeric',
-                 'size' => 'required|numeric'
+                 'price' => 'required|numeric'
              ]);
             
             $is_active = ($request->input('is_active'))? true : false;

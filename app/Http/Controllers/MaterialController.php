@@ -133,8 +133,7 @@ class MaterialController extends Controller
                 'material_name' => 'required|unique:material|max:255|min:3',
                 'material_desc' => 'required|min:10',
                 'material_code'=>'required:min:3',
-                'price' => 'required:numeric',
-                'size' => 'required:numeric'
+                'price' => 'required:numeric'
             ]);
 
             $matObj = new Material;
@@ -191,8 +190,7 @@ class MaterialController extends Controller
                 'material_name' => 'required|max:255|min:3',
                 'material_desc' => 'required|min:10',
                 'material_code'=>'required|min:3',
-                'price' => 'required:numeric',
-                'size' => 'required:numeric'
+                'price' => 'required:numeric'
             ]);
 
             $is_active = ($request->input('is_active')) ? true : false;

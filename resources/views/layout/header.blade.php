@@ -7,8 +7,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-    <title>Carousel Template for Bootstrap</title>
+    <link rel="icon" href="/assets/images/logo.jpg">
+    <title>Concepcion Glass and Aluminum Service</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{URL::asset('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">Concepsion Glass and Aluminum Service</a>
+              <a class="navbar-brand" href="/">Concepcion Glass and Aluminum Service</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
