@@ -13,7 +13,7 @@
                             <label><input class="material_chk" type="checkbox" value="{{$allMat->price}}">{{$allMat->material_name}} -- PHP  {{$allMat->price}}</label>
                         </div>
                             <span >X</span>
-                            <input class="price" type="text" />
+                            <input class="price" type="number" />
                     @endif
                 @endforeach
                 </div>

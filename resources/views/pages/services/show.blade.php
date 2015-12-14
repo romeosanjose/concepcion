@@ -26,6 +26,5 @@
 
     </div><!--end of row -->
     
-
-@include('layout.footer')
 </div>
+@include('layout.footer')

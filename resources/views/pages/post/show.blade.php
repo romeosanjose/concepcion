@@ -68,7 +68,6 @@
 
 
     </div><!--end of row -->
-    
+</div>
 
 @include('layout.footer')
-</div>

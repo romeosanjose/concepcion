@@ -56,14 +56,14 @@ class UserController extends Controller
                 'password_confirmation' => 'required|min:6',
                 'email' => 'required|email|max:255|unique:users'
             ]);
-
+            $is_admin = ($request->input('is_admin'))?true:false;
             $userobj = new User;
             $userobj->email = $request->input('email');
             $userobj->password = bcrypt($request->input('password'));
             $userobj->contact = $request->input('contact');
             $userobj->firstname = $request->input('firstname');
             $userobj->lastname = $request->input('lastname');
-            $userobj->is_admin = ($request->input('is_admin'))? true : false;
+            $userobj->is_admin = $is_admin;
             $userobj->is_active = true;
             $userobj->save();
 
@@ -109,6 +109,7 @@ class UserController extends Controller
      */
     public function update(Request $request,$id)
     {
+
          try{
             $this->validate($request, [
                 'email' => 'required|email|max:255'
@@ -117,7 +118,8 @@ class UserController extends Controller
             $is_admin = ($request->input('is_admin'))? true : false;
             $is_active = ($request->input('is_active'))? true : false;
             $userobj = new User;
-            $userobj->where('id',$request->input('id'))
+
+            $userobj->where('id',$id)
                     ->update([
                         'email' => $request->input('email'),
                         'contact' => $request->input('contact'),

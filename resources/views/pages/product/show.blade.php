@@ -134,13 +134,10 @@
                 @endif
                 <br>
 
-    </div>
+        </div>
                 <!-- end of product customization -->
-
         @endif
 
     </div><!--end of row -->
-
-
-@include('layout.footer')
 </div>
+@include('layout.footer')

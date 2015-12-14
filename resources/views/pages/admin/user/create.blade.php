@@ -3,7 +3,7 @@
   <div class="row">
 
     @if (count($errors) > 0)
-      <div class="alert alert-danger">
+      <div class="alert alert-info">
         <ul>
           @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
           <label  for="contact">Enter Contact:</label>
-          <input  class="form-control" name="contact" type="number"  min="0" max="9999"  size="4">
+          <input  class="form-control" name="contact" type="number">
         </div>
         <div class="form-group">
           <label  for="firstname">Enter First Name:</label>
@@ -48,7 +48,7 @@
         </div>
        <div class="form-group">
           <div class="checkbox">
-              <label><input type="checkbox" id="is_admin">Admin</label>
+              <label><input type="checkbox" name="is_admin">Admin</label>
           </div>
        </div>
         <div class="form-group">

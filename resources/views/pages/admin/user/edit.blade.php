@@ -12,7 +12,7 @@
       </div>
     @endif
     @if (Session::get('message'))
-      <div class="alert alert-danger">
+      <div class="alert alert-success">
         <ul>
           <li>{{ Session::get('message') }}</li>
         </ul>

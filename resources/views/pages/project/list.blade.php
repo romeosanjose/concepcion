@@ -86,9 +86,8 @@
       
 
   </div><!--end of row -->
-    
+</div>
     
     
 <script src="{{URL::asset('assets/js/sidebar.js')}}"></script>
 @include('layout.footer')
-</div>

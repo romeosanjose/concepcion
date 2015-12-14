@@ -36,7 +36,7 @@
             
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <a href="{{url()}}/password/email" >Forgot password</a>
+        <a href="/password/email" >Change Password</a>
       </form>
         
     </div> <!-- /container -->
