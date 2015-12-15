@@ -23,34 +23,37 @@ class CreateSubProductTable extends Migration
         });
 
         DB::table('sub_product')->insert(
-            [
-                'sub_product_name' => 'Sub Sample Product',
-                'sub_product_desc' => 'Sub Sample Product Description',
-                'price' => 14.0,
-                'size' => 15.10,
-                'is_active'=> true
-            ],
-            [
-                'sub_product_name' => 'Sub Sample Product 2',
-                'sub_product_desc' => 'Sub Sample Product Description 2',
-                'price' => 13.0,
-                'size' => 15.10,
-                'is_active'=> true
-            ],
-            [
-                'sub_product_name' => 'Sub Sample Product 3',
-                'sub_product_desc' => 'Sub Sample Product Description 3',
-                'price' => 13.0,
-                'size' => 15.10,
-                'is_active'=> true
-            ],
-            [
-                'sub_product_name' => 'Sub Sample Product 4',
-                'sub_product_desc' => 'Sub Sample Product Description 4',
-                'price' => 12.0,
-                'size' => 15.10,
-                'is_active'=> true
-            ]);
+            array(
+                array(
+                    'sub_product_name' => 'Sub Sample Product',
+                    'sub_product_desc' => 'Sub Sample Product Description',
+                    'price' => 14.0,
+                    'size' => 15.10,
+                    'is_active'=> true
+                ),
+                array(
+                    'sub_product_name' => 'Sub Sample Product 2',
+                    'sub_product_desc' => 'Sub Sample Product Description 2',
+                    'price' => 13.0,
+                    'size' => 15.10,
+                    'is_active'=> true
+                ),
+                array(
+                    'sub_product_name' => 'Sub Sample Product 3',
+                    'sub_product_desc' => 'Sub Sample Product Description 3',
+                    'price' => 13.0,
+                    'size' => 15.10,
+                    'is_active'=> true
+                ),
+                array(
+                    'sub_product_name' => 'Sub Sample Product 4',
+                    'sub_product_desc' => 'Sub Sample Product Description 4',
+                    'price' => 12.0,
+                    'size' => 15.10,
+                    'is_active'=> true
+                )
+            )
+        );
     }
 
     /**

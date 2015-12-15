@@ -20,23 +20,25 @@ class CreateMainSubProductTable extends Migration
         });
 
         DB::table('main_sub_product')->insert(
-            [
-                'product_id' => 1,
-                'sub_product_id' => 1,
-            ],
-            [
-                'product_id' => 1,
-                'sub_product_id' => 2,
-            ],
-            [
-                'product_id' => 1,
-                'sub_product_id' => 3,
-            ],
-            [
-                'product_id' => 1,
-                'sub_product_id' => 4,
-            ]
-            );
+            array(
+                array(
+                    'product_id' => 1,
+                    'sub_product_id' => 1,
+                ),
+                array(
+                    'product_id' => 1,
+                    'sub_product_id' => 2,
+                ),
+                array(
+                    'product_id' => 1,
+                    'sub_product_id' => 3,
+                ),
+                array(
+                    'product_id' => 1,
+                    'sub_product_id' => 4,
+                )
+            )
+        );
     }
 
     /**

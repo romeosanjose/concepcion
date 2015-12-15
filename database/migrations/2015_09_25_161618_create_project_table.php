@@ -22,12 +22,21 @@ class CreateProjectTable extends Migration
         });
         
          DB::table('project')->insert(
-        [
-            'project_name' => 'Sample Project',
-            'project_desc' => 'Sample Project Description',
-            'is_public'=> true,
-            'is_active'=> true
-        ]);
+            array(
+                array(
+                    'project_name' => 'Sample Public Project',
+                    'project_desc' => 'Sample Project Public Description',
+                    'is_public'=> true,
+                    'is_active'=> true
+                ),
+                array(
+                    'project_name' => 'Sample Private Project',
+                    'project_desc' => 'Sample Private Description',
+                    'is_public'=> false,
+                    'is_active'=> true
+                )
+            )
+         );
     }
 
     /**

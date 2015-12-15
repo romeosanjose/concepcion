@@ -72,9 +72,13 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Materials</th>
+                    <th><h3>Materials</h3></th>
+                    <th colspan="{{count($curSubProducts)}}" style="text-align:center;"><h3>Sub-Products</h3></th>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
                   @foreach($curSubProducts as $subProd)
-                     <th><a href="/subproduct/{{$subProd->sub_product_name}}">{{$subProd->sub_product_name}}</a></th>
+                     <td><a href="/subproduct/{{$subProd->sub_product_name}}">{{$subProd->sub_product_name}}</a></td>
                   @endforeach
                 </tr>
                 </thead>
@@ -85,7 +89,7 @@
                         <td><a href="/material/detail/{{$key}}">{{$key}}</a></td>
                         @foreach($val as $va)
                             @foreach($va as $v)
-                                <td>{{$v}}</td>
+                                <td>PHP {{$v}}</td>
                             @endforeach
                         @endforeach
                     </tr>

@@ -40,26 +40,33 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             @if (Auth::user()->is_admin)
-                <li><a href="{{url()}}/back/user">User</a></li>
+                <li><a href="/back/user">User</a></li>
             @endif
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{url()}}/back/category">Product Category</a></li>
-                <li><a href="{{url()}}/back/product">Product</a></li>
-                <li><a href="{{url()}}/back/subproduct">Sub Product</a></li>
+                <li><a href="/back/category">Product Category</a></li>
+                <li><a href="/back/product">Product</a></li>
+                <li><a href="/back/subproduct">Sub Product</a></li>
               </ul>
             </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Materials <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{{url()}}/back/materialcategory">Material Category</a></li>
-                  <li><a href="{{url()}}/back/material">Material</a></li>
+                  <li><a href="/back/materialcategory">Material Category</a></li>
+                  <li><a href="/back/material">Material</a></li>
                 </ul>
               </li>
-            <li><a href="{{url()}}/back/project">Project</a></li>
-            <li><a href="{{url()}}/back/post">Post</a></li>
-            <li><a href="{{url()}}/back/logout">Logout</a></li>
+            <li><a href="/back/project">Project</a></li>
+            <li><a href="/back/post">Post</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/back/home">Home Carousel</a></li>
+                  <li><a href="/back/service">Services</a></li>
+                </ul>
+              </li>
+            <li><a href="/back/logout">Logout</a></li>
           </ul>
         
         </div><!--/.nav-collapse -->

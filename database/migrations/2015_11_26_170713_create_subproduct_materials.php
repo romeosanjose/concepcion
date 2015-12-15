@@ -22,31 +22,33 @@ class CreateSubproductMaterials extends Migration
         });
 
         DB::table('sub_product_material')->insert(
-            [
-                'sub_product_id' => 1,
-                'material_id' => 1,
-                'mat_sub_price' => 30,
-                'is_active' => true
-            ],
-            [
-                'sub_product_id' => 2,
-                'material_id' => 1,
-                'mat_sub_price' => 40,
-                'is_active' => true
-            ],
-            [
-                'sub_product_id' => 3,
-                'material_id' => 1,
-                'mat_sub_price' => 50,
-                'is_active' => true
-            ],
-            [
-                'sub_product_id' => 4,
-                'material_id' => 1,
-                'mat_sub_price' => 60,
-                'is_active' => true
-            ]
-            );
+             array(
+                array(
+                    'sub_product_id' => 1,
+                    'material_id' => 1,
+                    'mat_sub_price' => 30,
+                    'is_active' => true
+                ),
+                array(
+                    'sub_product_id' => 2,
+                    'material_id' => 1,
+                    'mat_sub_price' => 40,
+                    'is_active' => true
+                ),
+                array(
+                    'sub_product_id' => 3,
+                    'material_id' => 1,
+                    'mat_sub_price' => 50,
+                    'is_active' => true
+                ),
+                array(
+                    'sub_product_id' => 4,
+                    'material_id' => 1,
+                    'mat_sub_price' => 60,
+                    'is_active' => true
+                )
+             )
+        );
     }
 
     /**

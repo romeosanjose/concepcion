@@ -24,7 +24,7 @@
             <!-- Brand -->
             <div class="brand-name-wrapper">
                 <a class="navbar-brand" href="#">
-                    Search Project
+                    Search Material
                 </a>
             </div>
 

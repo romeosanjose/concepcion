@@ -74,7 +74,7 @@
                     <dd>{{$product->updated_at}}</dd>
                 </dl>
                 <button  type="button" class="btn btn-primary" aria-label="Left Align" id="showLeftPush">
-                    <span>Customize Product</span>
+                    <span>Customize Sub-Product</span>
                 </button>
                 @if (count($curMaterials) > 0 )
                     <table class="table table-hover">

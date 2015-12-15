@@ -12,12 +12,9 @@
              <h1 align="center">SERVICE OFFERED:</h1>
              <div class="box">
                  <ul>
-                     <li>Skylight polycarbonate</li>
-                     <li>Arcylic plastic</li>
-                     <li>Store front section & patch fitting for doors & windows</li>
-                     <li>Sliding doors & windows</li>
-                     <li>Glass etching tempered glass safety glass top glass bevelled glass face mirror alum</li>
-                     <li>Screen for doors windows frameless doors</li>
+                 @foreach($services as $service)
+                     <li>{{$service->service_name}}</li>
+                 @endforeach
                  </ul>
              </div>
          </div>

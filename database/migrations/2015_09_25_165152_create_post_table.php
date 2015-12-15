@@ -23,13 +23,24 @@ class CreatePostTable extends Migration
         });
         
          DB::table('post')->insert(
-        [
-            'title' => 'Sample Post',
-            'content' => 'Sample Post Content',
-            'post_type' => 1,
-            'is_published'=> true,
-            'is_active'=> true
-        ]);
+            array(
+                array(
+                    'title' => 'Sample News',
+                    'content' => 'Sample News Content',
+                    'post_type' => 1,
+                    'is_published'=> true,
+                    'is_active'=> true
+                ),
+                array(
+                    'title' => 'Sample Job Posting',
+                    'content' => 'Sample Jop Posting Content',
+                    'post_type' => 2,
+                    'is_published'=> true,
+                    'is_active'=> true
+                )
+
+            )
+         );
     }
 
     /**

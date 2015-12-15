@@ -72,8 +72,6 @@ class MaterialCategoryController extends Controller
     public function store(Request $request)
     {
         try{
-
-
             $this->validate($request, [
                 'material_categ_name' => 'required|unique:material_category|max:255|min:3',
                 'material_categ_desc' => 'required|min:10',

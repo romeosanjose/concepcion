@@ -132,8 +132,8 @@ class MaterialController extends Controller
             $this->validate($request, [
                 'material_name' => 'required|unique:material|max:255|min:3',
                 'material_desc' => 'required|min:10',
-                'material_code'=>'required:min:3',
-                'price' => 'required:numeric'
+                'material_code'=>'required:min:3'
+
             ]);
 
             $matObj = new Material;
@@ -189,8 +189,7 @@ class MaterialController extends Controller
             $this->validate($request, [
                 'material_name' => 'required|max:255|min:3',
                 'material_desc' => 'required|min:10',
-                'material_code'=>'required|min:3',
-                'price' => 'required:numeric'
+                'material_code'=>'required|min:3'
             ]);
 
             $is_active = ($request->input('is_active')) ? true : false;

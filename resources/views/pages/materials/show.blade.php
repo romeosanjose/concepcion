@@ -7,7 +7,7 @@
 <div class="content">
     <div class="row">
         @if (count($matFiles) > 0)
-            <h4>Product Images</h4>
+            <h4>Material Images</h4>
             <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
                 <!-- The container for the modal slides -->
                 <div class="slides"></div>
