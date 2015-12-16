@@ -46,12 +46,11 @@ class SubProductController extends Controller
             $matExtObject = Material::where('is_active',true)
                 ->where('id',$pm->material_id)
                 ->first();
-
+            $matExtObject->price = $pm->mat_sub_price;
             array_push($curMaterials,$matExtObject);
             array_push($curMatIds,$pm->material_id);
             array_push($matcategids,$matExtObject->material_categ_id);
             $matExtObject = null;
-
         }
 
         //get materialcategory from materials

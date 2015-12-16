@@ -62,7 +62,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/back/home">Home Carousel</a></li>
+                  <li><a href="/back/home/carousel">Home Carousel</a></li>
                   <li><a href="/back/service">Services</a></li>
                 </ul>
               </li>

@@ -138,6 +138,8 @@ Route::post('/back/service/update/{id}', ['middleware' => 'auth','uses'=>'Servic
 * Image Routes
 */
 Route::post('/back/images/store',['middleware' => 'auth','uses'=>'FileController@store']);
+Route::post('/back/images/carousel/store',['middleware' => 'auth','uses'=>'FileController@carouselStore']);
+Route::get('/back/home/carousel',['middleware' => 'auth','uses'=>'HomeController@adminHomeCarousel']);
 
 
 
@@ -168,6 +170,7 @@ Route::get('/post/detail/{id}/{postType}','PostController@show');
 
 //front end :SERVICES
 Route::get('/services','ServiceController@show');
+
 //front end :CONTACTS
 Route::get('/contact',function(){return view('pages.contactus.show');});
 //front end :ABOUT

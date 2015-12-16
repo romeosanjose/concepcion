@@ -17,7 +17,7 @@
                 </ul>
             </div>
         @endif
-        <div class="class="class="col-md-12">
+        <div class="col-md-12">
             <h2>Edit Post</h2>
             <form action="/back/post/update/{{$post->id}}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

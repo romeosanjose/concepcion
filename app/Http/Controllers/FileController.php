@@ -35,6 +35,18 @@ class FileController extends Controller
         }
     }
 
+    public function carouselStore(Request $request)
+    {
+        if ($request->hasFile('files')) {
+            if ($request->file('files')[0]->isValid()) {
+                $fileName = $request->input('type') . '.jpg';
+                $request->file('files')[0]->move(base_path() . '/public/assets/images/', $fileName);
+                echo json_encode(array('fileId' => 0,'fileName'=>$fileName));
+
+            }
+        }
+    }
+
     /**
      * Display the specified resource.
      *

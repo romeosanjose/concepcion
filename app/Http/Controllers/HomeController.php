@@ -31,6 +31,10 @@ class HomeController extends Controller
     public function showAdminHome(){
         return view('pages.admin.main');
     }
+
+    public function adminHomeCarousel(){
+        return view('pages.admin.home.carousel');
+    }
     
     
 }
