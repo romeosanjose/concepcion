@@ -15,7 +15,7 @@ class CreateMaterialCategoryTable extends Migration
         Schema::create('material_category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('material_categ_name')->unique();;
-            $table->string('material_categ_desc');
+            $table->longText('material_categ_desc');
             $table->boolean('is_active');
             $table->timestamps();
         });

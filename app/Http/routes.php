@@ -132,7 +132,14 @@ Route::get('/back/service/create',['middleware' => 'auth','uses'=>'ServiceContro
 Route::post('/back/service/store',['middleware' => 'auth','uses'=>'ServiceController@store']);
 Route::get('/back/service/edit/{id}',['middleware' => 'auth','uses'=>'ServiceController@edit']);
 Route::post('/back/service/update/{id}', ['middleware' => 'auth','uses'=>'ServiceController@update']);
-
+/**
+* Pages Routes
+*/
+Route::get('/back/page',['middleware' => 'auth','uses'=>'PageController@index']); 
+Route::get('/back/page/create',['middleware' => 'auth','uses'=>'PageController@create']); 
+Route::post('/back/page/store',['middleware' => 'auth','uses'=>'PageController@store']);
+Route::get('/back/page/edit/{id}',['middleware' => 'auth','uses'=>'PageController@edit']);
+Route::post('/back/page/update/{id}', ['middleware' => 'auth','uses'=>'PageController@update']);
 
 /***
 * Image Routes
@@ -172,9 +179,9 @@ Route::get('/post/detail/{id}/{postType}','PostController@show');
 Route::get('/services','ServiceController@show');
 
 //front end :CONTACTS
-Route::get('/contact',function(){return view('pages.contactus.show');});
+Route::get('/contact','PageController@showContacts');
 //front end :ABOUT
-Route::get('/about	',function(){return view('pages.aboutus.show');});
+Route::get('/about','PageController@showAbout');
 
 //front end: IMAGES
 Route::get('/images/{filename}', function ($filename=null)

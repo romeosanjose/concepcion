@@ -74,11 +74,6 @@
                       @foreach ($posts as $post)
                         <a href="{{url()}}/post/detail/{{$post->id}}/{{$postType}}" class="list-group-item">
                             <h3>{{$post->title}}</h3>
-                            @if (strlen($post->content) > 20)
-                                <p>{{substr( $post->content, 0, 50 ) . '...'}}</p>
-                            @else
-                                <p>{{$post->content}}</p>
-                            @endif
                         </a>
                       @endforeach
                     </div>

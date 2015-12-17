@@ -15,7 +15,7 @@ class CreateProjectTable extends Migration
         Schema::create('project', function (Blueprint $table) {
             $table->increments('id');
             $table->string('project_name')->unique();;
-            $table->string('project_desc');
+            $table->longText('project_desc');
             $table->boolean('is_public');
             $table->boolean('is_active');
             $table->timestamps();

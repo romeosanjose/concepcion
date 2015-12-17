@@ -16,7 +16,7 @@ class CreateProductcategoryTable extends Migration
             $table->increments('id');
             $table->string('category_code');
             $table->string('category_name')->unique();;
-            $table->string('category_desc');
+            $table->longText('category_desc');
             $table->boolean('is_active');
             $table->timestamps();
         });

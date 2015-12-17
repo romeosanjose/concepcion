@@ -15,7 +15,7 @@ class CreateMaterialsTable extends Migration
         Schema::create('material', function (Blueprint $table) {
             $table->increments('id');
             $table->string('material_name')->unique();;
-            $table->string('material_desc');
+            $table->longText('material_desc');
             $table->string('material_categ_id');
             $table->string('material_code');
             $table->float('price');

@@ -23,12 +23,12 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group">
-                    <label for="title">enter title: *</label>
+                    <label for="title">Enter title: *</label>
                     <input type="title" class="form-control" name="title" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required value="{{$post->title}}">
                 </div>
                 <div class="form-group">
                     <label for="content">enter content: *</label>
-                    <textarea  class="form-control" name="content" maxlength="500" minlength="10" title="minimum characters: 10,  maximum characters: 500 " required>{{$post->content}}</textarea>
+                    <textarea  class="form-control" id="content" name="content"  minlength="10" title="minimum characters: 10,  maximum characters: 500 " required>{{$post->content}}</textarea>
                 </div>
                 <select class="form-control" name="post_type">
                     <option  value="{{$post->post_type}}">{{$postTypeId->name}}</option>
@@ -109,6 +109,9 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    CKEDITOR.replace('content');
+    CKEDITOR.config.allowedContent = true;
+</script>
 
 

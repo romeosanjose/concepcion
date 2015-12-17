@@ -15,7 +15,7 @@ class CreateSubProductTable extends Migration
         Schema::create('sub_product', function (Blueprint $table) {
             $table->increments('id');
             $table->string('sub_product_name')->unique();
-            $table->string('sub_product_desc');
+            $table->longText('sub_product_desc');
             $table->float('price');
             $table->decimal('size',6,2);
             $table->string('is_active');

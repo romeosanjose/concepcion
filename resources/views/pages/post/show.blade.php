@@ -10,11 +10,11 @@
 
         <dl class="dl-horizontal">
           <dt>Title:</dt>
-          <dd>{{$post->title}}</dd>
+          <dd><b>{{$post->title}}</b></dd>
         </dl>
         <dl class="dl-horizontal">
           <dt>Content: </dt>
-          <dd>{{$post->content}}</dd>
+          <dd>{!! $post->content !!}</dd>
         </dl>
         <dl class="dl-horizontal">
           <dt>Last Updated</dt>

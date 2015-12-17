@@ -69,8 +69,7 @@ class PostController extends Controller
             ->where('is_active',True)
             ->where('module_id',$moduleId)
             ->get();
-
-
+        $post->content = htmlspecialchars_decode($post->content,ENT_NOQUOTES);        
         return view('pages.post.show', ['post'=>$post,'postFiles'=>$postFiles]);
     }
     /**
@@ -80,7 +79,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-         if ($request->has('search')){
+        if ($request->has('search')){
             $posts = Post::where('id','LIKE',"%".$request->input('search')."%")
                     ->orWhere('title','LIKE',"%".$request->input('search')."%")
                     ->paginate(5);
@@ -120,12 +119,14 @@ class PostController extends Controller
         try{
             $this->validate($request, [
                 'title' => 'required|unique:post|max:255|min:3',
-                'content' => 'required|min:1|max:500'
+                'content' => 'required|min:10'
             ]);
+
+            
             $ispublished = ($request->input('is_published'))? true : false;
             $postobj = new Post;
             $postobj->title = $request->input('title');
-            $postobj->content = $request->input('content');
+            $postobj->content = htmlspecialchars($request->input('content'),ENT_NOQUOTES);
             $postobj->post_type = $request->input('post_type');
             $postobj->is_published = $ispublished;
             $postobj->is_active = true;
@@ -178,13 +179,13 @@ class PostController extends Controller
          try{
              $this->validate($request, [
                 'title' => 'required|max:255|min:3',
-                'content' => 'required|min:1|max:500'
+                'content' => 'required|min:10'
 
             ]);
 
             $ispublished = ($request->input('is_published'))? true : false;
             $isactive = ($request->input('is_active'))? true : false;
-            
+            $content = htmlspecialchars($request->input('content'),ENT_NOQUOTES);
             $postobj = new Post;
             $postobj->where('id',$id)
                     ->update([

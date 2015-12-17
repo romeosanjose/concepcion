@@ -15,7 +15,7 @@ class CreatePostTable extends Migration
         Schema::create('post', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();;
-            $table->string('content');
+            $table->longText('content');
             $table->integer('post_type');
             $table->boolean('is_published');
             $table->boolean('is_active');
