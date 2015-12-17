@@ -7,8 +7,9 @@
 
 <div class="content">
    <div class="row">
-       {!! $page->content !!}
-
+       @if ($page)
+        {!! $page->content !!}
+       @endif   
    </div><!--end of row -->
 
 </div>

@@ -22,7 +22,9 @@ class PageController extends Controller
         $page = Pages::where('is_active',true)
                         ->where('type','contacts')
                         ->first();
-        $page->content = htmlspecialchars_decode($page->content,ENT_NOQUOTES);                                
+        if ($page)
+            $page->content = htmlspecialchars_decode($page->content,ENT_NOQUOTES);                                
+        
         return view('pages.contactus.show', ['page'=>$page]);
     }
 
@@ -31,7 +33,8 @@ class PageController extends Controller
         $page = Pages::where('is_active',true)
                         ->where('type','about')
                         ->first();
-        $page->content = htmlspecialchars_decode($page->content,ENT_NOQUOTES);                                                        
+        if ($page)    
+            $page->content = htmlspecialchars_decode($page->content,ENT_NOQUOTES);                                                        
         return view('pages.aboutus.show', ['page'=>$page]);
     }
 
