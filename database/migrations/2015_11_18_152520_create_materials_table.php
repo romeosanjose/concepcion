@@ -20,7 +20,7 @@ class CreateMaterialsTable extends Migration
             $table->string('material_code');
             $table->float('price');
             $table->float('gross_price');
-            $table->decimal('size',6,2);
+            $table->string('size');
             $table->string('is_active');
             $table->timestamps();
         });

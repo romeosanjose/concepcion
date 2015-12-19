@@ -2,6 +2,7 @@
     <div class="main">
     <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left " id="cbp-spmenu-s1">
         <h3>Customize Product by Materials</h3>
+        <label style="margin-top:10%">Select the materials and enter item's quantity. Press process to compute the total price</label>
         <span class="message">Please fill up the number of items</span>
         @if ($materialCategs)
             @foreach($materialCategs as $matCategs)
@@ -12,8 +13,8 @@
                         <div class="checkbox">
                             <label><input class="material_chk" type="checkbox" value="{{$allMat->price}}">{{$allMat->material_name}} -- PHP  {{$allMat->price}}</label>
                         </div>
-                            <span >X</span>
-                            <input class="price" type="number" />
+                            <label >X items</label>
+                            <input class="price" type="number" min="0" />
                     @endif
                 @endforeach
                 </div>

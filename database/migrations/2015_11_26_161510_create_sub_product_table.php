@@ -17,7 +17,7 @@ class CreateSubProductTable extends Migration
             $table->string('sub_product_name')->unique();
             $table->longText('sub_product_desc');
             $table->float('price');
-            $table->decimal('size',6,2);
+            $table->string('size');
             $table->string('is_active');
             $table->timestamps();
         });
