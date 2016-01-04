@@ -38,13 +38,13 @@ class ProductController extends Controller
                                         "group by product.id "
 
                                                     );
-        }else if ($request->has('sortby')){
+        }else if ($request->has('filter')){
              $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .
                                          'from product ' .
                                          'where product.is_active=1 ' .
-                                         'group by product.id ' .
-                                         'order by :sortby ',
-                                         [':sortby'=>$request->input('sortby')]
+                                         'and product.category_id = :filter ' .
+                                         'group by product.id ',
+                                         [':filter'=>$request->input('filter')]
                                                     );
         }else{
            $products = DB::select('select product.*,(select disk_name from files where attachment_id=product.id and module_id= 2 and is_active=1 order by id desc limit 1) as disk_name ' .

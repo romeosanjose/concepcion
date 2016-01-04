@@ -6,22 +6,11 @@
 
 
 <div class="content">
-     <div class="row">
+   <div class="row">
+       @if ($page)
+        {!! $page->content !!}
+       @endif   
+   </div><!--end of row -->
 
-         <div class="col-lg-12">
-             <h1 align="center">SERVICE OFFERED:</h1>
-             <div class="box">
-                 <ul>
-                 @foreach($services as $service)
-                     <li>{{$service->service_name}}</li>
-                 @endforeach
-                 </ul>
-             </div>
-         </div>
-
-
-
-    </div><!--end of row -->
-    
 </div>
 @include('layout.footer')

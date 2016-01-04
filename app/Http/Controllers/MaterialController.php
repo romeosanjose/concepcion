@@ -26,13 +26,13 @@ class MaterialController extends Controller
                 "group by material.id "
 
             );
-        }else if ($request->has('sortby')){
+        }else if ($request->has('filter')){
             $materials = DB::select('select material.*,(select disk_name from files where attachment_id=material.id and module_id= 4 and is_active=1 order by id desc limit 1) as disk_name ' .
                 'from material ' .
                 'where material.is_active=1 ' .
-                'group by material.id ' .
-                'order by :sortby ',
-                [':sortby'=>$request->input('sortby')]
+                'and material.material_categ_id=:filter ' .
+                'group by material.id ' ,
+                [':filter'=>$request->input('filter')]
             );
         }else{
             $materials = DB::select('select material.*,(select disk_name from files where attachment_id=material.id and module_id= 4 and is_active=1 order by id desc limit 1) as disk_name ' .
@@ -42,8 +42,8 @@ class MaterialController extends Controller
             );
 
         }
-
-        return view('pages.materials.list', ['materials'=>$materials]);
+        $categories = MaterialCategory::all();
+        return view('pages.materials.list', ['materials'=>$materials,'categories'=>$categories]);
     }
 
     public function show($id){

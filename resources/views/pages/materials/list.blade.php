@@ -24,7 +24,7 @@
             <!-- Brand -->
             <div class="brand-name-wrapper">
                 <a class="navbar-brand" href="#">
-                    Search Material
+                    Material Categories
                 </a>
             </div>
 
@@ -49,10 +49,13 @@
           </div>
 
           <!-- Main Menu -->
+          <!-- Main Menu -->
           <div class="side-menu-container">
               <ul class="nav navbar-nav">
-                    <li><a href="/material?sortby=material.material_name"><span class="glyphicon"></span>Sort by Material Name</a></li>
-                    <li><a href="/material?sortby=material.updated_at"><span class="glyphicon"></span>Sort by Material Creation Date</a></li>
+                  @foreach ($categories as $category)
+                    <li><a href="{{url()}}/material?filter={{$category->id}}"><span class="glyphicon"></span>{{$category->material_categ_name}}</a></li>
+                  @endforeach
+
               </ul>
           </div><!-- /.navbar-collapse -->
       </nav>

@@ -38,6 +38,16 @@ class PageController extends Controller
         return view('pages.aboutus.show', ['page'=>$page]);
     }
 
+    public function showService()
+    {
+        $page = Pages::where('is_active',true)
+                        ->where('type','service')
+                        ->first();
+        if ($page)    
+            $page->content = htmlspecialchars_decode($page->content,ENT_NOQUOTES);                                                        
+        return view('pages.aboutus.show', ['page'=>$page]);
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -130,7 +140,7 @@ class PageController extends Controller
                 'content' => 'required|min:10'
 
             ]);
-
+              
             $isactive = ($request->input('is_active'))? true : false;
             $content = htmlspecialchars($request->input('content'),ENT_NOQUOTES);
             $pageobj = new Pages;
