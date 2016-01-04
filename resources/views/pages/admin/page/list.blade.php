@@ -6,7 +6,7 @@
 
         <div class="col-md-3">
             <h3>About/Contacts/Service List</h3>
-            <a href="/back/page/create" class="btn btn-success btn-sm" />Add About/Contacts</a>
+            <a href="/back/page/create" class="btn btn-success btn-sm" />Add About/Contacts/Service</a>
         </div>
         <div class="col-md-12">
             <form action="/back/page">
