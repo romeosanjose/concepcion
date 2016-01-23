@@ -1,3 +1,9 @@
+body{
+    background-image:url('../images/pattern.jpg');
+}
+a:hover{
+    color:#04B404!important;
+}
 .content{
     
     margin-top: 5%;
@@ -13,8 +19,7 @@
     height: 50px;
     position: relative;
     left: 60%;
-    float:left;
-    
+    float:left;   
 }
 
 .add {
