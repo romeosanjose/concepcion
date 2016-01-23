@@ -1,9 +1,10 @@
 .content{
     
-    margin-top: 80px;
+    margin-top: 5%;
     margin-left: 100px;
     margin-right: 100px;
-    min-height: 720px;
+    min-height: 600px;
+    /*padding-left:5%*/
 }
 
 .search {
@@ -24,17 +25,23 @@
 
 }
 
+.carousel{
+    height:60%;
+}
+
 .carousel-custom
 {
-    height: 100vh;
+    height: 50vh;
 }
 .carousel-custom .item
 {
-    height: 100vh;
-    background-size: cover;
-    background-position: center center;
+    /*height: 100vh;*/
+    /*background-size: cover;*/
+    /*background-position: center center;*/
 }
-
+.carousel-indicators li{
+   border : 1px solid #04B404;     
+}
 
 #custom-search-input {
     margin:0;
@@ -76,3 +83,101 @@
 }
 
 
+.black-gradient{
+    width:100%;
+    height:300px;
+    position:absolute;
+    top:0px;
+    z-index:1;
+    background:linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0));
+
+}
+
+.white-gradient{
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    margin-top: -200px;
+    margin-left: auto;
+    margin-right: auto;
+    /*background: linear-gradient(to top,rgba(255,255,255,1),rgba(0,0,0,0));*/
+    background:linear-gradient(rgba(0,0,0,0),rgba(255,255,255,0.9));
+
+}
+
+.navbar-inverse{
+    background:#222;
+    border-color:#080808;
+}    
+.navbar-header{
+    margin-right:0%;
+}
+
+@media(min-width:768px){
+    .navbar-inverse{
+        background:none;
+        border-color:transparent;
+    }
+    .navbar-header{
+        margin-right:50%;
+    }
+    .container> .navbar-header{
+        margin-right:50%;
+        /*font-size: 16px;*/
+    }
+
+    .navbar-scroll{
+        background:#000;
+        /*border-color:transparent;*/
+    }
+
+    .navbar-nav{
+        font-size:15px;
+    }
+
+}
+
+
+@media(max-width:400px){
+    #logo-text{
+        display:none;
+    }
+    #logo-img{
+        width:80px!important;
+        height:80px!important;
+    }
+}
+
+#logo-img{
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    max-width:100%;
+    max-height:100%;
+    width:100px;
+    height:100px;
+
+    position: absolute;
+    transition: 1s ease-in-out;
+    transform: translate(0px,-14px);
+    z-index: 10;
+}
+
+#logo-text{
+    position: absolute;
+    transform: translate(82px,0px);
+    transition: 1s ease-in-out;
+    opacity: 1;
+    z-index: 9;
+}
+
+.home-icon{
+    height:120px;
+    width: 120px;
+}
+.home-icon-wrapper{
+    padding-left:7%;
+}
+.home-text{
+    text-align: center;
+}

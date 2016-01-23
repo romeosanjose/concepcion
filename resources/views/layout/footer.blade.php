@@ -18,5 +18,11 @@
     <script src="{{URL::asset('assets/js/selector.js')}}"></script>
     <script src="{{URL::asset('assets/js/slide.js')}}"></script>
     <script src="{{URL::asset('assets/js/app.js')}}"></script>    
+
+    <script>
+        $('.carousel').carousel({
+            interval: 3000 //changes the speed
+        })
+    </script>
   </body>
 </html>

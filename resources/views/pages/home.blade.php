@@ -1,80 +1,39 @@
 @include('layout.header')
-
-
-
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('/assets/images/product.jpg');"></div>
-                    <div class="carousel-caption">
-                        @if ($product)
-                            <h1 style="font-size: 3em;">Latest Product</h1>
-                            <h1 style="font-size: 4em;">{{$product->product_name}}</h1>
-                            <h5>{{ str_limit($product->product_desc, $limit = 50, $end = '...') }}</h5>
-                            <p>
-                                <a class="btn btn-lg btn-primary" href="{{url()}}/product/detail/{{$product->id}}" role="button">View details &raquo;</a>
-                            </p>
-                        @endif
-                    </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('/assets/images/news.jpg');"></div>
-                <div class="carousel-caption">
-                        @if ($post)
-                            <h1 style="font-size: 3em;">Latest News</h1>
-                            <h1 style="font-size: 4em;">{{$post->title}}</h1>
-                            <h5>{{ str_limit($post->content, $limit = 50, $end = '...') }}</h5>
-                            <p>
-                                <a class="btn btn-lg btn-primary" href="{{url()}}/post/detail/{{$post->id}}/1" role="button">View details &raquo;</a>
-                            </p>
-                         @endif
-
+    @include('layout.carousel')
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-3 home-text">
+                <div class="home-icon-wrapper">
+                    <img src="/assets/images/product_icon.png" class="home-icon">
                 </div>
+                <h2>Latest Product</h2>
+                <h3>Sample Product</h3>
+                <p>sample desc</p>
             </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('/assets/images/project.jpg');"></div>
-                   <div class="carousel-caption">
-                            <h1 style="font-size: 3em;">Latest Project</h1>
-                            @if ($project)
-                                <h1 style="font-size: 4em;">{{$project->project_name}}</h1>
-                                <h5>{{ str_limit($project->project_desc, $limit = 50, $end = '...') }}</h5>
-                                <p>
-                                <p><a class="btn btn-lg btn-primary" href="{{url()}}/project/detail/{{$project->id}}" role="button">View details &raquo;</a></p>
-                                 </p>
-                            @endif
-                    </div>
-
-                </div>
+            <div class="col-sm-3 home-text">
+                <div class="home-icon-wrapper">    
+                    <img src="/assets/images/project_icon.png" class="home-icon">
+                </div>    
+                <h2>Latest Project</h2>
+                <h3>Sample Project</h3>
+                <p>sample desc</p>
+            </div>
+            <div class="col-sm-3 home-text">
+                <div class="home-icon-wrapper">
+                    <img src="/assets/images/news_icon.png" class="home-icon">
+                </div>    
+                <h2>Latest News</h2>
+                <h3>Sample News</h3>
+                <p>sample desc</p>
+            </div>
+            <div class="col-sm-3 home-text">
+                <div class="home-icon-wrapper">
+                    <img src="/assets/images/hiring_icon.png" class="home-icon">
+                </div>    
+                <h2>Latest Hiring</h2>
+                <h3>Sample hiring</h3>
+                <p>sample desc</p>
             </div>
         </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-
-    </header>
-
-
-<script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-</script>
-
-      
+    </div>      
 @include('layout.footer')

@@ -24,18 +24,23 @@
   {{--@endif--}}
   <body class="cbp-spmenu-push pace-done">
     <div class="navbar-wrapper">
-      <div class="container">
+      <div class="container" >
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header" >
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">Concepcion Glass and Aluminum Service</a>
+              <a class="navbar-brand" href="/">
+                <div id="logo-img">
+                    <!-- <img src="/images/logo.jpg"/> -->
+                </div>
+                <div id="logo-text">Concepcion Glass and Aluminum Service</div>
+              </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
