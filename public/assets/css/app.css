@@ -121,7 +121,35 @@ a:hover{
     margin-right:0%;
 }
 
-@media(min-width:768px){
+@media screen and (min-width:1200px){
+    .navbar-inverse{
+        background:none;
+        border-color:transparent;
+    }
+    .navbar-header{
+        margin-right:50%;
+    }
+    .container> .navbar-header{
+        margin-right:50%;
+        /*font-size: 16px;*/
+    }
+    .navbar-nav{
+        font-size:15px;
+        margin-top:0!important;
+    } 
+    .navbar-scroll{
+        background:#000;
+        /*border-color:transparent;*/
+    }
+
+    .navbar-nav{
+        font-size:15px;
+    }    
+
+}
+
+
+@media screen and (min-width:768px){
     .navbar-inverse{
         background:none;
         border-color:transparent;
@@ -141,12 +169,16 @@ a:hover{
 
     .navbar-nav{
         font-size:15px;
-    }
+        margin-top:2%;
+    }  
+     #logo-text{
+        font-size:18px;
+        margin-left:1%;
+    }  
+    
 
 }
-
-
-@media(max-width:400px){
+@media screen and (max-width:400px){
     #logo-text{
         display:none;
     }
@@ -154,6 +186,7 @@ a:hover{
         width:80px!important;
         height:80px!important;
     }
+    
 }
 
 #logo-img{
@@ -163,7 +196,7 @@ a:hover{
     max-width:100%;
     max-height:100%;
     width:100px;
-    height:100px;
+    height:80px;
 
     position: absolute;
     transition: 1s ease-in-out;
