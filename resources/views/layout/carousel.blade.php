@@ -12,21 +12,21 @@
                 <!-- Set the first background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('/assets/images/product.jpg');"></div>
                 <div class="carousel-caption">
-                            <h1 style="font-size: 3em;">Latest Product</h1>
+                            <!-- <h1 style="font-size: 3em;">Latest Product</h1> -->
                 </div>
             </div>
             <div class="item">
                 <!-- Set the second background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('/assets/images/news.jpg');"></div>
                 <div class="carousel-caption">
-                            <h1 style="font-size: 3em;">Latest News</h1>
+                            <!-- <h1 style="font-size: 3em;">Latest News</h1> -->
                  </div>
             </div>
             <div class="item">
                 <!-- Set the third background image using inline CSS below. -->
                 <div class="fill" style="background-image:url('/assets/images/project.jpg');"></div>
                    <div class="carousel-caption">
-                            <h1 style="font-size: 3em;">Latest Project</h1>
+                            <!-- <h1 style="font-size: 3em;">Latest Project</h1> -->
                     </div>
 
                 </div>
