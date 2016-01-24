@@ -15,6 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="{{URL::asset('assets/css/carousel.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/thumbnail.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('assets/css/wow.css')}}" rel="stylesheet">
     <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 
     

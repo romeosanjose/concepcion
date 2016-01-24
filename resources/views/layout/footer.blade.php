@@ -17,6 +17,8 @@
     <script src="{{URL::asset('assets/js/classie.js')}}"></script>
     <script src="{{URL::asset('assets/js/selector.js')}}"></script>
     <script src="{{URL::asset('assets/js/slide.js')}}"></script>
+    <script src="{{URL::asset('assets/js/wowfull.js')}}"></script>
+    <script src="{{URL::asset('assets/js/wow.js')}}"></script>
     <script src="{{URL::asset('assets/js/app.js')}}"></script>    
 
     <script>

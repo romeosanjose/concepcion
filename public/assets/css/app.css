@@ -1,5 +1,5 @@
 body{
-    background-image:url('../images/pattern.jpg');
+    /*background-image:url('../images/pattern.jpg');*/
 }
 a:hover{
     color:#04B404!important;
@@ -29,7 +29,10 @@ a:hover{
     left: 0px;
 
 }
-
+.footer{
+    margin-left: 100px;
+    margin-right: 100px;
+}
 .carousel{
     height:60%;
 }
@@ -183,6 +186,23 @@ a:hover{
 .home-icon-wrapper{
     padding-left:7%;
 }
-.home-text{
+.home-panel{
     text-align: center;
+    padding:10px;
+}
+.home-panel:hover{
+    /*border:1px solid #04B404;*/
+    box-shadow: 0 0 30px #04B404;
+    transition: 1s;
+}
+.home-title{
+    font-weight: 200;
+}
+.home-subtitle{
+    font-weight: 100;
+    color:#1C1C1C;
+}
+.home-desc{
+    font-weight: 100;
+    color:#585858;
 }

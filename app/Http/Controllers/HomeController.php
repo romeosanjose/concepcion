@@ -13,10 +13,16 @@ class HomeController extends Controller
     public function showHome()
     {
         //gets latest post
-        $post = Post::where('is_published',1)
+        $news = Post::where('is_published',1)
                     ->where('is_active',1)
+                    ->where('post_type',1)
                     ->orderBy('updated_at','desc')
                     ->first();
+        $job = Post::where('is_published',1)
+                    ->where('is_active',1)
+                    ->where('post_type',2)
+                    ->orderBy('updated_at','desc')
+                    ->first();            
         $product = Product::where('is_active',1)
                     ->orderby('updated_at','desc')
                     ->first();
@@ -25,7 +31,7 @@ class HomeController extends Controller
                     ->orderBy('updated_at','desc')
                     ->first();
 
-        return view('pages.home',['post'=> $post, 'product'=>$product, 'project'=>$project]);
+        return view('pages.home',['news'=> $news,'job'=>$job, 'product'=>$product, 'project'=>$project]);
     }
     
     public function showAdminHome(){
