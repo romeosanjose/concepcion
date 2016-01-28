@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- PUT SUB PRODUCTS HERE -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label >Select Sub Products: *</label>
                     <input type="hidden" id="product_id" value="{{$product->id}}">
                     <div class="container-fluid" >
@@ -97,7 +97,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="price">Enter Price: </label>
