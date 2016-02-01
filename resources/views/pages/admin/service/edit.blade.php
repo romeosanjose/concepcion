@@ -23,8 +23,12 @@
     <form action="/back/service/update/{{$service->id}}" method="POST">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group">
-        <label for="service_name">EnterNew Service: *</label>
+        <label for="service_name">Enter New Service: *</label>
         <input type="text" class="form-control" name="service_name" pattern=".{3,255}" title="minimum characters: 3,  maximum characters: 255 " required value="{{$service->service_name}}">
+      </div>
+      <div class="form-group">
+        <label for="service_desc">Enter Description: *</label>
+        <textarea  class="form-control" name="service_desc">{{$service->service_desc}}</textarea>
       </div>
       <div class="checkbox">
         @if ($service->is_active)

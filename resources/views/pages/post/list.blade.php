@@ -48,7 +48,7 @@
                         <div class="list-group box-glow">
                             <a href="/post/detail/{{$post->id}}/{{$postType}}" class="list-group-item ">
                                    @if ($post->disk_name != '')
-                                    <img class="img-responsive img-rounded item-thumb" src="{{url().'/images/'. $post->disk_name}}" alt="" width="200" height="200" >
+                                    <img class="img-responsive img-rounded item-thumb" src="{{url().'/images/'. $post->disk_name}}" alt="" width="150" height="150" >
                                    @else
                                     <img class="img-responsive img-rounded item-thumb" src="/assets/images/noimage.png" alt="NO IMAGE" width="150" height="150" style="float:left;">
                                    @endif

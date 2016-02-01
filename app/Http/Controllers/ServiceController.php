@@ -10,6 +10,17 @@ use Redirect;
 
 class ServiceController extends Controller
 {
+
+    
+    public function lists(Request $request)
+    {
+        $services = Service::paginate(5);
+        $services->setPath(url().'/service');
+        return view('pages.services.list', ['services'=>$services]);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -59,6 +70,7 @@ class ServiceController extends Controller
 
             $service = new Service;
             $service->service_name = $request->input('service_name');
+            $service->service_desc = $request->input('service_desc');
             $service->is_active = true;
             $service->save();
 
@@ -75,10 +87,14 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $services = Service::where('is_active',true)->get();
-        return view('pages.services.show', ['services'=>$services]);
+        $services = Service::where('id',$id)->where('is_active',true)->get();
+        $service = null;
+        foreach($services as $s) {
+            $service = $s;
+        }
+        return view('pages.services.detail', ['service'=>$service]);
     }
 
     /**
@@ -112,6 +128,7 @@ class ServiceController extends Controller
             $service->where('id',$id)
                 ->update([
                     'service_name' => $request->input('service_name'),
+                    'service_desc' => $request->input('service_desc'),
                     'is_active' => $is_active
                 ]);
 

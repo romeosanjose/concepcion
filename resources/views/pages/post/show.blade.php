@@ -1,4 +1,5 @@
 @include('layout.header')  
+@include('layout.banner')
 <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Gallery-master/css/blueimp-gallery.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/css/bootstrap-image-gallery.min.css')}}" rel="stylesheet">
@@ -7,22 +8,21 @@
 
 <div class="content">
      <div class="row">
-
-        <dl class="dl-horizontal">
-          <dt>Title:</dt>
-          <dd><b>{{$post->title}}</b></dd>
-        </dl>
-        <dl class="dl-horizontal">
-          <dt>Content: </dt>
-          <dd>{!! $post->content !!}</dd>
-        </dl>
-        <dl class="dl-horizontal">
-          <dt>Last Updated</dt>
-          <dd>{{$post->updated_at}}</dd>
-         </dl>
-
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+              <dt>Title:</dt>
+              <dd><b>{{$post->title}}</b></dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Content: </dt>
+              <dd>{!! $post->content !!}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>Last Updated</dt>
+              <dd>{{$post->updated_at}}</dd>
+            </dl>
+        </div>    
          @if (count($postFiles) > 0)
-             <h4>Images</h4>
              <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
                  <!-- The container for the modal slides -->
                  <div class="slides"></div>
@@ -56,15 +56,22 @@
                      </div>
                  </div>
              </div>
-             <div id="links">
+             <div id="links" class="col-md-4">
+                 <?php $ctr=1; ?>
                  @foreach ($postFiles as $pf)
+                     @if ($ctr == 1 )
+                     <a href="{{'/images/'. $pf->disk_name}}"  data-gallery>
+                         <img src="{{'/images/'. $pf->disk_name}}" width="500" height="300">
+                     </a>
+                     @else
                      <a href="{{'/images/'. $pf->disk_name}}"  data-gallery>
                          <img src="{{'/images/'. $pf->disk_name}}" width="100" height="100">
                      </a>
+                     @endif
+                     <?php $ctr++; ?>
                  @endforeach
              </div>
          @endif
-
 
 
     </div><!--end of row -->

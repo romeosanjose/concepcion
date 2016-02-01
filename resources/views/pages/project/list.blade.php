@@ -41,9 +41,9 @@
                         <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                             <a class="thumbnail box-glow" href="{{url()}}/project/detail/{{$project->id}}">
                                @if ($project->disk_name != '')
-                                <img class="img-responsive" src="{{url().'/images/'. $project->disk_name}}" alt="">
+                                <img class="img-responsive" src="{{url().'/images/'. $project->disk_name}}" alt="{{$project->project_name}}" width="100" height="100">
                                @else
-                                    <img class="img-responsive" src="/assets/images/noimage.png" alt="NO IMAGE" width="150" height="150">
+                                    <img class="img-responsive" src="/assets/images/noimage.png" alt="NO IMAGE" width="100" height="100">
                                @endif
                             </a>
                             <span>{{$project->project_name}}</span>

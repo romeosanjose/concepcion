@@ -27,7 +27,7 @@
                         <option  value="{{$page->type}}">{{$page->type}}</option>
                         <option value="about">about</option>
                         <option value="contacts">contacts</option>
-                        <option value="service">service</option>
+                        <!-- <option value="service">service</option> -->
                     </select>
                 </div>    
 

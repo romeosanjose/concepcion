@@ -177,6 +177,9 @@ Route::get('/post/detail/{id}/{postType}','PostController@show');
 
 //front end :SERVICES
 Route::get('/services','PageController@showService');
+Route::get('/service','ServiceController@lists');
+Route::get('/service/detail/{id}','ServiceController@show');
+
 
 //front end :CONTACTS
 Route::get('/contact','PageController@showContacts');

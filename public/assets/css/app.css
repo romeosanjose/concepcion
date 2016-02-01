@@ -25,6 +25,30 @@ a:hover{
     color:#fff;
     background-color:#04B404;
 }
+.btn:hover{
+    color:#04B404;
+    background-color:#fff;
+    border: 1px solid #04B404;
+}
+
+
+.btn-primary:active{
+    color:#04B404;
+    background-color:#fff;
+    border: 1px solid #04B404;
+}
+.btn-primary .active{
+    color:#04B404;
+    background-color:#fff;
+    border: 1px solid #04B404;
+}
+.btn-primary:hover{
+    color:#04B404;
+    background-color:#fff;
+    border: 1px solid #04B404;
+}
+
+
 .btn-search{
     position:absolute;
     top:3%;
@@ -268,7 +292,7 @@ a:hover{
     transition: 1s;
 }
 .item-thumb{
-    max-height:150px;
+    max-height:100px;
     float:left;
     margin-right:25px;
 }

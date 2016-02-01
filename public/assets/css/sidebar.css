@@ -26,7 +26,7 @@
     width: 300px;
     height: 100%;
     background-color: #f8f8f8;
-    border-right: 1px solid #e7e7e7;
+    border-right: 1px solid #04B404;
 }*/
 
 .side-menu {
@@ -34,24 +34,24 @@
   width: 300px;
   /*height: 100%;*/
   background-color: #ffffff;
-  /*border-right: 1px solid #e7e7e7;*/
+  border-right: 1px solid #04B404;
 }
 .side-menu .navbar {
   border: none;
 }
 .side-menu .navbar-header {
   width: 100%;
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #04B404;
 }
 .side-menu .navbar-nav .active a {
   background-color: transparent;
   margin-right: -1px;
-  border-right: 5px solid #e7e7e7;
+  border-right: 5px solid #04B404;
 }
 .side-menu .navbar-nav li {
   display: block;
   width: 100%;
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #04B404;
 }
 .side-menu .navbar-nav li a {
   padding: 15px;
@@ -74,7 +74,7 @@
   float: right;
 }
 .side-menu #dropdown > a {
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #04B404;
 }
 .side-menu #dropdown .panel-body {
   padding: 0;
@@ -85,7 +85,7 @@
 }
 .side-menu #dropdown .panel-body .navbar-nav li {
   padding-left: 15px;
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #04B404;
 }
 .side-menu #dropdown .panel-body .navbar-nav li:last-child {
   border-bottom: none;
@@ -101,7 +101,7 @@
   padding-left: 30px;
 }
 .side-menu #dropdown .panel-body .panel-body li:last-child {
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid #04B404;
 }
 .side-menu #search-trigger {
   background-color: #f3f3f3;
@@ -131,7 +131,7 @@
   width: 100%;
   margin: 0;
   position: relative;
-  border-top: 1px solid #e7e7e7;
+  border-top: 1px solid #04B404;
 }
 .side-menu #search .panel-body .navbar-form .form-group {
   width: 100%;
@@ -164,7 +164,7 @@
     width: 100%;
     height: 0;
     border-right: 0;
-    border-bottom: 1px solid #e7e7e7;
+    border-bottom: 1px solid #04B404;
   }
   .side-menu .brand-name-wrapper .navbar-brand {
     display: inline-block;
@@ -235,7 +235,7 @@
     width: 300px;
     top: 43px;
     height: 100%;
-    border-right: 1px solid #e7e7e7;
+    border-right: 1px solid #04B404;
     background-color: #f8f8f8;
     -moz-animation: slideout 300ms forwards;
     -o-animation: slideout 300ms forwards;

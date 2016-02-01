@@ -27,7 +27,7 @@
                     <select class="form-control" name="type">
                         <option value="about">about</option>
                         <option value="contacts">contacts</option>
-                        <option value="service">service</option>
+                        <!-- <option value="service">service</option> -->
                     </select>
                 </div>   
 

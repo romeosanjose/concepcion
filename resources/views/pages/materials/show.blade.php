@@ -1,4 +1,5 @@
-@include('layout.header')  
+@include('layout.header') 
+@include('layout.banner') 
 <link href="{{URL::asset('assets/css/app.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Gallery-master/css/blueimp-gallery.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/vendor/Bootstrap-Image-Gallery-3.1.3/css/bootstrap-image-gallery.min.css')}}" rel="stylesheet">
@@ -6,6 +7,32 @@
 
 <div class="content">
     <div class="row">
+         <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>Material Name:</dt>
+                    <dd>{{$material->material_name}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Material Description:</dt>
+                    <dd>{{$material->material_desc}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Material Code:</dt>
+                    <dd>{{$material->material_code}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Material Price:</dt>
+                    <dd>{{$material->price}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Material Size:</dt>
+                    <dd>{{$material->size}}</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>Last Updated</dt>
+                    <dd>{{$material->updated_at}}</dd>
+                </dl>
+        </div>   
         @if (count($matFiles) > 0)
             <h4>Material Images</h4>
             <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
@@ -41,41 +68,23 @@
                     </div>
                 </div>
             </div>
-            <div id="links">
+            <div id="links" class="col-md-4">
+                <?php $ctr=1; ?>
                 @foreach ($matFiles as $pf)
-                    <a href="{{'/images/'. $pf->disk_name}}"  data-gallery>
-                        <img src="{{'/images/'. $pf->disk_name}}" width="100" height="100">
+                    @if ($ctr == 1)
+                    <a href="{{'/images/'. $pf->disk_name}}"  data-gallery >
+                        <img src="{{'/images/'. $pf->disk_name}}" width="500" height="300" class="box-glow">
                     </a>
+                    @else
+                    <a href="{{'/images/'. $pf->disk_name}}"  data-gallery class="box-glow">
+                        <img src="{{'/images/'. $pf->disk_name}}" width="100" height="100" class="box-glow">
+                    </a>
+                    @endif
+                    <?php $ctr++; ?> 
                 @endforeach
             </div>
         @endif
-        <br>
-
-                <dl class="dl-horizontal">
-                    <dt>Material Name:</dt>
-                    <dd>{{$material->material_name}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Material Description:</dt>
-                    <dd>{{$material->material_desc}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Material Code:</dt>
-                    <dd>{{$material->material_code}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Material Price:</dt>
-                    <dd>{{$material->price}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Material Size:</dt>
-                    <dd>{{$material->size}}</dd>
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>Last Updated</dt>
-                    <dd>{{$material->updated_at}}</dd>
-                </dl>
-
+       
     </div><!--end of row -->
     
 

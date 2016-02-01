@@ -40,9 +40,9 @@
               <div class="side-body">
                        @foreach ($materials as $material)  
                         <div class="list-group box-glow">
-                            <a href="href=/material/show/{{$material->id}}" class="list-group-item ">
+                            <a href="/material/show/{{$material->id}}" class="list-group-item ">
                                    @if ($material->disk_name != '')
-                                    <img class="img-responsive img-rounded item-thumb" src="{{url().'/images/'. $material->disk_name}}" alt="" width="200" height="200" >
+                                    <img class="img-responsive img-rounded item-thumb" src="{{url().'/images/'. $material->disk_name}}" alt="" width="150" height="150" >
                                    @else
                                     <img class="img-responsive img-rounded item-thumb" src="/assets/images/noimage.png" alt="NO IMAGE" width="150" height="150" style="float:left;">
                                    @endif

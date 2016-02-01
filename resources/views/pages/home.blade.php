@@ -8,7 +8,7 @@
                 </div>
                 <h3 class="home-title">Latest Product</h3>
                 <h2 class="home-subtitle">{{$product->product_name}}</h2>
-                <p class="home-desc">{{str_limit($product->product_desc,$limit=50, $end = '...')}}</p><br>
+                <p class="home-desc">{{str_limit($product->product_desc,$limit=100, $end = '...')}}</p><br>
                 <a href="/product/detail/{{$product->id}}">
                     <button class="btn btn-success">View More</button>
                 </a>
@@ -19,7 +19,7 @@
                 </div>    
                 <h3 class="home-title">Latest Project</h3>
                 <h2 class="home-subtitle">{{$project->project_name}}</h2>
-                <p class="home-desc">{{str_limit($project->project_desc,$limit=50, $end = '...')}}</p><br>
+                <p class="home-desc">{{str_limit($project->project_desc,$limit=100, $end = '...')}}</p><br>
                 <a href="/project/detail/{{$project->id}}">
                     <button class="btn btn-success">View More</button>
                 </a>
@@ -30,8 +30,8 @@
                 </div>    
                 <h3 class="home-title">Latest News</h3>
                 <h2 class="home-subtitle">{{$news->title}}</h2>
-                <p class="home-desc">{{str_limit($news->content,$limit=50, $end = '...')}}</p><br>
-                <a href="/post/detail/1/{{$news->id}}">
+                <p class="home-desc">{{str_limit($news->content,$limit=100, $end = '...')}}</p><br>
+                <a href="/post/detail/{{$news->id}}/1">
                     <button class="btn btn-success">View More</button>
                 </a>
             </div>
@@ -41,8 +41,8 @@
                 </div>    
                 <h3 class="home-title">Latest Hiring</h3>
                 <h2 class="home-subtitle">Sample hiring</h2>
-                <p class="home-desc">{{str_limit($job->content,$limit=50, $end = '...')}}</p><br>
-                <a href="/post/detail/1/{{$job->id}}">
+                <p class="home-desc">{{str_limit($job->content,$limit=100, $end = '...')}}</p><br>
+                <a href="/post/detail/{{$job->id}}/2">
                     <button class="btn btn-success">View More</button>
                 </a>
             </div>
