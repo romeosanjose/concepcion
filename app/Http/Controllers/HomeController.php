@@ -30,7 +30,9 @@ class HomeController extends Controller
                     ->where('is_active',1)
                     ->orderBy('updated_at','desc')
                     ->first();
-
+        $newsContent = htmlspecialchars_decode($news->content,ENT_NOQUOTES);   
+        $news->content = $newsContent; 
+        //dd($news);                   
         return view('pages.home',['news'=> $news,'job'=>$job, 'product'=>$product, 'project'=>$project]);
     }
     

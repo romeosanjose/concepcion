@@ -30,7 +30,7 @@
                 </div>    
                 <h3 class="home-title">Latest News</h3>
                 <h2 class="home-subtitle">{{$news->title}}</h2>
-                <p class="home-desc">{{str_limit($news->content,$limit=100, $end = '...')}}</p><br>
+                <p class="home-desc">{!! str_limit($news->content,$limit=100, $end = '...') !!}</p><br>
                 <a href="/post/detail/{{$news->id}}/1">
                     <button class="btn btn-success">View More</button>
                 </a>

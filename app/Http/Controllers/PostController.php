@@ -69,7 +69,9 @@ class PostController extends Controller
             ->where('is_active',True)
             ->where('module_id',$moduleId)
             ->get();
-        $post->content = htmlspecialchars_decode($post->content,ENT_NOQUOTES);        
+        $post->content = htmlspecialchars_decode($post->content,ENT_NOQUOTES);   
+        $post->content = $post->content;
+        //dd($post);     
         return view('pages.post.show', ['post'=>$post,'postFiles'=>$postFiles]);
     }
     /**
