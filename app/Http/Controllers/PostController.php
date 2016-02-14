@@ -48,6 +48,7 @@ class PostController extends Controller
             );
 
         }
+
         return view('pages.post.list', ['posts'=>$posts,'postType'=>$postType]);
     }
 

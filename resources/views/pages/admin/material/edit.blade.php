@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Enter Price: </label>
-                    <input class="form-control" type="number" name="price" min="0" max="9999" step="0.01" size="4" required value="{{$material->price}}">
+                    <input class="form-control" type="number" name="price" min="0" max="9999" step="0.01" size="4" required value="{{{number_format((float)$material->price,2)}}}">
                 </div>
                 <div class="form-group">
                     <label for="size">Enter Size: </label>

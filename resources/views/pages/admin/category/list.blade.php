@@ -29,7 +29,7 @@
                     <th>&nbsp;</th>
                     <th><a href="/back/category?sortby=id">Product Category ID</a></th>
                     <th><a href="/back/category?sortby=category_name">Product Category Name</a></th>
-                    <th><a href="/back/category?sortby=is_active">Active</a></th>
+                    <th><a href="/back/category?sortby=is_active">State</a></th>
                     <th><a href="/back/category?sortby=created_at">Created</a></th>
                 </tr>
                 </thead>
@@ -39,8 +39,8 @@
                         <td><a href="/back/category/edit/{{$category->id}}" class="btn-success btn-sm"/>edit</a></td>
                         <td>{{$category->id}}</td>
                         <td>{{$category->category_name}}</td>
-                        <td>{{$category->is_active}}</td>
-                        <td>{{$category->created_at}}</td>
+                        <td>{{($category->is_active)?'Active': 'In-Active'}}</td>
+                        <td>{{$category->created_at->format('M j, Y')}}</td>
                         </a>
                     </tr>
                 @endforeach

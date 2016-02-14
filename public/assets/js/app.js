@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 var process = function(){
     var totalPrice = 0;
-    $('.checkbox').each(function(index){
+    $('.items').each(function(index){
             if ($(this).find('.material_chk').is( ':checked')){
                 var price = $(this).find('.material_chk').val();
                 var items = $(this).nextAll('input').first().val();
@@ -44,6 +44,15 @@ var process = function(){
     $('.result').html($(label));
 }
 
+
+var enablePrice = function(id){
+   console.log(id);
+   if($('#item' + id).is(':checked')){
+      $('#price' + id).prop('disabled', false);
+   }else{
+      $('#price' + id).prop('disabled', true);
+   }
+}
 
 $(window).scroll(function() {
   if ($(document).scrollTop() > 50) {

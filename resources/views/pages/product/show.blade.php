@@ -27,7 +27,7 @@
             </dl>    
             <dl class="dl-horizontal">
                  <dt>Product Price:</dt>
-                    <dd>{{$product->price}}</dd>
+                    <dd>{{{number_format((float)$product->price,2)}}}</dd>
             </dl>
             <dl class="dl-horizontal">
                     <dt>Product Size:</dt>
@@ -39,7 +39,7 @@
             </dl>
    
             <button  type="button" class="btn btn-primary" aria-label="Left Align" id="showLeftPush">
-                    <span>Customize Product</span>
+                    <span>Estimate</span>
             </button>  
     </div>
 
@@ -112,7 +112,7 @@
                                     <a href="/material/detail/{{$curmat->material_name}}">{{$curmat->material_name}}</a>
                                 </td>
                                 <td>{{$curmat->material_code}}</td>
-                                <td>{{$curmat->price}}</td>
+                                <td>{{{number_format((float)$curmat->price,2)}}}</td>
                                 <td>{{$curmat->size}}</td>
                             </tr>
                         @endforeach

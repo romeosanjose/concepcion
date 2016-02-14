@@ -22,7 +22,7 @@
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>Material Price:</dt>
-                    <dd>{{$material->price}}</dd>
+                    <dd>{{{number_format((float)$material->price,2)}}}</dd>
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>Material Size:</dt>

@@ -29,7 +29,7 @@
                     <th>&nbsp;</th>
                     <th><a href="/back/material?sortby=id">Material ID</a></th>
                     <th><a href="/back/material?sortby=material_name">Material Name</a></th>
-                    <th><a href="/back/material?sortby=is_active">Active</a></th>
+                    <th><a href="/back/material?sortby=is_active">State</a></th>
                     <th><a href="/back/material?sortby=created_at">Created</a></th>
                 </tr>
                 </thead>
@@ -39,8 +39,8 @@
                         <td><a href="/back/material/edit/{{$material->id}}" class="btn-success btn-sm"/>edit</a></td>
                         <td>{{$material->id}}</td>
                         <td>{{$material->material_name}}</td>
-                        <td>{{$material->is_active}}</td>
-                        <td>{{$material->created_at}}</td>
+                        <td>{{($material->is_active)?'Active': 'In-Active'}}</td>
+                        <td>{{$material->created_at->format('M j, Y')}}</td>
                         </a>
                     </tr>
                 @endforeach

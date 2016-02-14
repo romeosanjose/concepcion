@@ -54,7 +54,8 @@
                                    @endif
                                 
                                   <h3>{{$post->title}}</h3>
-                                  <p>{{str_limit($post->content,$limit=50, $end = '...')}}</p>                                
+                                  <?php $post->content = htmlspecialchars_decode($post->content,ENT_NOQUOTES); $post->content=$post->content; ?> 
+                                  <p>{!! str_limit($post->content,$limit=50, $end = '...') !!}</p>                                
                             </a>
                         </div>
                        @endforeach 

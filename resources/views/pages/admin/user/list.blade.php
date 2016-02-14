@@ -31,8 +31,8 @@
                     <th><a href="{{url()}}/back/user?sortby=username">User Name</a></th>
                     <th><a href="{{url()}}/back/user?sortby=email">Email</a></th>
                     <th><a href="{{url()}}/back/user?sortby=created_at">Created</a></th>
-                    <th><a href="{{url()}}/back/user?sortby=is_admin">Admin</a></th>
-                    <th><a href="{{url()}}/back/user?sortby=is_active">Active</a></th>
+                    <th><a href="{{url()}}/back/user?sortby=is_admin">Role</a></th>
+                    <th><a href="{{url()}}/back/user?sortby=is_active">State</a></th>
                 </tr>
               </thead>
               <tbody>
@@ -42,9 +42,9 @@
                   <td>{{$user->id}}</td>
                   <td>{{$user->username}}</td>
                   <td>{{$user->email}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->is_admin}}</td>
-                  <td>{{$user->is_active}}</td>
+                  <td>{{$user->created_at->format('M j, Y')}}</td>
+                  <td>{{($user->is_admin == 1)?'Admin':'Editor'}}</td>
+                  <td>{{($user->is_active == 1)?'Active': 'In-Active'}}</td>
                 </a>
                 </tr>
                 @endforeach
