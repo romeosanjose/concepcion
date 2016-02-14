@@ -33,9 +33,8 @@
                 <div class="form-group">
                     <label for="product_category">Select Product Category: *</label>
                     <select class="form-control" name="product_category">
-                        <option selected value="{{$product->categ_id}}">{{$productCategId->category_name}}</option>
                         @foreach($productCategories as $productCategory)
-                            <option value="{{$productCategory->id}}">{{$productCategory->category_name}}</option>
+                            <option value="{{$productCategory->id}}" @if ($productCategory->id == $product->categ_id) selected=selected @endif >{{$productCategory->category_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -49,7 +48,7 @@
                             <input id="search_all_materials" class="form-control" onkeyup="return SearchMaterials('all');">
                             <select multiple id="all_materials" class="form-control" style="width:100%;height:100px;">
                                 @foreach($allMaterials as $allMaterial)
-                                    <option value="{{$allMaterial->id}}">{{$allMaterial->material_name}} -- {{$allMaterial->price}}</option>
+                                    <option value="{{$allMaterial->id}}">{{$allMaterial->material_name}} -- {{{number_format((float)$allMaterial->price,2)}}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,7 +61,7 @@
                             <input id="search_curr_materials" class="form-control" onkeyup="return SearchMaterials('curr');">
                             <select multiple id="curr_materials" class="form-control" style="width:100%;height:100px;">
                                 @foreach($curMaterials as $curMaterial)
-                                    <option value="{{$curMaterial['id']}}">{{$curMaterial['material_name']}} -- {{$curMaterial['price']}}</option>
+                                    <option value="{{$curMaterial['id']}}">{{$curMaterial['material_name']}} -- {{{number_format((float)$curMaterial['price'],2)}}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,7 +100,7 @@
 
                 <div class="form-group">
                     <label for="price">Enter Price: </label>
-                    <input  class="form-control" type="number" name="price" min="0" max="9999" step="0.01" size="4" required value="{{$product->price}}">
+                    <input  class="form-control" type="number" name="price" min="0" max="9999" step="0.01" size="4" required value="{{{number_format((float)$product->price,2)}}}">
                 </div>
                 <div class="form-group">
                     <label for="size">Enter Size: </label>

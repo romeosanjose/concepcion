@@ -39,8 +39,8 @@
                   <td><a href="{{url()}}/back/page/edit/{{$page->id}}" class="btn-success btn-sm"/>edit</a></td>
                   <td>{{$page->id}}</td>
                   <td>{{$page->type}}</td>
-                  <td>{{$page->is_active}}</td>
-                  <td>{{$page->created_at}}</td>
+                  <td>{{($page->is_active)?'Active': 'In-Active'}}</td>
+                  <td>{{$page->created_at->format('M j, Y')}}</td>
                 </a>
                 </tr>
                 @endforeach

@@ -31,8 +31,8 @@
                     <th>&nbsp;</th>
                     <th><a href="{{url()}}/back/project?sortby=id">ID</a></th>
                     <th><a href="{{url()}}/back/project?sortby=project_name">Project Name</a></th>
-                    <th><a href="{{url()}}/back/project?sortby=is_public">Public</a></th>
-                    <th><a href="{{url()}}/back/project?sortby=is_active">Active</a></th>
+                    <th><a href="{{url()}}/back/project?sortby=is_public">Status</a></th>
+                    <th><a href="{{url()}}/back/project?sortby=is_active">State</a></th>
                     <th><a href="{{url()}}/back/project?sortby=created_at">Created</a></th>
                 </tr>
               </thead>
@@ -42,9 +42,9 @@
                   <td><a href="{{url()}}/back/project/edit/{{$project->id}}" class="btn-success btn-sm"/>edit</a></td>
                   <td>{{$project->id}}</td>
                   <td>{{$project->project_name}}</td>
-                  <td>{{$project->is_public}}</td>
-                  <td>{{$project->is_active}}</td>
-                  <td>{{$project->created_at}}</td>
+                  <td>{{($project->is_public == 1)?'Public' : 'Private'}}</td>
+                  <td>{{($project->is_active == 1)? 'Active' : 'In-Active'}}</td>
+                  <td>{{$project->created_at->format('M j, Y')}}</td>
                 </a>
                 </tr>
                 @endforeach

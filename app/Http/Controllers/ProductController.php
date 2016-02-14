@@ -301,7 +301,10 @@ class ProductController extends Controller
         $productobj = new Product;
         $product = $productobj->find($id);
         $productCategories = Category::all();
+
         $productCategId = Category::find($product->category_id);
+        
+
         $moduleId = 2; //product
         //get the image assiociates
         $prodFiles = Files::where('attachment_id',$product->id)
@@ -384,10 +387,10 @@ class ProductController extends Controller
                  'product_desc' => 'required|min:10|max:500',
                  'price' => 'required|numeric'
              ]);
-            
+            //dd($id);
             $is_active = ($request->input('is_active'))? true : false;
             $productobj = new Product;
-            $productobj->where('id',$request->input('id'))
+            $productobj->where('id',$id)
                     ->update([
                             'product_name' => $request->input('product_name'),
                             'product_desc' => $request->input('product_desc'),

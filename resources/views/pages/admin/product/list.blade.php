@@ -29,7 +29,7 @@
                     <th>&nbsp;</th>
                     <th><a href="/back/product?sortby=id">Product ID</a></th>
                     <th><a href="/back/product?sortby=product_name">Product Name</a></th>
-                    <th><a href="/back/product?sortby=is_active">Active</a></th>
+                    <th><a href="/back/product?sortby=is_active">State</a></th>
                     <th><a href="/back/product?sortby=created_at">Created</a></th>
                 </tr>
                 </thead>
@@ -39,8 +39,8 @@
                         <td><a href="/back/product/edit/{{$product->id}}" class="btn-success btn-sm"/>edit</a></td>
                         <td>{{$product->id}}</td>
                         <td>{{$product->product_name}}</td>
-                        <td>{{$product->is_active}}</td>
-                        <td>{{$product->created_at}}</td>
+                        <td>{{($product->is_active)?'Active':'In-Active'}}</td>
+                        <td>{{$product->created_at->format('M j, Y')}}</td>
                         </a>
                     </tr>
                 @endforeach

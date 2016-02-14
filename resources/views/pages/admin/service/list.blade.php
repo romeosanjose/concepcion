@@ -29,7 +29,7 @@
                     <th>&nbsp;</th>
                     <th><a href="/back/service?sortby=id">Service ID</a></th>
                     <th><a href="/back/service?sortby=service_name">Service Name</a></th>
-                    <th><a href="/back/service?sortby=is_active">Active</a></th>
+                    <th><a href="/back/service?sortby=is_active">State</a></th>
                     <th><a href="/back/service?sortby=created_at">Created</a></th>
                 </tr>
                 </thead>
@@ -39,8 +39,8 @@
                         <td><a href="/back/service/edit/{{$service->id}}" class="btn-success btn-sm"/>edit</a></td>
                         <td>{{$service->id}}</td>
                         <td>{{$service->service_name}}</td>
-                        <td>{{$service->is_active}}</td>
-                        <td>{{$service->created_at}}</td>
+                        <td>{{($service->is_active)?'Active':'In-Active'}}</td>
+                        <td>{{$service->created_at->format('M j, Y')}}</td>
                         </a>
                     </tr>
                 @endforeach

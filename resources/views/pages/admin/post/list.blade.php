@@ -30,8 +30,8 @@
                     <th><a href="{{url()}}/back/post?sortby=id">ID</a></th>
                     <th><a href="{{url()}}/back/post?sortby=title">Title</a></th>
                     <th><a href="{{url()}}/back/post?sortby=post_type">Post Type</a></th>
-                    <th><a href="{{url()}}/back/post?sortby=is_published">Published</a></th>
-                    <th><a href="{{url()}}/back/post?sortby=is_active">Active</a></th>
+                    <th><a href="{{url()}}/back/post?sortby=is_published">Status</a></th>
+                    <th><a href="{{url()}}/back/post?sortby=is_active">State</a></th>
                     <th><a href="{{url()}}/back/post?sortby=created_at">Created</a></th>
                 </tr>
               </thead>
@@ -46,9 +46,9 @@
                   @else
                         <td>Hiring</td>
                   @endif
-                  <td>{{$post->is_published}}</td>
-                  <td>{{$post->is_active}}</td>
-                  <td>{{$post->created_at}}</td>
+                  <td>{{($post->is_published)?'Published':'Un-Published'}}</td>
+                  <td>{{($post->is_active)?'Active': 'In-Active'}}</td>
+                  <td>{{$post->created_at->format('M j, Y')}}</td>
                 </a>
                 </tr>
                 @endforeach

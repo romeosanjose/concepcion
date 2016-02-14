@@ -45,6 +45,15 @@ var process = function(){
 }
 
 
+var enablePrice = function(id){
+   console.log(id);
+   if($('#item' + id).is(':checked')){
+      $('#price' + id).prop('disabled', false);
+   }else{
+      $('#price' + id).prop('disabled', true);
+   }
+}
+
 $(window).scroll(function() {
   if ($(document).scrollTop() > 50) {
     $('.navbar-inverse').addClass('navbar-scroll');
