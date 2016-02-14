@@ -269,8 +269,10 @@ a:hover{
 }
 .home-panel{
     text-align: center;
-    padding:10px;
+    padding:25px;
+    min-height:450px;  
 }
+
 .home-panel:hover{
     /*border:1px solid #04B404;*/
     box-shadow: 0 0 30px #04B404;
@@ -280,8 +282,8 @@ a:hover{
     font-weight: 200;
 }
 .home-subtitle{
-    font-weight: 100;
-    color:#1C1C1C;
+    font-weight: bolder;
+    color:#4CC417;
 }
 .home-desc{
     font-weight: 100;
@@ -295,4 +297,14 @@ a:hover{
     max-height:100px;
     float:left;
     margin-right:25px;
+}
+
+.home-welcome-title{
+    font-size: 30px;
+    color: #4CC417;
+    font-weight: bolder;
+    text-align: center;
+}
+.home-welcom-content{
+    margin-bottom: 5%;
 }
