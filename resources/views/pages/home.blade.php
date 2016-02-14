@@ -4,7 +4,7 @@
         <div class="row">
             <div class="home-welcome-title ">WELCOME TO CONCEPCION GLASS AND ALUMINUM SERVICE</div>
             <hr>
-            <div class="home-welcom-content ">
+            <div class="home-welcom-content">
                 <p>
                      The company started in 1969 and the owner job is carpenter and the place is only in the house. Then later on the company started to grow in 1970’s they started selling jalousie and they find a Chinese contractor who provide materials in the business and the business grow bigger and bigger, as of now the one who handle the company are all children of Doroteo Concepcion they are Eddie, Jerry, Tessie, Leo and Larry.
                 </p>
