@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \App\Model\MaterialCategory;
 use Redirect;
+use Input;
 
 class MaterialCategoryController extends Controller
 {
@@ -72,6 +73,17 @@ class MaterialCategoryController extends Controller
     public function store(Request $request)
     {
         try{
+
+            // trim all input
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+            
+
             $this->validate($request, [
                 'material_categ_name' => 'required|unique:material_category|max:255|min:3',
                 'material_categ_desc' => 'required|min:10',

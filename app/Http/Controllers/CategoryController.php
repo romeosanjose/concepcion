@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \App\Model\Category;
 use Redirect;
+use Input;
 
 class CategoryController extends Controller
 {
@@ -53,6 +54,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try{
+
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
 
 
             $this->validate($request, [

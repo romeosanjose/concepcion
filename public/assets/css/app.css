@@ -294,7 +294,7 @@ a:hover{
     transition: 1s;
 }
 .item-thumb{
-    max-height:100px;
+    max-height:85px;
     float:left;
     margin-right:25px;
 }
@@ -308,3 +308,7 @@ a:hover{
 .home-welcom-content{
     margin-bottom: 5%;
 }
+
+.box-glow a > h3 {
+    min-height:45px;
+} 

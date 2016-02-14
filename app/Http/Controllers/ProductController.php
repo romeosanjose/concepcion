@@ -17,6 +17,7 @@ use App\Model\SubProduct;
 use Config;
 use DB;
 use Redirect;
+use Input;
 
 class ProductController extends Controller
 {
@@ -267,6 +268,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try{
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+
             $this->validate($request, [
                 'product_name' => 'required|unique:product|max:255|min:3',
                 'product_desc' => 'required|min:10|max:500',

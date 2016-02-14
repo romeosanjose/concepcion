@@ -37,6 +37,44 @@
           <label><input type="checkbox" name="is_active">active</label>
         @endif
       </div>
+
+
+      <div class="form-group">
+        <input type ="hidden" id="module_id" value="{{$moduleId}}">
+            <label >Project Images: </label><br>
+        <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>upload project image</span>
+            <input id="fileupload" type="file" name="files[]">
+        </span>
+      </div>
+      <!-- The global progress bar -->
+      <div class="form-group">
+          <div id="progress" class="progress">
+              <div class="progress-bar progress-bar-success"></div>
+          </div>
+      </div>
+      <div class="form-group">
+          <span>File Name: </span><div id="files" class="files"></div>
+      </div>
+
+
+      <div id="image_gallery_container">
+          <ul id="image_gallery" class="thumbnails list-inline" style="list-style-type: none;">
+              @foreach ($servFiles as $servFile)
+                  <li class="tmbli span4" >
+                      <div class="tmbdiv thumbnail">
+                          <a class="close" href="#" onclick="removeImage(this,'{{serialize(array($servFile->id,0,1))}}');">×</a>
+                          <img src="{{'/images/'. $servFile->disk_name}}" alt=""  style="width:150px;height:150px;">
+                      </div>
+                      <input class="tmbval" type="hidden" name="img[]" value="{{serialize(array($servFile->id,$servFile->is_active,1))}}">
+                  </li>
+              @endforeach
+          </ul>
+      </div>
+
+
+
       <div class="form-group">
         <button class="btn btn-success" type="submit" style="width:100%">Update</button>
       </div>

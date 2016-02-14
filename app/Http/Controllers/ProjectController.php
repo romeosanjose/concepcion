@@ -11,6 +11,8 @@ use Redirect;
 use Config;
 use Auth;
 use DB;
+use Input;
+
 
 class ProjectController extends Controller
 {
@@ -115,6 +117,14 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         try{
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+
             $this->validate($request, [
                 'project_name' => 'required|unique:project|max:255|min:3',
                 'project_desc' => 'required|min:1|max:500'

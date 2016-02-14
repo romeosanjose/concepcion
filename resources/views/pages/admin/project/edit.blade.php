@@ -50,15 +50,15 @@
                     </div>
                 </div>
 
-                <!-- IMAGE UPLOADER --->
+               
                 <div class="form-group">
                 <input type ="hidden" id="module_id" value="{{$moduleId}}">
                     <label >Project Images: </label><br>
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>upload project image</span>
-                    <!-- The file input field used as target for the file upload widget -->
-                    <input id="fileupload" type="file" name="files[]">
+                   
+                <input id="fileupload" type="file" name="files[]">
                 </span>
                 </div>
                 <!-- The global progress bar -->

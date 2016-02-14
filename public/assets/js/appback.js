@@ -77,37 +77,37 @@ $(document).ready(function(){
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
 
-    /**
-     * project image uploader
-     */
-    $('#project_upload').fileupload({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-        url: CAROUSEL_UPLOAD,
-        dataType: 'json',
-        formData: {'type': 'project'},
-        done: function (e, data) {
-            $.each(data.files, function (index, file) {
-                $('#files').html(file.name);
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        },
-        success: function(data){
-            //1. create image icon with the file id as the name
-            //addImage(data.fileId,data.fileName,data.moduleId)
-            $('#progress .progress-bar').css('width','0%');
-            window.location.reload(true);
+    // /**
+    //  * project image uploader
+    //  */
+    // $('#project_upload').fileupload({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    //     },
+    //     url: CAROUSEL_UPLOAD,
+    //     dataType: 'json',
+    //     formData: {'type': 'project'},
+    //     done: function (e, data) {
+    //         $.each(data.files, function (index, file) {
+    //             $('#files').html(file.name);
+    //         });
+    //     },
+    //     progressall: function (e, data) {
+    //         var progress = parseInt(data.loaded / data.total * 100, 10);
+    //         $('#progress .progress-bar').css(
+    //             'width',
+    //             progress + '%'
+    //         );
+    //     },
+    //     success: function(data){
+    //         //1. create image icon with the file id as the name
+    //         //addImage(data.fileId,data.fileName,data.moduleId)
+    //         $('#progress .progress-bar').css('width','0%');
+    //         window.location.reload(true);
 
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    //     }
+    // }).prop('disabled', !$.support.fileInput)
+    //     .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
     /**
      * image uploader

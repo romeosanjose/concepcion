@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Validator;
 use Redirect;
-
+use Input;
 
 
 class UserController extends Controller
@@ -51,6 +51,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try{
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+
             $this->validate($request, [
                 'password' => 'required|confirmed|min:6',
                 'password_confirmation' => 'required|min:6',

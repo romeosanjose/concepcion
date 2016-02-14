@@ -10,6 +10,7 @@ use App\Model\MaterialCategory;
 use App\Model\Files;
 use Redirect;
 use DB;
+use Input;
 
 class MaterialController extends Controller
 {
@@ -127,7 +128,13 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         try{
-
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
 
             $this->validate($request, [
                 'material_name' => 'required|unique:material|max:255|min:3',

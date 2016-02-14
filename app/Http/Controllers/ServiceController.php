@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\Service;
+use App\Model\Files;
 use Redirect;
+use DB;
+use Input;
 
 class ServiceController extends Controller
 {
@@ -14,8 +17,14 @@ class ServiceController extends Controller
     
     public function lists(Request $request)
     {
-        $services = Service::paginate(5);
-        $services->setPath(url().'/service');
+        //$services = Service::paginate(5);
+        //$services->setPath(url().'/service');
+        $services = DB::select('select service.*,(select disk_name from files where attachment_id=service.id and module_id= 5 and is_active=1 order by id desc limit 1) as disk_name ' .
+                'from service ' .
+                'where service.is_active=1 ' .
+                'group by service.id '
+            );
+
         return view('pages.services.list', ['services'=>$services]);
     }
 
@@ -63,6 +72,14 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         try{
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+
             $this->validate($request, [
                 'service_name' => 'required|unique:service|max:255|min:3'
             ]);
@@ -94,7 +111,13 @@ class ServiceController extends Controller
         foreach($services as $s) {
             $service = $s;
         }
-        return view('pages.services.detail', ['service'=>$service]);
+        $moduleId = 5;
+        $servFiles = Files::where('attachment_id',$service->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+        return view('pages.services.detail', ['service'=>$service,'servFiles'=>$servFiles,'moduleId'=>$moduleId]);
     }
 
     /**
@@ -106,7 +129,14 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::find($id);
-        return view('pages.admin.service.edit', ['service'=>$service]);
+        $moduleId = 5; //service
+         //get the image assiociates
+        $servFiles = Files::where('attachment_id',$service->id)
+            ->where('is_active',True)
+            ->where('module_id',$moduleId)
+            ->get();
+
+        return view('pages.admin.service.edit', ['service'=>$service,'servFiles'=>$servFiles,'moduleId'=>$moduleId]);
 
     }
 
@@ -131,6 +161,38 @@ class ServiceController extends Controller
                     'service_desc' => $request->input('service_desc'),
                     'is_active' => $is_active
                 ]);
+
+
+            if ($request->input('fileId')!='' && $request->input('fileId')!=null ){
+                $fileIdArr = explode(' ', $request->input('fileId'));
+                foreach($fileIdArr as $fileId){
+                    Files::where('id',$fileId)
+                            ->update([
+                                'attachment_id' => $request->input('id')
+                            ]);
+                }
+            }
+
+             //update attachment images
+             if ($request->has('img')) {
+                 foreach ($request->input('img') as $img){
+                     //unserialize image value
+                     $imgVal = unserialize($img);
+                     if ($imgVal[1]) {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'attachment_id' => $id
+                             ]);
+                     } else {
+                         $fileObj = new Files;
+                         $fileObj->where('id',$imgVal[0])
+                             ->update([
+                                 'is_active' => false
+                             ]);
+                     }
+                 }
+             }    
 
             return Redirect::to("/back/service/edit/$id")->with('message', 'Service was successfully updated');
         }catch(Exception $e){

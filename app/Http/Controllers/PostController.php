@@ -12,6 +12,7 @@ use Config;
 use Auth;
 use Redirect;
 use DB;
+use Input;
 
 class PostController extends Controller
 {
@@ -119,6 +120,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+            Input::merge(array_map(function ($value) {
+                if (is_string($value)) {
+                    return trim($value);
+                } else {
+                    return $value;
+                }
+            }, Input::all()));
+
         try{
             $this->validate($request, [
                 'title' => 'required|unique:post|max:255|min:3',
